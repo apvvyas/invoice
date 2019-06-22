@@ -57,8 +57,9 @@
                                 <h4>Select Recipients</h4>
                             </div>
                             <div class="widget widget-19 has-shadow">
-                            	<div class="widget-header bordered d-flex align-items-center row">
-                                    <div class="col-md-6">
+                            	
+                                <div class="widget-body row mt-3 mb-3">
+                                	<div class="col-md-6">
                                     	<div class="form-group ">
                                             <input type="text" name="company_name" class="form-control" placeholder="Company Name / Contact Name">
                                         </div>
@@ -68,8 +69,6 @@
                                             <input type="text" class="form-control" name="gst_number" placeholder="GST Number">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="widget-body p-0 row mt-3 mb-3">
                                     <div class="col-md-12" id="recipient_list">
                                     	
                                     </div>
@@ -89,78 +88,67 @@
                         </div>
                         <div class="tab-pane" id="tab2">
                             <div class="section-title mt-5 mb-5">
-                                <h4>Account Details</h4>
+                                <h4>Set items</h4>
                             </div>
-                            <div class="form-group row mb-3">
-                                <div class="col-xl-6 mb-3">
-                                    <label class="form-control-label">Username<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" value="DGreen" class="form-control">
-                                </div>
-                                <div class="col-xl-6">
-                                    <label class="form-control-label">Password<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" value="**********" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-3">
-                                <div class="col-xl-12">
-                                    <label class="form-control-label">Url</label>
-                                    <input type="url" value="http://mywebsite.com" class="form-control">
-                                </div>
-                            </div>
-                            <div class="section-title mt-5 mb-5">
-                                <h4>Billing Information</h4>
-                            </div>
-                            <div class="form-group row mb-3">
-                                <div class="col-xl-12 mb-3">
-                                    <label class="form-control-label">Card Number</label>
-                                    <input type="text" value="98765432145698547" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-3">
-                                <div class="col-xl-4 mb-3">
-                                    <label class="form-control-label">Exp Month<span class="text-danger ml-2">*</span></label>
-                                    <select name="exp-month" class="custom-select form-control">
-                                        <option value="">Select</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06" selected>06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-4 mb-3">
-                                    <label class="form-control-label">Exp Year<span class="text-danger ml-2">*</span></label>
-                                    <select name="exp-month" class="custom-select form-control">
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023" selected>2023</option>
-                                        <option value="2024">2024</option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-4">
-                                    <label class="form-control-label">CVV<span class="text-danger ml-2">*</span></label>
-                                    <input type="email" value="651" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-3">
-                                <div class="col-xl-12">
-                                    <div class="styled-checkbox">
-                                        <input type="checkbox" name="savecard" id="check-card">
-                                        <label for="check-card">Save this card</label>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="form-group row mb-3 bordered">
+	                            <div class="col-xl-1 ">
+	                            	<label class="form-control-label">Sr.No.</label>
+	                            </div>
+	                            <div class="col-xl-5 ">
+	                            	<label class="form-control-label">Item or Service Name<span class="text-danger ml-2">*</span></label>
+	                        	</div>
+	                        	<div class="col-xl-2 ">
+	                            	<label class="form-control-label">Quantity<span class="text-danger ml-2">*</span></label>
+	                        	</div>
+	                        	<div class="col-xl-4 ">
+	                        		<label class="form-control-label">Per unit price<span class="text-danger ml-2">*</span></label>
+	                        	</div>
+                        	</div>
+                        	<div class="mb-5 mt-5" id="item_list" >
+                        		<div class="form-group row clone d-none">
+		                        	<div class="col-xl-1 ">
+		                        		<div class="input-group">
+		                        			<span class="input-group-addon addon-primary sr">1</span>
+		                        		</div>
+		                        	</div>
+		                            <div class="col-xl-5">
+		                                <input type="text" placeholder="Item or Service name" name="item_name[]" class="form-control" required="">
+		                            </div>
+		                            <div class="col-xl-2">
+		                                <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
+		                            </div>
+		                            <div class="col-xl-4">
+		                            	<div class="input-group">
+		                            		<span class="input-group-addon addon-primary">$</span>
+		                            		<input type="text" placeholder="Price per unit" name="item_price[]" class="form-control" required="">
+		                            	</div>
+		                            </div>
+		                        </div>
+                        		<div class="form-group row">
+		                        	<div class="col-xl-1 ">
+		                        		<div class="input-group">
+		                        			<span class="input-group-addon addon-primary">1</span>
+		                        		</div>
+		                        	</div>
+		                            <div class="col-xl-5">
+		                                <input type="text" placeholder="Item or Service name" name="item_name[]" class="form-control" required="">
+		                            </div>
+		                            <div class="col-xl-2">
+		                                <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
+		                            </div>
+		                            <div class="col-xl-4">
+		                            	<div class="input-group">
+		                            		<span class="input-group-addon addon-primary">$</span>
+		                            		<input type="text" placeholder="Price per unit" name="item_price[]" class="form-control" required="">
+		                            	</div>
+		                            </div>
+		                        </div>
+                        	</div>
+                            
                             <ul class="pager wizard text-right">
+                            	<li class="d-inline-block pull-left">
+                            		<button id="add_item" type="button" class="btn btn-primary ripple">Add Item</button>
+                            	</li>
                                 <li class="previous d-inline-block">
                                     <a href="javascript:;" class="btn btn-secondary ripple">Previous</a>
                                 </li>
@@ -402,7 +390,7 @@
 <div id="add-recipient-modal" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-        	<form>
+        	<form id="add_recipient" role="form" method="post">
         	<div class="modal-header">
                 <h4 class="modal-title">Add Recipient</h4>
                 <button type="button" class="close" data-dismiss="modal">
@@ -415,7 +403,7 @@
             		<div class="col-sm-12">
             			<div class="form-group">
 		            		<label>Company Name / Contact Name</label>
-		            		<input type="text" class="form-control" name="contact_name" placeholder="Company Name / Contact Name">
+		            		<input type="text" class="form-control" name="company_name" placeholder="Company Name / Contact Name">
 		            	</div>
 		            </div>
 		        </div>
@@ -443,7 +431,7 @@
 		        	<div class="col-sm-6">
 		            	<div class="form-group">
 		            		<label>Apartments / Suite / Unit</label>
-		            		<input type="text" class="form-control" name="address_2" placeholder="Apartments / Suite / Unit">
+		            		<input type="text" class="form-control" name="address_1" placeholder="Apartments / Suite / Unit">
 		            	</div>
 		            </div>
 		        </div>
@@ -487,7 +475,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-shadow" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button  class="btn btn-primary">Save</button>
             </div>
             </form>
         </div>

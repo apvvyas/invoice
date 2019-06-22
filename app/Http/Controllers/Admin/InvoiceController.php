@@ -33,7 +33,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {   
-        return view('invoices.list');
+        return view('admin.invoice.list');
     }
 
 

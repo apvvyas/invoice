@@ -3,10 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
-require('./bootstrap');
-
-const axios = require('axios');
+window.axios = require('axios');
 
 /**
  * The following block of code may be used to automatically register your

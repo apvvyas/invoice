@@ -27,8 +27,9 @@ Route::prefix('admin')->group(function () {
 		//Invoice Controls
 		Route::prefix('invoice')->group(function () {
 			Route::get('/','InvoiceController@index')->name('invoices');
-			Route::post('/add','InvoiceController@create')->name('invoice_create');
+			Route::get('/add','InvoiceController@create')->name('invoice_create');
 			Route::get('/add/recipient/list','RecipientController@list_for_invoice')->name('user_recipient_list');
+			Route::post('/recipient/save','RecipientController@store')->name('user_recipient_add');
 		});
 		
 

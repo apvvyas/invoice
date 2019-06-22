@@ -15,10 +15,10 @@
             <div class="navbar-header">
                 <a href="/" class="navbar-brand">
                     <div class="brand-image brand-big">
-                        <img src="img/logo-big.png" alt="logo" class="logo-big">
+                        <img src="/img/logo-big.png" alt="logo" class="logo-big">
                     </div>
                     <div class="brand-image brand-small">
-                        <img src="img/logo.png" alt="logo" class="logo-small">
+                        <img src="/img/logo.png" alt="logo" class="logo-small">
                     </div>
                 </a>
                 <!-- Toggle Button -->
@@ -42,7 +42,7 @@
                             <div class="notifications-header">
                                 <div class="title">Notifications (4)</div>
                                 <div class="notifications-overlay"></div>
-                                <img src="img/notifications/01.jpg" alt="..." class="img-fluid">
+                                <img src="/img/notifications/01.jpg" alt="..." class="img-fluid">
                             </div>
                         </li>
                         <li>
@@ -104,11 +104,11 @@
                 </li>
                 <!-- End Notifications -->
                 <!-- User -->
-                <li class="nav-item dropdown"><a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
+                <li class="nav-item dropdown"><a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
                     <ul aria-labelledby="user" class="user-size dropdown-menu">
                         <li class="welcome">
                             <a href="#" class="edit-profil"><i class="la la-gear"></i></a>
-                            <img src="img/avatar/avatar-01.jpg" alt="..." class="rounded-circle">
+                            <img src="/img/avatar/avatar-01.jpg" alt="..." class="rounded-circle">
                         </li>
                         <li>
                             <a href="pages-profile.html" class="dropdown-item"> 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Services\RecipientService;
 use App\Http\Controllers\Controller;
 
@@ -100,7 +101,10 @@ class RecipientController extends Controller
         //
     }
 
-    public function list_for_invoice(){
-        
+    public function list_for_invoice(Request $request){
+
+
+        $html = view('admin.invoice.recipients',['recipients'=>$this->service->getRecipients($request->all())])->render();
+        return response()->json(compact('html'),Response::HTTP_OK);
     }
 }

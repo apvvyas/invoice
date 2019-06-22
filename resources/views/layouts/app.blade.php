@@ -75,6 +75,10 @@ Author: SAEROX
 
         @stack('modal')
 
+        @routes
+
+        <script src="/js/app.js"></script>
+
         <!-- Begin Vendor Js -->
         <script src="/vendors/js/base/jquery.min.js"></script>
         <script src="/vendors/js/base/core.min.js"></script>
