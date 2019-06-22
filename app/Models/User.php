@@ -42,6 +42,6 @@ class User extends Authenticatable
 
 
     function recipients(){
-        return $this->hasMany(Recipent::class);
+        return $this->hasMany(Recipient::class);
     }
 }
