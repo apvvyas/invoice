@@ -74,13 +74,20 @@ class addInvoice{
 					return self.step2();
 				}
 				else if(index == 3){
-					return self.step2();
+					return self.step3();
 				}
 			}
 		});	
 		this.invoice = new Invoice(id);
 		this.itemCount = 0;
 		this.taxCount = 0;
+		$('#invoice_date').daterangepicker({
+			singleDatePicker: true,
+			minDate: moment(),
+			locale: {
+			      format: 'DD-MM-YYYY'
+			}
+		});
 	}
 
 	step1(){
@@ -101,6 +108,7 @@ class addInvoice{
 			return false;
 		}
 		this.setTotal();
+
 	}
 
 	fetchRecipientDetails(id){
@@ -236,8 +244,12 @@ class addInvoice{
 							value:data.name
 						},
 						{
-							elem:'#amount',
+							elem:'#percent',
 							value:data.amount
+						},
+						{
+							elem:'#amount',
+							value:data.tax_in_amount
 						}
 					],
 					remove:{
@@ -260,9 +272,11 @@ class addInvoice{
 	}
 
 	createTax(formData){
+		let tax_in_amount = this.invoice.tax_amount(parseFloat(formData[1].value));
 		this.invoice.tax = {
 			'name':formData[0].value,
-			'amount':parseInt(formData[1].value),
+			'amount':parseFloat(formData[1].value),
+			'tax_in_amount':tax_in_amount
 		};
 
 		this.prepareItem(this.invoice.taxItems[this.invoice.taxItems.length -1],'tax');
@@ -278,20 +292,6 @@ class addInvoice{
 		$.each(taxItems,function(i,obj){
 			selfObj.prepareItem(obj,'tax');	
 		});
-	}
-
-	prepareTaxItem(data){
-		let cloneItem = $('.tax-clone').clone();
-		let taxCount = this.taxCount;
-		cloneItem.find('li').attr('id','tax_'+this.taxCount);
-		cloneItem.find('#sr').html(taxCount+1);
-		cloneItem.find('#name').html(data.name);
-		cloneItem.find('#amount').html(data.amount);
-		cloneItem.find('#remove_tax').attr('data-id',this.taxCount);
-		
-		$('#tax_list').append(cloneItem.html());
-		this.taxCount = this.taxCount + 1;
-
 	}
 
 
@@ -312,16 +312,19 @@ class addInvoice{
 
 	enableCustomDate(dur){
 		if(dur == 3){
-			$('#custom_date').removeClass('d-none');
+			$('#custom_date').prop('readonly',false);
 		}
 		else{
-			$('#custom_date').addClass('d-none');	
+			$('#custom_date').prop('readonly',true);
 		}
-
+		
+		
 		this.invoice.due_date = {
 			val:dur,
-			date:moment().format('MM-DD-YYYY')
+			date:moment().format('DD-MM-YYYY')
 		};
+
+		$('#invoice_date').data('daterangepicker').setStartDate(this.invoice.due_date);
 	}
 
 	setTotal(){
@@ -361,14 +364,18 @@ class Invoice{
 			this.due_date_set = {};
 		}
 		else if(dur.val == 1){
-			this.due_date_set['date'] = moment().add(30,'days').format('YYYY-MM-DD HH:mm:ss');
+			this.due_date_set['date'] = moment().add(30,'days');
 		}
 		else if(dur.val == 2){
-			this.due_date_set['date'] = moment().format('YYYY-MM-DD HH:mm:ss');
+			this.due_date_set['date'] = moment();
 		}
 		else if(dur.val == 3 && typeof dur.date != 'undefined'){
-			this.due_date_set['date'] = moment(dur.date,'MM-DD-YYYY').format('YYYY-MM-DD HH:mm:ss');
+			this.due_date_set['date'] = moment(dur.date,'DD-MM-YYYY');
 		}
+	}
+
+	get due_date(){
+		return this.due_date_set['date'];
 	}
 
 
@@ -394,6 +401,10 @@ class Invoice{
 			
 		},0);	
 		return total;
+	}
+
+	tax_amount(t){
+		return parseFloat((this.total_amount * t)/ 100).toFixed(2);
 	}
 
 	get total_after_tax(){
