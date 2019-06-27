@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 window.axios = require('axios');
+require('jquery-serializejson');
 
 /**
  * The following block of code may be used to automatically register your
@@ -24,3 +25,7 @@ window.axios = require('axios');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+window.extractColumn = function (arr, column) {
+  return arr.map(x => x[column])
+}

@@ -33,6 +33,10 @@ Author: SAEROX
         <!-- Stylesheet -->
         <link rel="stylesheet" href="/vendors/css/base/bootstrap.min.css">
         <link rel="stylesheet" href="/vendors/css/base/elisyam-1.5.min.css">
+
+        @stack('css')
+
+        <link rel="stylesheet" href="/css/app.css">
         <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -77,10 +81,11 @@ Author: SAEROX
 
         @routes
 
-        <script src="/js/app.js"></script>
+        
 
         <!-- Begin Vendor Js -->
         <script src="/vendors/js/base/jquery.min.js"></script>
+        <script src="/js/app.js"></script>
         <script src="/vendors/js/base/core.min.js"></script>
         
         @stack('vendor-js')

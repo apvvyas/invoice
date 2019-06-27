@@ -1,7 +1,17 @@
 @extends('layouts.app')
 
+@push('css')
+
+<link rel="stylesheet" href="/css/bootstrap-select/bootstrap-select.min.css">
+
+@endpush
+
 @push('page-vendor-js')
+    <script src="/vendors/js/datepicker/moment.min.js"></script>
     <script src="/vendors/js/bootstrap-wizard/bootstrap.wizard.min.js"></script>
+    <script src="/vendors/js/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="/vendors/js/datepicker/daterangepicker.js"></script>
+    <script src="/js/components/datepicker/datepicker.js"></script>
 @endpush
 
 @push('snippets')
@@ -90,282 +100,218 @@
                             <div class="section-title mt-5 mb-5">
                                 <h4>Set items</h4>
                             </div>
-                            <div class="form-group row mb-3 bordered">
-	                            <div class="col-xl-1 ">
-	                            	<label class="form-control-label">Sr.No.</label>
-	                            </div>
-	                            <div class="col-xl-5 ">
-	                            	<label class="form-control-label">Item or Service Name<span class="text-danger ml-2">*</span></label>
-	                        	</div>
-	                        	<div class="col-xl-2 ">
-	                            	<label class="form-control-label">Quantity<span class="text-danger ml-2">*</span></label>
-	                        	</div>
-	                        	<div class="col-xl-4 ">
-	                        		<label class="form-control-label">Per unit price<span class="text-danger ml-2">*</span></label>
-	                        	</div>
-                        	</div>
-                        	<div class="mb-5 mt-5" id="item_list" >
-                        		<div class="form-group row clone d-none">
-		                        	<div class="col-xl-1 ">
-		                        		<div class="input-group">
-		                        			<span class="input-group-addon addon-primary sr">1</span>
-		                        		</div>
-		                        	</div>
-		                            <div class="col-xl-5">
-		                                <input type="text" placeholder="Item or Service name" name="item_name[]" class="form-control" required="">
-		                            </div>
-		                            <div class="col-xl-2">
-		                                <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
-		                            </div>
-		                            <div class="col-xl-4">
-		                            	<div class="input-group">
-		                            		<span class="input-group-addon addon-primary">$</span>
-		                            		<input type="text" placeholder="Price per unit" name="item_price[]" class="form-control" required="">
-		                            	</div>
-		                            </div>
-		                        </div>
-                        		<div class="form-group row">
-		                        	<div class="col-xl-1 ">
-		                        		<div class="input-group">
-		                        			<span class="input-group-addon addon-primary">1</span>
-		                        		</div>
-		                        	</div>
-		                            <div class="col-xl-5">
-		                                <input type="text" placeholder="Item or Service name" name="item_name[]" class="form-control" required="">
-		                            </div>
-		                            <div class="col-xl-2">
-		                                <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
-		                            </div>
-		                            <div class="col-xl-4">
-		                            	<div class="input-group">
-		                            		<span class="input-group-addon addon-primary">$</span>
-		                            		<input type="text" placeholder="Price per unit" name="item_price[]" class="form-control" required="">
-		                            	</div>
-		                            </div>
-		                        </div>
-                        	</div>
-                            
-                            <ul class="pager wizard text-right">
-                            	<li class="d-inline-block pull-left">
-                            		<button id="add_item" type="button" class="btn btn-primary ripple">Add Item</button>
-                            	</li>
-                                <li class="previous d-inline-block">
-                                    <a href="javascript:;" class="btn btn-secondary ripple">Previous</a>
-                                </li>
-                                <li class="next d-inline-block">
-                                    <a href="javascript:;" class="btn btn-gradient-01">Next</a>
-                                </li>
-                            </ul>
+                            <div class="widget widget-19 has-shadow">
+                                <form id="createItem">
+                                <div class="form-group row mb-5 bordered">
+                                    
+                                        <div class="col-xl-5">
+                                            <input type="text" placeholder="Item or Service name" name="item_name[]" class="form-control" required="">
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-primary">$</span>
+                                                <input type="text" placeholder="Price per unit" name="item_price[]" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <button id="add_item" class="btn btn-primary ripple">Add Item</button>
+                                        </div>
+                                   
+                                </div>
+                                </form>
+                                <div class="form-group row mb-3 bordered">
+    	                            <div class="col-xl-1 ">
+    	                            	<label class="form-control-label">Sr.No.</label>
+    	                            </div>
+    	                            <div class="col-xl-5 ">
+    	                            	<label class="form-control-label">Item or Service Name<span class="text-danger ml-2">*</span></label>
+    	                        	</div>
+    	                        	<div class="col-xl-2 ">
+    	                            	<label class="form-control-label">Quantity<span class="text-danger ml-2">*</span></label>
+    	                        	</div>
+    	                        	<div class="col-xl-4 ">
+    	                        		<label class="form-control-label">Per unit price<span class="text-danger ml-2">*</span></label>
+    	                        	</div>
+                            	</div>
+                            	<div class="mb-5 mt-5"  >
+                            		<ul class="clone d-none" id="">
+    		                        	<li class="list-group-item">
+                                            <div class="media row">
+                                                <div class="media-left col-xl-1">
+                                                    <div class="people-name" id="sr">1</div>
+                                                </div>
+                                                <div class="media-left col-xl-5">
+                                                    <div class="people-name" id="item"></div>
+                                                </div>
+                                                <div class="media-body col-xl-2">
+                                                    <div class="people-name" id="quantity"></div>
+                                                </div>
+                                                <div class="media-right align-self-center col-xl-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-6" >$ <span id="per_item_cost"></span></div>
+                                                        <div class="col-sm-6 text-right remove_item" id="remove_item" data-id="1">
+                                                            <a class="btn btn-danger btn-round-sm    ripple"><i class="la la-trash"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+    		                        </ul>
+                                    <ul id="item_list" class="list-group w-100 widget-scroll" style="max-height: 250px; overflow: hidden; outline: currentcolor none medium;" tabindex="2">
+                                            
+                                    </ul>
+                            	</div>
+                                
+                                <ul class="pager wizard text-right">
+                                	<li class="d-inline-block pull-left">
+                                       <b>Total Invoice amount: </b> $<span id="amount_total">0</span>
+                                    </li>
+                                    <li class="previous d-inline-block">
+                                        <a href="javascript:;" class="btn btn-secondary ripple">Previous</a>
+                                    </li>
+                                    <li class="next d-inline-block">
+                                        <a href="javascript:;" class="btn btn-gradient-01">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="tab-pane" id="tab3">
                             <div class="section-title mt-5 mb-5">
-                                <h4>Confirmation</h4>
+                                <h4>Set taxes</h4>
                             </div>
-                            <div id="accordion-icon-right" class="accordion">
-                                <div class="widget has-shadow">
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseOne" aria-expanded="true">
-                                        <div class="card-title w-100">1. Client Informations</div>
-                                    </a>
-                                    <div id="IconRightCollapseOne" class="card-body collapse show" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Name</div>
-                                            <div class="col-sm-8 form-control-plaintext">David Green</div>
+                            <div class="widget widget-19 has-shadow">
+                                <form id="createTax">
+                                <div class="form-group row mb-3 bordered">
+                                    
+                                        <div class="col-xl-8">
+                                            <input type="text" placeholder="Tax name" name="tax_name[]" class="form-control" required="">
                                         </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Email</div>
-                                            <div class="col-sm-8 form-control-plaintext">dgreen@elisyam.com</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Phone</div>
-                                            <div class="col-sm-8 form-control-plaintext">+00 987 654 32</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Occupation</div>
-                                            <div class="col-sm-8 form-control-plaintext">UX Designer</div>
-                                        </div>
-                                    </div>
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseTwo">
-                                        <div class="card-title w-100">2. Address</div>
-                                    </a>
-                                    <div id="IconRightCollapseTwo" class="card-body collapse" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Address</div>
-                                            <div class="col-sm-8 form-control-plaintext">123 Century Blvd</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Country</div>
-                                            <div class="col-sm-8 form-control-plaintext">Country</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">City</div>
-                                            <div class="col-sm-8 form-control-plaintext">Los Angeles</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">State</div>
-                                            <div class="col-sm-8 form-control-plaintext">CA</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Zip</div>
-                                            <div class="col-sm-8 form-control-plaintext">90045</div>
-                                        </div>
-                                    </div>
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseThree">
-                                        <div class="card-title w-100">3. Account Details</div>
-                                    </a>
-                                    <div id="IconRightCollapseThree" class="card-body collapse" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Username</div>
-                                            <div class="col-sm-8 form-control-plaintext">Saerox</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Password</div>
-                                            <div class="col-sm-8 form-control-plaintext"><span class="la-2x">*********</span></div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Url</div>
-                                            <div class="col-sm-8 form-control-plaintext">http://mywebsite.com</div>
-                                        </div>
-                                    </div>
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseFour">
-                                        <div class="card-title w-100">4. Billing Information</div>
-                                    </a>
-                                    <div id="IconRightCollapseFour" class="card-body collapse" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Card Number</div>
-                                            <div class="col-sm-8 form-control-plaintext">98765432145698547</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Exp Month</div>
-                                            <div class="col-sm-8 form-control-plaintext">06</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Exp Year</div>
-                                            <div class="col-sm-8 form-control-plaintext">2023</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">CVV</div>
-                                            <div class="col-sm-8 form-control-plaintext">651</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-xl-12">
-                                                <div class="styled-checkbox">
-                                                    <input type="checkbox" name="checkbox" id="agree">
-                                                    <label for="agree">I Accept <a href="#">Terms and Conditions</a></label>
-                                                </div>
+                                        <div class="col-xl-3">
+                                            <div class="input-group">
+                                                
+                                                <input type="text" placeholder="Amount" name="item_quantity[]" class="form-control" required="">
+                                                <span class="input-group-addon addon-primary">%</span>
                                             </div>
+                                            
                                         </div>
+                                        <div class="col-xl-1">
+                                            <button id="add_item" class="btn btn-primary ripple">Add Tax</button>
+                                        </div>       
+                                </div>
+                                </form>
+                                <div class="row">
+                                    <div class="col-12 mb-3"  >
+                                        <ul class="list-group w-100 widget-scroll" style="max-height: 250px; overflow: hidden; outline: currentcolor none medium;" tabindex="2">
+                                                <li class="list-group-item">
+                                                <div class="media row">
+                                                    <div class="media-left col-xl-9">
+                                                        <div class="people-name"><b>Before Tax</b></div>
+                                                    </div>
+                                                    <div class="media-right align-self-center col-xl-3">
+                                                        $<span id="before_total">0</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <ul class="pager wizard text-right">
-                                <li class="previous d-inline-block">
-                                    <a href="javascript:void(0)" class="btn btn-secondary ripple">Previous</a>
-                                </li>
-                                <li class="next d-inline-block">
-                                    <a href="javascript:void(0)" class="finish btn btn-gradient-01" data-toggle="modal">Finish</a>
-                                </li>
-                            </ul>
+                                <div class="form-group row mb-3 bordered">
+                                    <div class="col-xl-1 ">
+                                        <label class="form-control-label">Sr.No.</label>
+                                    </div>
+                                    <div class="col-xl-8 ">
+                                        <label class="form-control-label">Tax Name<span class="text-danger ml-2">*</span></label>
+                                    </div>
+                                    <div class="col-xl-3 ">
+                                        <label class="form-control-label">Amount<span class="text-danger ml-2">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-5 mt-5 col-12"  >
+                                        <ul class="tax-clone d-none" id="">
+                                            <li class="list-group-item">
+                                                <div class="media row">
+                                                    <div class="media-left col-xl-1">
+                                                        <div class="people-name" id="sr">1</div>
+                                                    </div>
+                                                    <div class="media-left col-xl-8">
+                                                        <div class="people-name" id="name"></div>
+                                                    </div>
+                                                    <div class="media-right align-self-center col-xl-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-6" ><span id="amount"></span>%</div>
+                                                            <div class="col-sm-6 text-right remove_tax" id="remove_tax" data-id="1">
+                                                                <a class="btn btn-danger btn-round-sm    ripple"><i class="la la-trash"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul id="tax_list" class="list-group w-100 widget-scroll" style="max-height: 250px; overflow: hidden; outline: currentcolor none medium;" tabindex="2">
+                                                
+                                        </ul>
+                                    </div>
+
+                                    <div class="mb-5 mt-5 col-12"  >
+                                        <ul class="list-group w-100 widget-scroll" style="max-height: 250px; overflow: hidden; outline: currentcolor none medium;" tabindex="2">
+                                                <li class="list-group-item">
+                                                <div class="media row">
+                                                    <div class="media-left col-xl-9">
+                                                        <div class="people-name"><b>After Tax</b></div>
+                                                    </div>
+                                                    <div class="media-right align-self-center col-xl-3">
+                                                        $<span id="final_total">0</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul class="pager wizard text-right">
+                                    <li class="previous d-inline-block">
+                                        <a href="javascript:;" class="btn btn-secondary ripple">Previous</a>
+                                    </li>
+                                    <li class="next d-inline-block">
+                                        <a href="javascript:;" class="btn btn-gradient-01">Next</a>
+                                    </li>
+                                </ul>
+                           </div>
                         </div>
                         <div class="tab-pane" id="tab4">
                             <div class="section-title mt-5 mb-5">
-                                <h4>Confirmation</h4>
+                                <h4>Select Due Date</h4>
                             </div>
-                            <div id="accordion-icon-right" class="accordion">
-                                <div class="widget has-shadow">
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseOne" aria-expanded="true">
-                                        <div class="card-title w-100">1. Client Informations</div>
-                                    </a>
-                                    <div id="IconRightCollapseOne" class="card-body collapse show" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Name</div>
-                                            <div class="col-sm-8 form-control-plaintext">David Green</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Email</div>
-                                            <div class="col-sm-8 form-control-plaintext">dgreen@elisyam.com</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Phone</div>
-                                            <div class="col-sm-8 form-control-plaintext">+00 987 654 32</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Occupation</div>
-                                            <div class="col-sm-8 form-control-plaintext">UX Designer</div>
-                                        </div>
-                                    </div>
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseTwo">
-                                        <div class="card-title w-100">2. Address</div>
-                                    </a>
-                                    <div id="IconRightCollapseTwo" class="card-body collapse" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Address</div>
-                                            <div class="col-sm-8 form-control-plaintext">123 Century Blvd</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Country</div>
-                                            <div class="col-sm-8 form-control-plaintext">Country</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">City</div>
-                                            <div class="col-sm-8 form-control-plaintext">Los Angeles</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">State</div>
-                                            <div class="col-sm-8 form-control-plaintext">CA</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Zip</div>
-                                            <div class="col-sm-8 form-control-plaintext">90045</div>
-                                        </div>
-                                    </div>
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseThree">
-                                        <div class="card-title w-100">3. Account Details</div>
-                                    </a>
-                                    <div id="IconRightCollapseThree" class="card-body collapse" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Username</div>
-                                            <div class="col-sm-8 form-control-plaintext">Saerox</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Password</div>
-                                            <div class="col-sm-8 form-control-plaintext"><span class="la-2x">*********</span></div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Url</div>
-                                            <div class="col-sm-8 form-control-plaintext">http://mywebsite.com</div>
-                                        </div>
-                                    </div>
-                                    <a class="card-header collapsed d-flex align-items-center" data-toggle="collapse" href="#IconRightCollapseFour">
-                                        <div class="card-title w-100">4. Billing Information</div>
-                                    </a>
-                                    <div id="IconRightCollapseFour" class="card-body collapse" data-parent="#accordion-icon-right">
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Card Number</div>
-                                            <div class="col-sm-8 form-control-plaintext">98765432145698547</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Exp Month</div>
-                                            <div class="col-sm-8 form-control-plaintext">06</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">Exp Year</div>
-                                            <div class="col-sm-8 form-control-plaintext">2023</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-sm-3 form-control-label d-flex align-items-center">CVV</div>
-                                            <div class="col-sm-8 form-control-plaintext">651</div>
-                                        </div>
-                                        <div class="form-group row mb-5">
-                                            <div class="col-xl-12">
-                                                <div class="styled-checkbox">
-                                                    <input type="checkbox" name="checkbox" id="agree">
-                                                    <label for="agree">I Accept <a href="#">Terms and Conditions</a></label>
-                                                </div>
-                                            </div>
+                            <form id="createTax">
+                            <div class="form-group row mb-5 bordered">
+                                <label class="form-control-label col-md-5 d-flex align-items-center">Invoice due date</label>
+                                <div class="col-lg-7">
+                                <select class="selectpicker show-menu-arrow" data-style="btn-primary" id="due_date">
+                                    <option value="-1">Select duration</option>
+                                    <option value="1">30 days from now</option>
+                                    <option value="2">Immediate</option>
+                                    <option value="3">Custom date</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-5 bordered d-none" id="custom_date">
+                                <label class="form-control-label col-md-5 d-flex align-items-center">Enter custom date</label>
+                                <div class="col-lg-7">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                            <input type="text" class="form-control datepicker" id="date" placeholder="Select value">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </form>
+                          
                             <ul class="pager wizard text-right">
                                 <li class="previous d-inline-block">
                                     <a href="javascript:void(0)" class="btn btn-secondary ripple">Previous</a>

@@ -18,21 +18,22 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::group(['middleware' => 'auth'], function () {
+	Route::prefix('admin')->group(function () {
+		Route::get('/', 'HomeController@index')->name('home');	
 
-Route::prefix('admin')->group(function () {
-	Route::get('/', 'HomeController@index')->name('home');	
+		Route::namespace('Admin')->group(function () {
 
-	Route::namespace('Admin')->group(function () {
+			//Invoice Controls
+			Route::prefix('invoice')->group(function () {
+				Route::get('/','InvoiceController@index')->name('invoices');
+				Route::get('/add','InvoiceController@create')->name('invoice_create');
+				Route::get('/add/recipient/list','RecipientController@list_for_invoice')->name('user_recipient_list');
+				Route::post('/recipient/save','RecipientController@store')->name('user_recipient_add');
+			});
+			
 
-		//Invoice Controls
-		Route::prefix('invoice')->group(function () {
-			Route::get('/','InvoiceController@index')->name('invoices');
-			Route::get('/add','InvoiceController@create')->name('invoice_create');
-			Route::get('/add/recipient/list','RecipientController@list_for_invoice')->name('user_recipient_list');
-			Route::post('/recipient/save','RecipientController@store')->name('user_recipient_add');
 		});
 		
-
 	});
-	
 });
