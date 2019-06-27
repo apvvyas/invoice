@@ -20,7 +20,7 @@ class CreateRecipientsTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->unsignedBigInteger('address_id')->nullable();
-            $table->text('message')->comment('A simple note for the type of buyer description');
+            $table->text('message')->comment('A simple note for the type of buyer description')->nullable();
             $table->timestamps();
         });
     }

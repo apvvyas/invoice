@@ -311,11 +311,12 @@ class addInvoice{
 	}
 
 	enableCustomDate(dur){
+		console.log(dur);
 		if(dur == 3){
-			$('#custom_date').prop('readonly',false);
+			$('#invoice_date').attr('disabled',false);
 		}
 		else{
-			$('#custom_date').prop('readonly',true);
+			$('#invoice_date').attr('disabled',true);
 		}
 		
 		
