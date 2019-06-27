@@ -347,6 +347,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         	<form id="add_recipient" role="form" method="post">
+            @csrf
         	<div class="modal-header">
                 <h4 class="modal-title">Add Recipient</h4>
                 <button type="button" class="close" data-dismiss="modal">
