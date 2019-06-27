@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 window.axios = require('axios');
-require('jquery-serializejson');
+//require('jquery-serializejson');
 
 /**
  * The following block of code may be used to automatically register your
