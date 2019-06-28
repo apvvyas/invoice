@@ -3,10 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use App\Http\Request\Users\AddRequest;
+
 
 class UserController extends Controller
 {
+
+    protected $service;
+
+
+    function __construct(UserService $service){
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.add');
     }
 
     /**
@@ -33,9 +44,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
-        //
+        $this->service->save($request->all());
     }
 
     /**

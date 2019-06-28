@@ -15,7 +15,7 @@
 @endpush
 
 @push('snippets')
-    <script src="/js/pages/invoice.js"></script>
+    <script src="/js/pages/invoice-add.js"></script>
 @endpush
 
 

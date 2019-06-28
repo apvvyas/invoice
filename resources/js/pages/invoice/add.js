@@ -5,7 +5,6 @@ $(function () {
 			$('#add_recipient').submit(function(e){
 				e.preventDefault();
 				invoiceNew.saveRecipientDetails();
-				
 			});	
 		})
 		$('#add-recipient-modal').on('hidden.bs.modal',function(){
@@ -29,14 +28,17 @@ $(function () {
 			$(this)[0].reset();
 		});
 
+		$('#rootwizard .finish').click(function() {
+			invoiceNew.saveInvoice();
+		});
+
 		$('#due_date').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
   			invoiceNew.enableCustomDate($(this).selectpicker('val'));
 		});
 
 		$(document).on('click','.remove_item',function(){
 			invoiceNew.removeItem($(this).data('id'),'line');
-		})
-		$(document).on('click','.remove_tax',function(){
+		}).on('click','.remove_tax',function(){
 			invoiceNew.removeItem($(this).data('id'),'tax');
 		})
 		
@@ -88,12 +90,12 @@ class addInvoice{
 			      format: 'DD-MM-YYYY'
 			}
 		});
+
 	}
 
 	step1(){
 		this.setTotal();
 	}
-
 	step2(){
 		if(this.invoice.total_amount == 0){
 			alert('Enter an item');
@@ -101,23 +103,28 @@ class addInvoice{
 		}
 		this.setTotal();
 	}
-
 	step3(){
-		if(this.invoice.total_amount == 0){
-			alert('Enter an item');
-			return false;
-		}
-		this.setTotal();
-
+		this.enableCustomDate(2);
 	}
 
-	fetchRecipientDetails(id){
+	saveInvoice(){
 
+		let data = this.invoice;
+		axios.post(route('invoice.save'),data).then(function (response) {
+			//window.location.href=route('invoices');
+		})
+		.catch(function (error) {
+		    // handle error
+		    console.log(error);
+		})
+		.finally(function () {
+		    // always executed
+		});
 	}
 
 	saveRecipientDetails(){
 		let self = this;
-		axios.post(route('user_recipient_add'),
+		axios.post(route('user.recipient.add'),
 			new FormData($('#add_recipient')[0]),
 		).then(function (response) {
 		    // handle success
@@ -136,7 +143,8 @@ class addInvoice{
 	}
 
 	fetchRecipientList(){
-		axios.get(route('user_recipient_list'),{
+		let self = this;
+		axios.get(route('user.recipient.list'),{
 			params:{
 				company_name:$('input[name="company_name"]').val(),
 				gst_number:$('input[name="gst_number"]').val(),
@@ -152,6 +160,7 @@ class addInvoice{
 		    		if($(this).attr('id') == current_id){
 		    			$(this).addClass('is-checked');	
 		    			$('#check_'+current_id).prop('checked',true);
+		    			self.invoice.recipient =current_id; 
 		    		}
 		    		else{
 		    			$(this).removeClass('is-checked');
@@ -311,7 +320,6 @@ class addInvoice{
 	}
 
 	enableCustomDate(dur){
-		console.log(dur);
 		if(dur == 3){
 			$('#invoice_date').attr('disabled',false);
 		}

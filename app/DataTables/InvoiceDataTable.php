@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use Carbon\Carbon;
 use App\Models\Invoice;
 use Yajra\DataTables\Services\DataTable;
 
@@ -16,7 +17,25 @@ class InvoiceDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'invoice.action');
+            ->editColumn('status', function($query){
+                $status = [
+                    'color' => 'warning',
+                    'text'  => $query->status
+                ];
+                if($query->status == 'Paid'){
+                  $status['color'] = 'success';  
+                }
+                elseif($query->status == 'Overdue'){
+                    $status['color'] = 'danger';
+                }
+
+                return $status;
+            })
+            ->editColumn('due_at',function($query){
+                return $query->due_at->format('d-m-Y');
+            })->addColumn('recipient',function($query){
+                return $query->recipient->company_name;
+            });
     }
 
     /**
@@ -25,47 +44,9 @@ class InvoiceDataTable extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Invoice $model)
     {
-        return $model->newQuery()->select('id', 'add-your-columns-here', 'created_at', 'updated_at');
+        return $model->newQuery()->with('recipient')->orderBy('created_at','DESC');
     }
 
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
-    public function html()
-    {
-        return $this->builder()
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->addAction(['width' => '80px'])
-                    ->parameters($this->getBuilderParameters());
-    }
-
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
-    protected function getColumns()
-    {
-        return [
-            'id',
-            'add your columns',
-            'created_at',
-            'updated_at'
-        ];
-    }
-
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'Invoice_' . date('YmdHis');
-    }
 }

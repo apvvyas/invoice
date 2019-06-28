@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use JavaScript;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Services\InvoiceService;
 use App\DataTables\InvoiceDataTable;
 use App\Http\Controllers\Controller;
@@ -69,7 +70,17 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $invoice = $this->service->save($request->all());
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'Invoice store failed';
+        
+        if($invoice){
+            $status = Response::HTTP_OK;
+            $message = 'Invoice stored successfully';
+        }
+
+        return response()->json(compact('message'),$status);
     }
 
     /**
@@ -114,6 +125,16 @@ class InvoiceController extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        //
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR; 
+        $message = 'Some Error occured please try again';
+        
+        if($invoice->delete()){
+            
+            $status = Response::HTTP_OK;
+            $message = 'Meeting deleted successfully';
+        
+        }
+        
+        return redirect()->route('invoices')->with($message);
     }
 }

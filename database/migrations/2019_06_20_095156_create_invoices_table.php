@@ -21,7 +21,7 @@ class CreateInvoicesTable extends Migration
             $table->unsignedBigInteger('bill_address_id');
             $table->boolean('paid')->default(false);
             $table->text('message')->nullable();
-            $table->enum('status',['DRAFT','SAVED'])->nullable()->default('DRAFT');
+            $table->enum('status',['DRAFT','SAVED','PAID'])->nullable()->default('DRAFT');
             $table->dateTime('due_at')->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
