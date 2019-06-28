@@ -258,7 +258,7 @@
                                     <div class="row">
                                         <div class="col-12"  >
                                             <ul class="tax-clone d-none" id="">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item mb-2">
                                                     <div class="media row">
                                                         <div class="media-left col-xl-1">
                                                             <div class="item-text" id="sr">1</div>
