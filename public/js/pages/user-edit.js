@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/pages/users/add.js":
-/*!*****************************************!*\
-  !*** ./resources/js/pages/users/add.js ***!
-  \*****************************************/
+/***/ "./resources/js/pages/users/edit.js":
+/*!******************************************!*\
+  !*** ./resources/js/pages/users/edit.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -100,17 +100,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 $(function () {
-  var userNew = new addUser();
+  var userEdit = new editUser();
   $('#rootwizard .finish').click(function () {
-    userNew.saveUser();
+    userEdit.saveUser();
   });
 });
 
-var addUser =
+var editUser =
 /*#__PURE__*/
 function () {
-  function addUser() {
-    _classCallCheck(this, addUser);
+  function editUser() {
+    _classCallCheck(this, editUser);
 
     var self = this;
     this.wizard = $('#rootwizard').bootstrapWizard({
@@ -143,7 +143,7 @@ function () {
     this.user = new FormData();
   }
 
-  _createClass(addUser, [{
+  _createClass(editUser, [{
     key: "step1",
     value: function step1() {
       if ($('#personal-details')[0].checkValidity() === false) {
@@ -170,7 +170,10 @@ function () {
 
       this.captureDetails('#business-details');
       var data = this.user;
-      axios.post(route('user.save'), data).then(function (response) {//window.location.href=route('users');
+      axios.post(route('user.update', {
+        user: user_id
+      }), data).then(function (response) {
+        window.location.href = route('users');
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -207,19 +210,19 @@ function () {
     }
   }]);
 
-  return addUser;
+  return editUser;
 }();
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************************!*\
-  !*** multi ./resources/js/pages/users/add.js ***!
-  \***********************************************/
+/***/ 4:
+/*!************************************************!*\
+  !*** multi ./resources/js/pages/users/edit.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\add.js */"./resources/js/pages/users/add.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\edit.js */"./resources/js/pages/users/edit.js");
 
 
 /***/ })

@@ -215,7 +215,8 @@ function () {
     key: "saveInvoice",
     value: function saveInvoice() {
       var data = this.invoice;
-      axios.post(route('invoice.save'), data).then(function (response) {//window.location.href=route('invoices');
+      axios.post(route('invoice.save'), data).then(function (response) {
+        window.location.href = route('invoices');
       })["catch"](function (error) {
         // handle error
         console.log(error);
