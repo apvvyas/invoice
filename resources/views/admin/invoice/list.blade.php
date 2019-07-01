@@ -29,7 +29,12 @@
 @section('content')
 <div class="widget has-shadow">
     <div class="widget-header bordered no-actions d-flex align-items-center">
-        <h4>Invoice List</h4>
+        <h2>Invoice List</h2>
+        <div class="widget-options">
+			<div class="btn-group" role="group">
+				<a href="{{route('invoice.create')}}" class="btn btn-primary ripple">Add Invoice</a>
+			</div>
+		</div>
     </div>
     <div class="widget-body">
         <div class="row flex-row justify-content-center">

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use JavaScript;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Services\UserService;
+use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Request\Users\AddRequest;
+use App\Http\Requests\Users\AddRequest;
+use App\Http\Requests\Users\UpdateRequest;
 
 
 class UserController extends Controller
@@ -25,7 +30,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.users.list');
+    }
+
+
+    /**
+     * Fetch listing of the resource.
+     *
+     * @return \App\DataTables\UserDataTable
+     */
+    public function list(UserDataTable $datatable){
+
+        return $datatable->ajax();
     }
 
     /**
@@ -46,7 +62,17 @@ class UserController extends Controller
      */
     public function store(AddRequest $request)
     {
-        $this->service->save($request->all());
+        $user = $this->service->save($request->all());
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'User store failed';
+        
+        if($user){
+            $status = Response::HTTP_OK;
+            $message = 'User stored successfully';
+        }
+
+        return response()->json(compact('message'),$status);
     }
 
     /**
@@ -66,9 +92,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        JavaScript::put('user_id',$user->id);
+        return view('admin.users.edit')->with('user',$user);
     }
 
     /**
@@ -78,9 +105,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, User $user)
     {
-        //
+        $user = $this->service->update($request->all(),$user);
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'User update failed';
+        
+        if($user){
+            $status = Response::HTTP_OK;
+            $message = 'User updated successfully';
+        }
+
+        return response()->json(compact('message'),$status);
     }
 
     /**
@@ -89,8 +126,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR; 
+        $message = 'Some Error occured please try again';
+        
+        if($user->delete()){
+            
+            $status = Response::HTTP_OK;
+            $message = 'User deleted successfully';
+        
+        }
+        
+        return redirect()->route('invoices')->with($message);
     }
 }

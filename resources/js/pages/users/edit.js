@@ -1,13 +1,13 @@
 
 $(function () {
-		let userNew = new addUser();
+		let userEdit = new editUser();
 
 		$('#rootwizard .finish').click(function() {
-			userNew.saveUser();
+			userEdit.saveUser();
 		});
 });
 
-class addUser{
+class editUser{
 
 	constructor(){
 		var self = this;
@@ -65,8 +65,8 @@ class addUser{
 		this.captureDetails('#business-details');
 
 		let data = this.user;
-		axios.post(route('user.save'),data).then(function (response) {
-			//window.location.href=route('users');
+		axios.post(route('user.update',{user:user_id}),data).then(function (response) {
+			window.location.href=route('users');
 		})
 		.catch(function (error) {
 		    // handle error

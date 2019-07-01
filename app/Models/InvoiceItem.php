@@ -9,4 +9,8 @@ class InvoiceItem extends Model
     protected $fillable = [
     	'item_id','invoice_id','quantity','total'
     ];
+
+    function item(){
+    	return $this->belongsTo(Item::class);
+    }
 }

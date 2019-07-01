@@ -11,11 +11,13 @@ class UserRepository
 {
 
 	function saveUser($data){
-		return User::create($data);
+		$user = User::create($data);
+		$user->assignRole('Admin');
+		return $user;
 	}
 
 	function saveUserDetails($data,$user_id){
-		$address_id = Address::create($data['address']);
+		$address_id = Address::create($data['address'])->id;
 
 		$details = $data['details'];
 
@@ -23,5 +25,15 @@ class UserRepository
 		$details['business_address_id'] = $address_id;
 
 		return UserDetail::create($details);
+	}
+
+	function updateUser($data,$user){
+		$user->fill($data['personal'])->save();
+
+		$user->details->address->update($data['address']);
+
+		$user->details()->update($data['details']);
+
+		return $user;
 	}
 }

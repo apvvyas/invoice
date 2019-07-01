@@ -22,7 +22,12 @@
 @section('content')
 <div class="widget has-shadow">
     <div class="widget-header bordered no-actions d-flex align-items-center">
-        <h4>Invoice #{{$invoice_id}}</h4>
+        <h2>Invoice #{{$invoice_id}}</h4>
+        <div class="widget-options">
+            <div class="btn-group" role="group">
+                <a href="{{route('invoices')}}" class="btn btn-primary ripple">Back to Invoices</a>
+            </div>
+        </div>
     </div>
     <div class="widget-body">
         <div class="row flex-row justify-content-center">

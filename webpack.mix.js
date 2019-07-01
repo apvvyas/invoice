@@ -20,3 +20,5 @@ mix.js('resources/js/pages/invoice/index.js','public/js/pages/invoice-list.js');
 
 
 mix.js('resources/js/pages/users/add.js','public/js/pages/user-add.js');
+mix.js('resources/js/pages/users/edit.js','public/js/pages/user-edit.js');
+mix.js('resources/js/pages/users/index.js','public/js/pages/user-list.js');

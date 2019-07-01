@@ -9,4 +9,15 @@ class Recipient extends Model
     protected $fillable = [
     	'user_id','company_name','email','phone','address_id','message'
     ];
+
+    function address(){
+    	return $this->hasOneThrough(
+    		Address::class,
+    		RecipientAddress::class,
+    		'recipient_id',
+    		'id',
+    		'id',
+    		'address_id'
+    	);
+    }
 }

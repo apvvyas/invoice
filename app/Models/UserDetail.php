@@ -9,4 +9,8 @@ class UserDetail extends Model
     protected $fillable = [
     	'user_id','phone','business_name','business_address_id','business_phone','business_tax_number'
     ];
+
+    function address(){
+    	return $this->belongsTo(Address::class,'business_address_id');
+    }
 }

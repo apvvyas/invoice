@@ -111,7 +111,7 @@ class addInvoice{
 
 		let data = this.invoice;
 		axios.post(route('invoice.save'),data).then(function (response) {
-			//window.location.href=route('invoices');
+			window.location.href=route('invoices');
 		})
 		.catch(function (error) {
 		    // handle error

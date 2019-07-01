@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 				Route::get('/details/{invoice}','InvoiceController@show')->name('invoice.show');
 				Route::delete('/delete/{invoice}','InvoiceController@destroy')->name('invoice.destroy');
+
+				Route::get('/details/{invoice}/pdf','InvoiceController@pdf')->name('invoice.pdf');
 			});
 
 			//User Controls
@@ -43,8 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
 				Route::get('/list','UserController@list')->name('users.list');
 				Route::get('/add','UserController@create')->name('user.create');
 				Route::post('/save','UserController@store')->name('user.save');
-				Route::get('/edit','UserController@edit')->name('user.edit');
-				Route::post('/update','UserController@update')->name('user.update');
+				Route::get('/edit/{user}','UserController@edit')->name('user.edit');
+				Route::post('/update/{user}','UserController@update')->name('user.update');
 				Route::get('/details/{user}','UserController@show')->name('user.show');
 				Route::delete('/delete/{user}','UserController@destroy')->name('user.destroy');
 			});
@@ -55,8 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
 				Route::get('/list','RecipientController@list')->name('recipients.list');
 				Route::get('/add','RecipientController@create')->name('recipient.create');
 				Route::post('/save','RecipientController@store')->name('recipient.save');
-				Route::get('/edit','RecipientController@edit')->name('recipient.edit');
-				Route::post('/update','RecipientController@update')->name('recipient.update');
+				Route::get('/edit/{recipient}','RecipientController@edit')->name('recipient.edit');
+				Route::post('/update/{recipient}','RecipientController@update')->name('recipient.update');
 				Route::get('/details/{recipient}','RecipientController@show')->name('recipient.show');
 				Route::delete('/delete/{recipient}','RecipientController@destroy')->name('recipient.destroy');
 			});

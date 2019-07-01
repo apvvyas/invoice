@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "jquery-serializejson": "^2.9.0",
         "smartwizard": "^4.3.1"
     }
 }

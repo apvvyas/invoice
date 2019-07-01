@@ -24,6 +24,21 @@ class Invoice extends Model
     	$this->attributes['due_at'] = Carbon::parse($due_at)->format('Y-m-d H:i:s');
     }
 
+    function owner(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    function owner_address(){
+        return $this->hasOneThrough(
+            Address::class,
+            UserDetail::class,
+            'user_id',
+            'id',
+            'id',
+            'address_id'
+        );
+    }
+
     function recipient(){
     	return $this->hasOneThrough(
     		Recipient::class,
@@ -33,6 +48,18 @@ class Invoice extends Model
     		'id',
     		'recipient_id'
     	);
+    }
+
+    function total(){
+        return $this->hasOne(InvoiceTotal::class);
+    }
+
+    function items(){
+        return $this->hasMany(InvoiceItem::class);
+    }
+
+    function tax(){
+        return $this->hasMany(InvoiceTax::class);
     }
 
     function isDue(){

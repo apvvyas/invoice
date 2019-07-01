@@ -14,7 +14,12 @@
 @section('content')
 <div class="widget has-shadow">
     <div class="widget-header bordered no-actions d-flex align-items-center">
-        <h4>Add User</h4>
+        <h2>Add User</h2>
+        <div class="widget-options">
+            <div class="btn-group" role="group">
+                <a href="{{route('users')}}" class="btn btn-primary ripple">Back to Users</a>
+            </div>
+        </div>
     </div>
     <div class="widget-body">
         <div class="row flex-row justify-content-center">
@@ -53,7 +58,7 @@
 						            		<div class="col-sm-6">
 						            			<div class="form-group">
 								            		<label>First Name</label>
-								            		<input type="text" class="form-control" name="personal[firstName'" placeholder="First Name" required>
+								            		<input type="text" class="form-control" name="personal[firstName]" placeholder="First Name" required>
 								            		<div class="invalid-feedback"></div>
 								            	</div>
 								            </div>

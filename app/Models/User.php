@@ -44,4 +44,17 @@ class User extends Authenticatable
     function recipients(){
         return $this->hasMany(Recipient::class);
     }
+
+    function details(){
+        return $this->hasOne(UserDetail::class);
+    }
+
+    function generateToken()
+    {
+        $token = Str::random(60);
+        $this->api_token = hash('sha256', $token);
+        $this->save();
+
+        return $this->api_token;
+    }
 }

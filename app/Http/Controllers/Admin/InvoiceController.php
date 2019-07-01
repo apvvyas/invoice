@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use PDF;
 use JavaScript;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
@@ -89,9 +90,24 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Invoice $invoice)
     {
-        //
+        $owner = $invoice->owner()->first();
+        return view('admin.invoice.show')->with(['invoice'=>$invoice,'owner'=>$owner]);
+    }
+
+    /**
+     * Export PDF of the specified resource.
+     *
+     * @param  App\Models\Invoice;
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf(Invoice $invoice)
+    {
+
+        $owner = $invoice->owner()->first();
+        $pdf = PDF::loadView('admin.invoice.export-pdf', ['invoice'=>$invoice,'owner'=>$owner,'pdf'=>true]);
+        return $pdf->download('invoice.pdf');
     }
 
     /**
@@ -131,7 +147,7 @@ class InvoiceController extends Controller
         if($invoice->delete()){
             
             $status = Response::HTTP_OK;
-            $message = 'Meeting deleted successfully';
+            $message = 'Invoice deleted successfully';
         
         }
         
