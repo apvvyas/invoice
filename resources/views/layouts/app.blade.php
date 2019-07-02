@@ -84,17 +84,24 @@ Author: SAEROX
         <!-- Begin Vendor Js -->
         <script src="/vendors/js/base/jquery.min.js"></script>
         <script src="/js/app.js"></script>
-        <script src="/vendors/js/base/core.min.js"></script>
         
+        @stack('datatable-js')
+        
+         <script src="/vendors/js/base/core.min.js"></script>
+
         @stack('vendor-js')
         
         <!-- End Vendor Js -->
+
+
 
         <!-- Begin Page Vendor Js -->
         <script src="/vendors/js/nicescroll/nicescroll.min.js"></script>
         <script src="/vendors/js/calendar/moment.min.js"></script>
         
         @stack('page-vendor-js')
+
+       
         
         <script src="/vendors/js/app/app.min.js"></script>
         <!-- End Page Vendor Js -->

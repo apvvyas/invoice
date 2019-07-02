@@ -4,6 +4,7 @@ $(function () {
 		$('#add-recipient-modal').on('shown.bs.modal',function(){
 			$('#add_recipient').submit(function(e){
 				e.preventDefault();
+				alert('asdasd');
 				invoiceNew.saveRecipientDetails();
 			});	
 		})

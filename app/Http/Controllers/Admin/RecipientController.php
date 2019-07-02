@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Reipient;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\RecipientService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Recipients\AddRequest;
+use App\Http\Requests\Recipients\UpdateRequest;
+use App\DataTables\RecipientDataTable;
+
 
 class RecipientController extends Controller
 {
@@ -22,7 +27,17 @@ class RecipientController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.recipients.list');
+    }
+
+    /**
+     * Fetch listing of the resource.
+     *
+     * @return \App\DataTables\UserDataTable
+     */
+    public function list(RecipientDataTable $datatable){
+
+        return $datatable->ajax();
     }
 
     /**
@@ -32,7 +47,7 @@ class RecipientController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.recipients.add');
     }
 
     /**
@@ -41,7 +56,7 @@ class RecipientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
         $recipient = $this->service->addRecipient($request->all());
         
@@ -62,7 +77,7 @@ class RecipientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Recipient $recipient)
     {
         //
     }
@@ -73,9 +88,9 @@ class RecipientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Recipient $recipient)
     {
-        //
+        return view('admin.recipients.edit')->with(['recipient'=>$recipient]);
     }
 
     /**
@@ -85,9 +100,19 @@ class RecipientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Recipient $recipient)
     {
-        //
+        $user = $this->service->update($request->all(),$user);
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'User update failed';
+        
+        if($user){
+            $status = Response::HTTP_OK;
+            $message = 'User updated successfully';
+        }
+
+        return response()->json(compact('message'),$status);
     }
 
     /**
@@ -96,13 +121,22 @@ class RecipientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Recipient $recipient)
     {
-        //
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR; 
+        $message = 'Some Error occured please try again';
+        
+        if($recipient->delete()){
+            
+            $status = Response::HTTP_OK;
+            $message = 'Recipient deleted successfully';
+        
+        }
+        
+        return redirect()->route('recipients')->with($message);
     }
 
     public function list_for_invoice(Request $request){
-
 
         $html = view('admin.invoice.recipients',['recipients'=>$this->service->getRecipients($request->all())])->render();
         return response()->json(compact('html'),Response::HTTP_OK);

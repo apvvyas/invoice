@@ -22,3 +22,8 @@ mix.js('resources/js/pages/invoice/index.js','public/js/pages/invoice-list.js');
 mix.js('resources/js/pages/users/add.js','public/js/pages/user-add.js');
 mix.js('resources/js/pages/users/edit.js','public/js/pages/user-edit.js');
 mix.js('resources/js/pages/users/index.js','public/js/pages/user-list.js');
+
+
+mix.js('resources/js/pages/recipients/add.js','public/js/pages/recipient-add.js');
+mix.js('resources/js/pages/recipients/edit.js','public/js/pages/recipient-edit.js');
+mix.js('resources/js/pages/recipients/index.js','public/js/pages/recipient-list.js');

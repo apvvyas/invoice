@@ -138,6 +138,6 @@ class UserController extends Controller
         
         }
         
-        return redirect()->route('invoices')->with($message);
+        return redirect()->route('users')->with($message);
     }
 }
