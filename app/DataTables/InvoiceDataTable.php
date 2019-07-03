@@ -34,7 +34,10 @@ class InvoiceDataTable extends DataTable
             ->editColumn('due_at',function($query){
                 return $query->due_at->format('d-m-Y');
             })->addColumn('recipient',function($query){
-                return $query->recipient->company_name;
+                if(isset($query->recipient)){
+                    return $query->recipient->company_name;
+                }
+                return '-';
             });
     }
 

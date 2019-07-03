@@ -3,6 +3,9 @@
     "/css/app.css": "/css/app.css",
     "/js/pages/invoice-add.js": "/js/pages/invoice-add.js",
     "/js/pages/invoice-list.js": "/js/pages/invoice-list.js",
+    "/js/pages/recipient-add.js": "/js/pages/recipient-add.js",
+    "/js/pages/recipient-edit.js": "/js/pages/recipient-edit.js",
+    "/js/pages/recipient-list.js": "/js/pages/recipient-list.js",
     "/js/pages/user-add.js": "/js/pages/user-add.js",
     "/js/pages/user-edit.js": "/js/pages/user-edit.js",
     "/js/pages/user-list.js": "/js/pages/user-list.js"

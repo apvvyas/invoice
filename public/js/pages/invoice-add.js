@@ -105,6 +105,7 @@ $(function () {
   $('#add-recipient-modal').on('shown.bs.modal', function () {
     $('#add_recipient').submit(function (e) {
       e.preventDefault();
+      alert('asdasd');
       invoiceNew.saveRecipientDetails();
     });
   });
@@ -194,13 +195,45 @@ function () {
   _createClass(addInvoice, [{
     key: "step1",
     value: function step1() {
+      var validate = true;
+      if ($('input[name="recipient_id"]:checked').val() == undefined) validate = false;
+
+      if (!validate) {
+        var notifyOfRecipient = new Noty({
+          type: 'error',
+          layout: 'topRight',
+          text: 'Select atleast one recipient',
+          progressBar: true,
+          timeout: 2500,
+          animation: {
+            open: 'animated bounceInRight',
+            // Animate.css class names
+            close: 'animated bounceOutRight' // Animate.css class names
+
+          }
+        }).show();
+        return false;
+      }
+
       this.setTotal();
     }
   }, {
     key: "step2",
     value: function step2() {
       if (this.invoice.total_amount == 0) {
-        alert('Enter an item');
+        new Noty({
+          type: 'error',
+          layout: 'topRight',
+          text: 'Add atleast one item',
+          progressBar: true,
+          timeout: 2500,
+          animation: {
+            open: 'animated bounceInRight',
+            // Animate.css class names
+            close: 'animated bounceOutRight' // Animate.css class names
+
+          }
+        }).show();
         return false;
       }
 
@@ -533,7 +566,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\invoice\add.js */"./resources/js/pages/invoice/add.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/invoice/add.js */"./resources/js/pages/invoice/add.js");
 
 
 /***/ })

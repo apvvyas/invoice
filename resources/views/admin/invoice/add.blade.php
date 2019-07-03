@@ -172,9 +172,11 @@
                                                 </div>
                                             </li>
         		                        </ul>
+                                        <form id="recipients_form_select">
                                         <ul id="item_list" class="list-group w-100 widget-scroll" style="max-height: 250px; overflow: hidden; outline: currentcolor none medium;" tabindex="2">
                                                 
                                         </ul>
+                                        </form>
 										<ul class="list-group w-100 item-list-total mt-2" tabindex="3">
 											<li class="item-text">											
 												<div class="media row">

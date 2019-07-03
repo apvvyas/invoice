@@ -63,7 +63,7 @@ class Invoice extends Model
     }
 
     function isDue(){
-    	return Carbon::parse($this->attributes['due_at'])->diffInSeconds(Carbon::now());
+    	return Carbon::parse($this->attributes['due_at'])->diffInDays(Carbon::now(),false);
     }
 
     function getDueAtAttribute(){

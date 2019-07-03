@@ -46,4 +46,12 @@ class RecipientRepository
 
 		return $recip->skip($filter['page'])->take($filter['limit'])->get();		
 	}
+
+	function update($data,$recipient){
+		$recipient->fill($data)->save();
+
+		$recipient->address->update($data);
+
+		return $recipient;
+	}
 }

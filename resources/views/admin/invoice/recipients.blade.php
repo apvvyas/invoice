@@ -10,7 +10,7 @@
             </div>
             <div class="media-right align-self-center set_recipient">
                 <div class="checkbox check" id="{{$user->id}}"></div>
-                <input type="radio" class="d-none" id="check_{{$user->id}}" name="recipient_id" value="{{$user->id}}">
+                <input type="radio" class="d-none" id="check_{{$user->id}}" name="recipient_id" value="{{$user->id}}" required="">
             </div>
         </div>
     </li>

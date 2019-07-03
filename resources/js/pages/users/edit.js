@@ -36,45 +36,59 @@ class editUser{
 				}
 			}
 		});	
-
+		$('#personal-details').validator().on('invalid.bs.validator',function(e){
+			self.validate = false;
+		}).on('valid.bs.validator',function(){
+			self.validate = true;
+		});
+		$('#buisness-details').validator().on('invalid.bs.validator',function(e){
+			self.validate = false;
+		}).on('valid.bs.validator',function(){
+			self.validate = true;
+		});
+		this.validate = true;
 		this.user = new FormData();
 	}
 
 	step1(){
 
-		if ($('#personal-details')[0].checkValidity() === false) {
-			$('#personal-details')[0].classList.add('was-validated');
-			return false;
+		var own = this;
+		
+		$('#personal-details').validator('validate')
+
+		if(this.validate){
+			this.captureDetails('#personal-details');
+			return true;	
 		}
-		$('#personal-details')[0].classList.add('was-validated');
-		this.captureDetails('#personal-details');
-		return true;
+		return false;
 	}
 
 	saveUser(){
-		if ($('#personal-details')[0].checkValidity() === false) {
-			$('#personal-details')[0].classList.add('was-validated');
-			return false;
+		var validate = true;
+
+		$('#personal-details').validator('validate')
+
+		$('#business-details').validator('validate')
+
+		if(this.validate){
+			this.captureDetails('#business-details');
+
+			let data = this.user;
+			axios.post(route('user.save'),data).then(function (response) {
+				//window.location.href=route('users');
+			})
+			.catch(function (error) {
+			    // handle error
+			    console.log(error);
+			})
+			.finally(function () {
+			    // always executed
+			});
+
+			return true;
 		}
 
-		if ($('#business-details')[0].checkValidity() === false) {
-			$('#business-details')[0].classList.add('was-validated');
-			return false;
-		}
-
-		this.captureDetails('#business-details');
-
-		let data = this.user;
-		axios.post(route('user.update',{user:user_id}),data).then(function (response) {
-			window.location.href=route('users');
-		})
-		.catch(function (error) {
-		    // handle error
-		    console.log(error);
-		})
-		.finally(function () {
-		    // always executed
-		});
+		return false;
 
 	}
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Reipient;
+use App\Models\Recipient;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\RecipientService;
@@ -79,7 +79,7 @@ class RecipientController extends Controller
      */
     public function show(Recipient $recipient)
     {
-        //
+       return view('admin.recipients.show')->with(['recipient'=>$recipient]);
     }
 
     /**
@@ -102,17 +102,17 @@ class RecipientController extends Controller
      */
     public function update(Request $request, Recipient $recipient)
     {
-        $user = $this->service->update($request->all(),$user);
+        $recipient = $this->service->update($request->all(),$recipient);
 
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         $message = 'User update failed';
         
-        if($user){
+        if($recipient){
             $status = Response::HTTP_OK;
             $message = 'User updated successfully';
         }
 
-        return response()->json(compact('message'),$status);
+        return redirect()->route('recipients')->with(compact('status','message'));
     }
 
     /**

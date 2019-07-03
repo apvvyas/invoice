@@ -95,11 +95,38 @@ class addInvoice{
 	}
 
 	step1(){
+		var validate = true;
+		if($('input[name="recipient_id"]:checked').val() == undefined)
+			validate = false;
+		if(!validate){
+			let notifyOfRecipient = new Noty({
+				type: 'error',
+				layout: 'topRight',
+				text: 'Select atleast one recipient',
+				progressBar: true,
+				timeout: 2500,
+				animation: {
+					open: 'animated bounceInRight', // Animate.css class names
+					close: 'animated bounceOutRight' // Animate.css class names
+				}
+			}).show();
+			return false;
+		}
 		this.setTotal();
 	}
 	step2(){
 		if(this.invoice.total_amount == 0){
-			alert('Enter an item');
+			new Noty({
+				type: 'error',
+				layout: 'topRight',
+				text: 'Add atleast one item',
+				progressBar: true,
+				timeout: 2500,
+				animation: {
+					open: 'animated bounceInRight', // Animate.css class names
+					close: 'animated bounceOutRight' // Animate.css class names
+				}
+			}).show();
 			return false;
 		}
 		this.setTotal();

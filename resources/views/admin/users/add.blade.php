@@ -59,14 +59,14 @@
 						            			<div class="form-group">
 								            		<label>First Name</label>
 								            		<input type="text" class="form-control" name="personal[firstName]" placeholder="First Name" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 								            <div class="col-sm-6">
 						            			<div class="form-group">
 								            		<label>Last Name</label>
 								            		<input type="text" class="form-control" name="personal[lastName]" placeholder="Last Name" required="">
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 								        </div>
@@ -75,14 +75,14 @@
 								        		<div class="form-group">
 								            		<label>Email</label>
 								            		<input type="email" class="form-control" name="personal[email]" placeholder="Email" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								        	</div>
 								        	<div class="col-sm-6">
 								        		<div class="form-group">
 								            		<label>Phone Number</label>
 								            		<input type="text" class="form-control" name="personal[phone]" placeholder="Phone Number" required="">
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								        	</div>
 						            	</div>
@@ -91,14 +91,14 @@
 								        		<div class="form-group">
 								            		<label>Password</label>
 								            		<input type="password" class="form-control" name="personal[password]" placeholder="Password" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								        	</div>
 								        	<div class="col-sm-6">
 								        		<div class="form-group">
 								            		<label>Confirm Password</label>
 								            		<input type="password" class="form-control" name="personal[passwordConf]" placeholder="Confirm Password" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								        	</div>
 						            	</div>
@@ -124,7 +124,7 @@
 						            			<div class="form-group">
 								            		<label>Name</label>
 								            		<input type="text" class="form-control" name="business[name]" placeholder="Business Name" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 								        </div>
@@ -133,14 +133,14 @@
 								            	<div class="form-group">
 								            		<label>Apartments / Suite / Unit</label>
 								            		<input type="text" class="form-control" name="business[address1]" placeholder="Apartments / Suite / Unit" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 								        	<div class="col-sm-6">
 								            	<div class="form-group">
 								            		<label>Street Address</label>
 								            		<input type="text" class="form-control" name="business[address2]" placeholder="Street Address" required>
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 								        </div>
@@ -149,14 +149,14 @@
 								            	<div class="form-group">
 								            		<label>City</label>
 								            		<input type="text" class="form-control" name="business[city]" placeholder="City">
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 							            	</div>
 								        	<div class="col-sm-6">
 								            	<div class="form-group">
 								            		<label>State</label>
 								            		<input type="text" class="form-control" name="business[state]" placeholder="State">
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 							            	</div>
 						            	</div>
@@ -165,14 +165,14 @@
 								            	<div class="form-group">
 								            		<label>Country</label>
 								            		<input type="text" class="form-control" name="business[country]" placeholder="Country"> 
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 							            	</div>
 							            	<div class="col-sm-6">
 								            	<div class="form-group">
 								            		<label>Postal / Zip Code</label>
 								            		<input type="text" class="form-control" name="business[postal]" placeholder="Postal / Zip Code">
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 								        </div>
@@ -181,14 +181,14 @@
 								            	<div class="form-group">
 								            		<label>Phone</label>
 								            		<input type="text" class="form-control" name="business[phone]" placeholder="Business Phone"> 
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 							            	</div>
 							            	<div class="col-sm-6">
 								            	<div class="form-group">
 								            		<label>Tax details</label>
 								            		<input type="text" class="form-control" name="business[taxDetails]" placeholder="Tax Details">
-								            		<div class="invalid-feedback"></div>
+								            		<div class="help-block with-errors"></div>
 								            	</div>
 								            </div>
 						            	</div>

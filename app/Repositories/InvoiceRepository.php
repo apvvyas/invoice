@@ -14,7 +14,7 @@ use App\Models\RecipientAddress;
 class InvoiceRepository
 {
 	public function getLastInsertedInvoice(){
-		return Invoice::orderBy('created_at','DESC')->skip(0)->limit('1')->get();
+		return Invoice::orderBy('created_at','DESC')->skip(0)->limit('1')->first();
 	}
 
 	function saveInvoiceDetails($data){

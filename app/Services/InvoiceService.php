@@ -18,7 +18,7 @@ class InvoiceService
 		$invoice = $this->repository->getLastInsertedInvoice();
 		$invoice_id = 0;
 		if($invoice){
-			$invoice_id = $invoice_id;
+			$invoice_id = $invoice->id;
 		}
 
 		return $invoice_id;		

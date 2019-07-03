@@ -23,4 +23,8 @@ class RecipientService
 		return $this->repository->getUserRecipients($filter);
 	}
 
+	function update($data,$recipient){
+		$this->repository->update($data,$recipient);
+	}
+
 }

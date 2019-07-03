@@ -33,6 +33,7 @@ Author: SAEROX
         <!-- Stylesheet -->
         <link rel="stylesheet" href="/vendors/css/base/bootstrap.min.css">
         <link rel="stylesheet" href="/vendors/css/base/elisyam-1.5.min.css">
+        <link rel="stylesheet" href="/css/animate/animate.min.css">
 
         @stack('css')
 
@@ -79,6 +80,9 @@ Author: SAEROX
 
         @stack('modal')
 
+
+        
+
         @routes
 
         <!-- Begin Vendor Js -->
@@ -97,6 +101,7 @@ Author: SAEROX
 
         <!-- Begin Page Vendor Js -->
         <script src="/vendors/js/nicescroll/nicescroll.min.js"></script>
+        <script src="/vendors/js/noty/noty.min.js" type="text/javascript"></script>
         <script src="/vendors/js/calendar/moment.min.js"></script>
         
         @stack('page-vendor-js')

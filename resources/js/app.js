@@ -9,6 +9,10 @@ window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
+
+import validator from 'bootstrap-validator';
+window.box = require('bootbox');
+
 //require('jquery-serializejson');
 
 /**
@@ -150,7 +154,7 @@ window.initConfirmationOnDelete = function() {
             event.preventDefault();
             var deleteUrl = $(this).attr('href');
                 if (confirm('Are you sure you want to delete ? ')) {
-                    submitDeleteResourceForm(deleteUrl);
+                    //submitDeleteResourceForm(deleteUrl);
                 }
         });
     };
