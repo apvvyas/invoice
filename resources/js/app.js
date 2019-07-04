@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 window.axios = require('axios');
-
+require('./bootstrap');
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -150,11 +150,12 @@ window.buildViewAction = function(link) {
 };
 
 window.initConfirmationOnDelete = function() {
-        $('body').on('click', '.delete-confirmation-button', function(event) {
+        $('.delete-confirmation-button').on('click', function(event) {
             event.preventDefault();
             var deleteUrl = $(this).attr('href');
-                if (confirm('Are you sure you want to delete ? ')) {
-                    //submitDeleteResourceForm(deleteUrl);
-                }
+            box.confirm("Are you sure you want to delete?", function(result){
+			    if(result)
+			    	submitDeleteResourceForm(deleteUrl);
+			})
         });
     };

@@ -1,90 +1,45 @@
 
 $(function () {
-		let userNew = new addUser();
-
-		$('#rootwizard .finish').click(function() {
-			userNew.saveUser();
-		});
+	let recipientNew = new addRecipient();	
 });
 
-class addUser{
+class addRecipient{
 
 	constructor(){
-		var self = this;
-		this.wizard = $('#rootwizard').bootstrapWizard({
-			onInit:function(tab,navigation,index){
-				var $total = navigation.find('li').length;	
-				var width = ((100/$total))+'%';
-				navigation.find('li').each(function(){
-					$(this).css({'width':width});
-				})
-			},
-			onTabShow: function (tab, navigation, index) {
-				var $total = navigation.find('li').length;
-				var $current = index + 1;
-				var $percent = ($current / $total) * 100;
-				$('#rootwizard .progressbar').css({
-					width: $percent + '%'
-				});
-			},
-			onTabClick(tab,navigation,index){
-				return false;
-			},
-			onNext(tab,navigation,index){
-				if(index == 1){
-					return self.step1();
-				}
-			}
-		});	
-
-		this.user = new FormData();
-	}
-
-	step1(){
-
-		if ($('#personal-details')[0].checkValidity() === false) {
-			$('#personal-details')[0].classList.add('was-validated');
-			return false;
-		}
-		$('#personal-details')[0].classList.add('was-validated');
-		this.captureDetails('#personal-details');
-		return true;
-	}
-
-	saveUser(){
-		if ($('#personal-details')[0].checkValidity() === false) {
-			$('#personal-details')[0].classList.add('was-validated');
-			return false;
-		}
-
-		if ($('#business-details')[0].checkValidity() === false) {
-			$('#business-details')[0].classList.add('was-validated');
-			return false;
-		}
-
-		this.captureDetails('#business-details');
-
-		let data = this.user;
-		axios.post(route('user.save'),data).then(function (response) {
-			//window.location.href=route('users');
-		})
-		.catch(function (error) {
-		    // handle error
-		    console.log(error);
-		})
-		.finally(function () {
-		    // always executed
+		let self = this;
+		this.valid = false;
+		$('#add_recipient').validator().on('valid.bs.validator',function(){
+			self.valid = true;
+		}).on('invalid.bs.validator',function(e){
+			self.valid = false;
+		}).on('invalid.bs.validator',function(e){
+			if(this.valid){
+				self.saveRecipientDetails	
+			}	
 		});
-
+		$('#add_recipient').submit(function(e){
+            e.preventDefault();
+            $(this).validator('validate');
+        });
 	}
 
-
-	captureDetails(id){
-		let data = new FormData($(id)[0]);
-
-		for (var pair of data.entries()) {
-		    this.user.append(pair[0], pair[1]);
-		}
+	saveRecipientDetails(){
+        let self = this;
+        
+        	axios.post(route('user.recipient.add'), new FormData($('#add_recipient')[0]))
+        	.then(function (response) {
+	            // handle success
+	        	console.log(response);
+	          })
+	          .catch(function (error) {
+	            // handle error
+	            console.log(error);
+	          })
+	          .finally(function () {
+	            // always executed
+	          });	
+        
+        return false;
 	}
 }
 

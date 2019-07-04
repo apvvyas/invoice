@@ -374,6 +374,6 @@
 
 @push('modal')
 
-    @include('admin.recipients.add')
+    @include('admin.recipients.add-modal')
 
 @endpush

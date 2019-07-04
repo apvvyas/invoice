@@ -43,7 +43,7 @@
 	        	<div class="col-sm-6">
 	        		<div class="form-group">
 	            		<label>Phone Number</label>
-	            		<input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{$recipient->email}}">
+	            		<input type="tel" data-minlength="10" data-maxlength="15" pattern="\d{10-15}" class="form-control" name="phone" placeholder="Phone Number" value="{{$recipient->phone}}" data-validation="number">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	        	</div>
