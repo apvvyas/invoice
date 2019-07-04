@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use JavaScript;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,6 +85,12 @@ class UserController extends Controller
     public function show(User $user)
     {
         return view('admin.users.show')->with('user',$user);
+    }
+
+    public function profile(){
+        $user = Auth::user();
+        JavaScript::put('user_id',$user->id);
+        return view('admin.users.edit')->with('user',$user);
     }
 
     /**

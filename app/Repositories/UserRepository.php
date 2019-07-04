@@ -30,9 +30,14 @@ class UserRepository
 	function updateUser($data,$user){
 		$user->fill($data['personal'])->save();
 
-		$user->details->address->update($data['address']);
-
-		$user->details()->update($data['details']);
+		if($user->details){
+			$user->details->address->update($data['address']);
+			$user->details()->update($data['details']);
+		}
+		else
+		{
+			$this->saveUserDetails($data,$user->id);
+		}
 
 		return $user;
 	}

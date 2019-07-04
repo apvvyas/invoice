@@ -111,7 +111,7 @@
                             <img src="/img/avatar/avatar-01.jpg" alt="..." class="rounded-circle">
                         </li>
                         <li>
-                            <a href="pages-profile.html" class="dropdown-item"> 
+                            <a href="{{route('user.profile')}}" class="dropdown-item"> 
                                 Profile
                             </a>
                         </li>

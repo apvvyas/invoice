@@ -22,7 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::prefix('admin')->group(function () {
 		Route::get('/', 'HomeController@index')->name('home');	
 
+
 		Route::namespace('Admin')->group(function () {
+
+			Route::get('/profile', 'UserController@profile')->name('user.profile');	
 
 			//Invoice Controls
 			Route::prefix('invoice')->group(function () {
