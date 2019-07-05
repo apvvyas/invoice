@@ -49,3 +49,13 @@
   color: #dc3545 !important;
 }
 
+div.img-company-logo {
+  background: url(/images/logoupload.png?9ddf0984b792d0929851de63961dcdb1);
+  background-size: cover;
+  height: 190px;
+}
+
+.img-company-logo {
+  width: 250px;
+}
+

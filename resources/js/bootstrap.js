@@ -1,55 +1,66 @@
-window._ = require('lodash');
+import validator from 'bootstrap-validator';
 
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
+var submitDeleteResourceForm = function(deleteUrl) {
+    $('<form>', {
+        'method': 'POST',
+        'action': deleteUrl,
+        'target': '_top'
+    })
+    .append($('<input>', {
+        'name': '_token',
+        'value': $('meta[name="csrf-token"]').attr('content'),
+        'type': 'hidden'
+    }))
+    .append($('<input>', {
+        'name': '_method',
+        'value': 'DELETE',
+        'type': 'hidden'
+    }))
+    .hide().appendTo("body").submit();
+};
 
-try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+window.buildEditAction = function(link) {
+    return $("<div />").append(
+            $('<a />', {
+                html: '<i class="la la-pencil"></i>',
+                href: link || 'javascript:void(0)',
+                title: 'Edit',
+                class: 'btn btn-md btn-round-sm btn-info ml-1 mr-1',
+            })).html();
+};
 
-    require('bootstrap');
-} catch (e) {}
+window.buildDeleteAction = function(link) {
+    return $("<div />").append(
+            $('<a />', {
+                html: '<i class="la la-trash"></i>',
+                href: link || 'javascript:void(0)',
+                title: 'Delete',
+                class: 'btn btn-md btn-round-sm btn-danger ml-1 mr-1 delete-confirmation-button',
+            })).html();
+};
 
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
+window.buildViewAction = function(link) {
+   return $("<div />").append(
+            $('<a />', {
+                html: '<i class="la la-eye"></i>',
+                href: link || 'javascript:void(0)',
+                title: 'View',
+                class: 'btn btn-md btn-round-sm btn-info ml-1 mr-1',
+            })).html();
+};
 
-window.axios = require('axios');
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.initConfirmationOnDelete = function() {
+        $('.delete-confirmation-button').on('click', function(event) {
+            event.preventDefault();
+            var deleteUrl = $(this).attr('href');
+            boot4.confirm({
+                msg: "Are you sure ?",
+                title: "Delete",
+                callback: function(result) {
+                  if(result){
+                    submitDeleteResourceForm(deleteUrl)
+                  }
+                }
+              });
+        });
+    };

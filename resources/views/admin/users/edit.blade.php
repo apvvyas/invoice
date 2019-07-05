@@ -47,6 +47,14 @@
                                         <span class="title">Business Details</span>
                                     </a>
                                 </li>
+								@if(Route::currentRouteName() == 'user.profile')
+								<li>
+                                    <a href="#tab3" data-toggle="tab">
+                                        <span class="step">3</span>
+                                        <span class="title">Upload Company Logo</span>
+                                    </a>
+                                </li>
+								@endif
                             </ul>
                         </div>
                     </div>
@@ -213,6 +221,9 @@
 	                                    <a href="javascript:void(0)" class="btn btn-secondary ripple">Previous</a>
 	                                </li>
 	                                @if(Route::currentRouteName() == 'user.profile')
+									<li class="next d-inline-block">
+	                                    <a href="javascript:;" class="btn btn-secondary ripple">Next</a>
+	                                </li>
 	                                <li class="d-inline-block">
 	                                    <a href="javascript:void(0)" class="finish btn btn-gradient-01" data-toggle="modal">Save</a>
 	                                </li>
@@ -224,6 +235,40 @@
 	                            </ul>
                             </form>
                         </div>
+
+						@if(Route::currentRouteName() == 'user.profile')
+						<div class="tab-pane" id="tab3">
+                        	<form id="business-details">
+	                        	<div class="widget widget-19 has-border">
+	                            	<div class="widget-header has-border-bottom">
+										<h4>Company Logo</h4>
+									</div>
+	                                <div class="widget-body mt-3 mb-3">
+	                                	<div class="row">
+											<div class="col-lg-12">
+												<div class="img-responsive">
+													<div class="img-thumbnail img-circle img-company-logo"/></div>
+												</div>
+											</div>
+											<div class="col-lg-12">
+												<button type="button" class="btn btn-secondary" id="file_upload">Select Logo Image</button>
+												<input type="file" name="logo" class="d-none">
+											</div>
+										</div>
+	                                </div>
+	                            </div>
+	                            <ul class="pager wizard text-right">
+	                                <li class="previous d-inline-block">
+	                                    <a href="javascript:void(0)" class="btn btn-secondary ripple">Previous</a>
+	                                </li>
+	                                <li class="d-inline-block">
+	                                    <a href="javascript:void(0)" class="finish btn btn-gradient-01" data-toggle="modal">Save</a>
+	                                </li>
+	                            </ul>
+                            </form>
+                        </div>
+
+						@endif
                     </div>
                 </div>
             </div>

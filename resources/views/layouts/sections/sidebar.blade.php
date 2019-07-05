@@ -19,6 +19,7 @@
                             <li><a href="{{route('invoices')}}"><i class="la la-spinner"></i><span>Invoice</span></a></li>
                             <li><a href="{{route('users')}}"><i class="la la-users"></i><span>Users</span></a></li>
                             <li><a href="{{route('recipients')}}"><i class="la la-users"></i><span>Recipients</span></a></li>
+                            <li><a href="{{route('products')}}"><i class="ion ion-cube"></i><span>Products</span></a></li>
                         </ul>
                         <!-- <span class="heading">Components</span>
                         <ul class="list-unstyled">

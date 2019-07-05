@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 class User extends Authenticatable
 {
-    use Notifiable;
     use HasRoles;
+    use Notifiable;
+    use HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -56,5 +58,18 @@ class User extends Authenticatable
         $this->save();
 
         return $this->api_token;
+    }
+
+    function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('logo')
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('thumb')
+                    ->width(100)
+                    ->height(100);
+            })
+            ->singleFile();
     }
 }

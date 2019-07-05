@@ -1,4 +1,3 @@
-require('bootbox');
 $(function () {
 		let userEdit = new editUser();
 
@@ -28,7 +27,8 @@ class editUser{
 				});
 			},
 			onTabClick(tab,navigation,index){
-				return false;
+				if(!profile)
+					return false;
 			},
 			onNext(tab,navigation,index){
 				if(index == 1){
@@ -46,6 +46,9 @@ class editUser{
 
 		this.initPersonalValidate();
 		this.initBusinessValidate();
+
+		if(profile)
+			this.initMediaUpload();
 	}
 
 	initPersonalValidate(){
@@ -78,6 +81,12 @@ class editUser{
 				if(self.validation['business'].length == 0)
 					self.validate = true;
 		});
+	}
+
+	initMediaUpload(){
+		$('#file_upload').on('click',function(){
+			$('input[name="logo"]').trigger('click');
+		})
 	}
 
 	step1(){
