@@ -39,7 +39,7 @@ https://www.tooplate.com/view/2115-marvel
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav ml-lg-auto">
                     <li class="nav-item">
                         <a href="#about" class="nav-link"><span data-hover="About">About</span></a>
                     </li>
@@ -52,15 +52,6 @@ https://www.tooplate.com/view/2115-marvel
                     <li class="nav-item">
                         <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
                     </li>
-                </ul>
-
-                <ul class="navbar-nav ml-lg-auto">
-                    <div class="ml-lg-4">
-                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
-                        <i class="color-mode-icon"></i>
-                        Color mode
-                      </div>
-                    </div>
                 </ul>
             </div>
         </div>
