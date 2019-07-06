@@ -14,8 +14,8 @@ class CreateItemTaxesTable extends Migration
     public function up()
     {
         Schema::create('item_taxes', function (Blueprint $table) {
-            $table->bigUnsignedInteger('item_id');
-            $table->bigUnsignedInteger('tax_id');
+            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('tax_id');
         });
     }
 
