@@ -2,7 +2,8 @@
 
 namespace App\DataTables;
 
-use App\User;
+use Auth;
+use App\Models\Item;
 use Yajra\DataTables\Services\DataTable;
 
 class ProductDataTable extends DataTable
@@ -15,8 +16,11 @@ class ProductDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables($query)
-            ->addColumn('action', 'product.action');
+        return datatables($query)->editColumn('created_at',function($query){
+            return $query->created_at->format('j F, Y');
+        })->editColumn('quantity',function($query){
+            return $query->quantity." ".$query->unit;
+        });
     }
 
     /**
@@ -25,47 +29,8 @@ class ProductDataTable extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Item $model)
     {
-        return $model->newQuery()->select('id', 'add-your-columns-here', 'created_at', 'updated_at');
-    }
-
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
-    public function html()
-    {
-        return $this->builder()
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->addAction(['width' => '80px'])
-                    ->parameters($this->getBuilderParameters());
-    }
-
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
-    protected function getColumns()
-    {
-        return [
-            'id',
-            'add your columns',
-            'created_at',
-            'updated_at'
-        ];
-    }
-
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'Product_' . date('YmdHis');
+        return $model->newQuery()->select('*')->where('user_id',Auth::user()->id);
     }
 }

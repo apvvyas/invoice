@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use JavaScript;
 use App\Models\Item;
+use App\Models\Tax;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\ProductService;
-use App\DataTables\UserDataTable;
+use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Products\AddRequest;
 use App\Http\Requests\Products\UpdateRequest;
@@ -49,7 +50,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.add');
+        $taxes = Tax::all();
+        return view('admin.products.add')->with(compact('taxes'));
     }
 
     /**
@@ -70,7 +72,7 @@ class ProductController extends Controller
             $message = 'Product stored successfully';
         }
 
-        return response()->json(compact('message'),$status);
+        return redirect()->route('products')->with($message);
     }
 
     /**
@@ -92,8 +94,8 @@ class ProductController extends Controller
      */
     public function edit(Item $product)
     {
-        JavaScript::put('product_id',$product->id);
-        return view('admin.products.edit')->with('product',$product);
+        $taxes = Tax::all();
+        return view('admin.products.edit')->with(compact('product','taxes'));
     }
 
     /**
@@ -115,7 +117,7 @@ class ProductController extends Controller
             $message = 'Product updated successfully';
         }
 
-        return response()->json(compact('message'),$status);
+        return redirect()->route('products')->with($message);
     }
 
     /**

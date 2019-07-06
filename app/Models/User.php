@@ -51,6 +51,10 @@ class User extends Authenticatable
         return $this->hasOne(UserDetail::class);
     }
 
+    function items(){
+        return $this->hasMany(Item::class);
+    }
+
     function generateToken()
     {
         $token = Str::random(60);
