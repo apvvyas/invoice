@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tax;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Services\TaxService;
+use App\DataTables\TaxDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tax\AddRequest;
+use App\Http\Requests\Tax\UpdateRequest;
 
 class TaxController extends Controller
 {
+
+    protected $service;
+
+
+    function __construct(TaxService $service){
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,17 @@ class TaxController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.taxes.list');
+    }
+
+     /**
+     * Fetch listing of the resource.
+     *
+     * @return \App\DataTables\ProductDataTable
+     */
+    public function list(TaxDataTable $datatable){
+
+        return $datatable->ajax();
     }
 
     /**
@@ -24,7 +47,7 @@ class TaxController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.taxes.add');
     }
 
     /**
@@ -33,9 +56,19 @@ class TaxController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
-        //
+        $tax = $this->service->save($request->all());
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'Tax store failed';
+        
+        if($tax){
+            $status = Response::HTTP_OK;
+            $message = 'Tax stored successfully';
+        }
+
+        return redirect()->route('taxes')->with($message);
     }
 
     /**
@@ -55,9 +88,9 @@ class TaxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tax $tax)
     {
-        //
+        return view('admin.taxes.edit')->with(compact('tax'));
     }
 
     /**
@@ -67,9 +100,19 @@ class TaxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Tax $tax)
     {
-        //
+        $tax = $this->service->update($request->all(),$tax);
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'Product update failed';
+        
+        if($tax){
+            $status = Response::HTTP_OK;
+            $message = 'Product updated successfully';
+        }
+
+        return redirect()->route('taxes')->with($message);
     }
 
     /**
@@ -78,8 +121,18 @@ class TaxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tax $tax)
     {
-        //
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR; 
+        $message = 'Some Error occured please try again';
+        
+        if($tax->delete()){
+            
+            $status = Response::HTTP_OK;
+            $message = 'Product deleted successfully';
+        
+        }
+        
+        return redirect()->route('taxes')->with($message);
     }
 }

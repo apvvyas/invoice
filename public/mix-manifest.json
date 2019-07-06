@@ -10,6 +10,7 @@
     "/js/pages/recipient-add.js": "/js/pages/recipient-add.js",
     "/js/pages/recipient-edit.js": "/js/pages/recipient-edit.js",
     "/js/pages/recipient-list.js": "/js/pages/recipient-list.js",
+    "/js/pages/tax-list.js": "/js/pages/tax-list.js",
     "/js/pages/user-add.js": "/js/pages/user-add.js",
     "/js/pages/user-edit.js": "/js/pages/user-edit.js",
     "/js/pages/user-list.js": "/js/pages/user-list.js"

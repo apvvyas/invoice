@@ -1,9 +1,17 @@
 <?php
 
-namespace App\Repositories\;
+namespace App\Repositories;
 
-use Illuminate\Http\Request;
+use App\Models\Tax;
 
 class TaxRepository
 {
+    function create($data){
+		return Tax::create($data);
+    }
+    
+    function update($data,$tax){
+		$tax->update($data);
+		return $tax;
+	}
 }

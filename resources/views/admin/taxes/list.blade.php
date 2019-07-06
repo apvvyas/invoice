@@ -29,10 +29,10 @@
 @section('content')
 <div class="widget has-shadow">
     <div class="widget-header bordered no-actions d-flex align-items-center">
-        <h2>Products List</h2>
+        <h2>Tax List</h2>
         <div class="widget-options">
 			<div class="btn-group" role="group">
-				<a href="{{route('product.create')}}" class="btn btn-primary ripple">Add Product</a>
+				<a href="{{route('tax.create')}}" class="btn btn-primary ripple">Add Tax</a>
 			</div>
 		</div>
     </div>
@@ -40,7 +40,7 @@
         <div class="row flex-row justify-content-center">
             <div class="col-xl-12">
             	<div class="table-responsive">
-					<table id="export-table" class="table mb-0" data-url="{{route('products.list')}}">
+					<table id="export-table" class="table mb-0" data-url="{{route('taxes.list')}}">
 						<thead>
 							<tr>
 								<th>Name</th>
