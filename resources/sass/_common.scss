@@ -40,3 +40,14 @@
 .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label{
 	color:$danger;
 }
+
+div.img-company-logo{
+	background:url('../images/logoupload.png');
+	background-size: cover;
+	height: 190px;
+}
+.img-company-logo{
+	width:250px;
+
+	
+}

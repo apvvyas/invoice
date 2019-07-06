@@ -91,13 +91,12 @@ Author: SAEROX
         
         @stack('datatable-js')
         
-         <script src="/vendors/js/base/core.min.js"></script>
-
+        <script src="/vendors/js/base/core.min.js"></script>
+        <script src="/vendors/js/b4alert/boot4alert.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
         @stack('vendor-js')
         
         <!-- End Vendor Js -->
-
-
 
         <!-- Begin Page Vendor Js -->
         <script src="/vendors/js/nicescroll/nicescroll.min.js"></script>
@@ -105,8 +104,6 @@ Author: SAEROX
         <script src="/vendors/js/calendar/moment.min.js"></script>
         
         @stack('page-vendor-js')
-
-       
         
         <script src="/vendors/js/app/app.min.js"></script>
         

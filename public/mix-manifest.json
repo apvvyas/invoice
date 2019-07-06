@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/js/bootstrap.js": "/js/bootstrap.js",
     "/js/pages/invoice-add.js": "/js/pages/invoice-add.js",
     "/js/pages/invoice-list.js": "/js/pages/invoice-list.js",
     "/js/pages/recipient-add.js": "/js/pages/recipient-add.js",

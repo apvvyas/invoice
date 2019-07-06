@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Auth;
 use JavaScript;
-use App\Models\User;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Services\UserService;
+use App\Services\ProductService;
 use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\AddRequest;
-use App\Http\Requests\Users\UpdateRequest;
+use App\Http\Requests\Products\AddRequest;
+use App\Http\Requests\Products\UpdateRequest;
 
-
-class UserController extends Controller
+class ProductController extends Controller
 {
-
     protected $service;
 
 
-    function __construct(UserService $service){
+    function __construct(ProductService $service){
         $this->service = $service;
     }
 
@@ -31,16 +28,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.list');
+        return view('admin.products.list');
     }
 
 
     /**
      * Fetch listing of the resource.
      *
-     * @return \App\DataTables\UserDataTable
+     * @return \App\DataTables\ProductDataTable
      */
-    public function list(UserDataTable $datatable){
+    public function list(ProductDataTable $datatable){
 
         return $datatable->ajax();
     }
@@ -52,7 +49,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.add');
+        return view('admin.products.add');
     }
 
     /**
@@ -63,14 +60,14 @@ class UserController extends Controller
      */
     public function store(AddRequest $request)
     {
-        $user = $this->service->save($request->all());
+        $product = $this->service->save($request->all());
 
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
-        $message = 'User store failed';
+        $message = 'Product store failed';
         
-        if($user){
+        if($product){
             $status = Response::HTTP_OK;
-            $message = 'User stored successfully';
+            $message = 'Product stored successfully';
         }
 
         return response()->json(compact('message'),$status);
@@ -82,18 +79,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Item $product)
     {
-        return view('admin.users.show')->with('user',$user);
-    }
-
-    public function profile(){
-        $user = Auth::user();
-        JavaScript::put([
-            'user_id' => $user->id,
-            'profile' => true
-        ]);
-        return view('admin.users.edit')->with('user',$user);
+        return view('admin.products.show')->with('product',$product);
     }
 
     /**
@@ -102,10 +90,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Item $product)
     {
-        JavaScript::put('user_id',$user->id);
-        return view('admin.users.edit')->with('user',$user);
+        JavaScript::put('product_id',$product->id);
+        return view('admin.products.edit')->with('product',$product);
     }
 
     /**
@@ -115,16 +103,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, User $user)
+    public function update(UpdateRequest $request, Item $product)
     {
-        $user = $this->service->update($request->all(),$user);
+        $product = $this->service->update($request->all(),$product);
 
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
-        $message = 'User update failed';
+        $message = 'Product update failed';
         
-        if($user){
+        if($product){
             $status = Response::HTTP_OK;
-            $message = 'User updated successfully';
+            $message = 'Product updated successfully';
         }
 
         return response()->json(compact('message'),$status);
@@ -136,18 +124,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Item $product)
     {
         $status = Response::HTTP_INTERNAL_SERVER_ERROR; 
         $message = 'Some Error occured please try again';
         
-        if($user->delete()){
+        if($product->delete()){
             
             $status = Response::HTTP_OK;
-            $message = 'User deleted successfully';
+            $message = 'Product deleted successfully';
         
         }
         
-        return redirect()->route('users')->with($message);
+        return redirect()->route('products')->with($message);
     }
 }

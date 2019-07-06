@@ -66,6 +66,17 @@ Route::group(['middleware' => 'auth'], function () {
 				Route::delete('/delete/{recipient}','RecipientController@destroy')->name('recipient.destroy');
 			});
 			
+			// Product Controls
+			Route::prefix('products')->group(function () {
+				Route::get('/','ProductController@index')->name('products');
+				Route::get('/list','ProductController@list')->name('products.list');
+				Route::get('/add','ProductController@create')->name('product.create');
+				Route::post('/save','ProductController@store')->name('product.save');
+				Route::get('/edit/{product}','ProductController@edit')->name('product.edit');
+				Route::post('/update/{product}','ProductController@update')->name('product.update');
+				Route::get('/details/{product}','ProductController@show')->name('product.show');
+				Route::delete('/delete/{product}','ProductController@destroy')->name('product.destroy');
+			});
 
 		});
 		

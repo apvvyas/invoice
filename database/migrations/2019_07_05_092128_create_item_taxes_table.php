@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddApiTokenToUsers extends Migration
+class CreateItemTaxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class AddApiTokenToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token', 80)->after('password')
-                       ->unique()
-                       ->nullable()
-                       ->default(null);
-       });
+        Schema::create('item_taxes', function (Blueprint $table) {
+            $table->bigUnsignedInteger('item_id');
+            $table->bigUnsignedInteger('tax_id');
+        });
     }
 
     /**
@@ -28,6 +26,6 @@ class AddApiTokenToUsers extends Migration
      */
     public function down()
     {
-        
+        Schema::dropIfExists('item_taxes');
     }
 }

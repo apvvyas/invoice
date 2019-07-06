@@ -10,30 +10,6 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
-import validator from 'bootstrap-validator';
-window.box = require('bootbox');
-
-//require('jquery-serializejson');
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 
 window.extractColumn = function (arr, column) {
   return arr.map(x => x[column])
@@ -98,64 +74,3 @@ window.dtable = function(identity,options){
 		};
 	return $(identity).DataTable($.extend({}, tableOptions, options));
 }
-
-
-var submitDeleteResourceForm = function(deleteUrl) {
-    $('<form>', {
-        'method': 'POST',
-        'action': deleteUrl,
-        'target': '_top'
-    })
-    .append($('<input>', {
-        'name': '_token',
-        'value': $('meta[name="csrf-token"]').attr('content'),
-        'type': 'hidden'
-    }))
-    .append($('<input>', {
-        'name': '_method',
-        'value': 'DELETE',
-        'type': 'hidden'
-    }))
-    .hide().appendTo("body").submit();
-};
-
-window.buildEditAction = function(link) {
-    return $("<div />").append(
-            $('<a />', {
-                html: '<i class="la la-pencil"></i>',
-                href: link || 'javascript:void(0)',
-                title: 'Edit',
-                class: 'btn btn-md btn-round-sm btn-info ml-1 mr-1',
-            })).html();
-};
-
-window.buildDeleteAction = function(link) {
-    return $("<div />").append(
-            $('<a />', {
-                html: '<i class="la la-trash"></i>',
-                href: link || 'javascript:void(0)',
-                title: 'Delete',
-                class: 'btn btn-md btn-round-sm btn-danger ml-1 mr-1 delete-confirmation-button',
-            })).html();
-};
-
-window.buildViewAction = function(link) {
-   return $("<div />").append(
-            $('<a />', {
-                html: '<i class="la la-eye"></i>',
-                href: link || 'javascript:void(0)',
-                title: 'View',
-                class: 'btn btn-md btn-round-sm btn-info ml-1 mr-1',
-            })).html();
-};
-
-window.initConfirmationOnDelete = function() {
-        $('.delete-confirmation-button').on('click', function(event) {
-            event.preventDefault();
-            var deleteUrl = $(this).attr('href');
-            box.confirm("Are you sure you want to delete?", function(result){
-			    if(result)
-			    	submitDeleteResourceForm(deleteUrl);
-			})
-        });
-    };
