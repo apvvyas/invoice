@@ -26,7 +26,8 @@ class CreateViewSet extends Command
     protected $default_files = [
         'list.blade.php',
         'add.blade.php',
-        'edit.blade.php'
+        'edit.blade.php',
+        'show.blade.php'
     ];
 
     /**
