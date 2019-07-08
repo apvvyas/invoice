@@ -119,7 +119,7 @@
 						</table>
 					</div>
 				</div>
-
+				@if(count($invoice->tax))
 				<div class="col-xl-12 desc-tables">
 					<div class="table-responsive">
 						<table class="table">
@@ -146,7 +146,7 @@
 						</table>
 					</div>
 				</div>
-
+				@endif
 			</div>
 
 

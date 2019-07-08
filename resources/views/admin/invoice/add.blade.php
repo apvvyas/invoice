@@ -3,13 +3,14 @@
 @push('css')
 
 <link rel="stylesheet" href="/css/bootstrap-select/bootstrap-select.min.css">
-
+<link rel="stylesheet" href="/css/bootstrap-select/ajax-bootstrap-select.min.css">
 @endpush
 
 @push('page-vendor-js')
     <script src="/vendors/js/datepicker/moment.min.js"></script>
     <script src="/vendors/js/bootstrap-wizard/bootstrap.wizard.min.js"></script>
     <script src="/vendors/js/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="/vendors/js/bootstrap-select/ajax-bootstrap-select.min.js"></script>
     <script src="/vendors/js/datepicker/daterangepicker.js"></script>
     <script src="/js/components/datepicker/datepicker.js"></script>
 @endpush
@@ -106,11 +107,14 @@
 									<h4>Set items</h4>
 								</div>
                                 <div class="widget-body">
-                                    <form id="createItem">
+                                    <form id="createItem" autocomplete="off">
                                     <div class="form-group row mb-5 bordered">
-                                        
+                                            <input type="hidden" name="item_id[]" value="">
+                                            <input type="hidden" value="" name="item_tax_id[]">
+                                            <input type="hidden" value="" name="item_tax_name[]">
+                                            <input type="hidden" value="" name="item_tax_percent_value[]">
                                             <div class="col-xl-5">
-                                                <input type="text" placeholder="Item or Service name" name="item_name[]" class="form-control" required="">
+                                                <input type="text" placeholder="Item or Service name" name="item_name[]" id="item" class="form-control" required="">
                                             </div>
                                             <div class="col-xl-2">
                                                 <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
@@ -209,14 +213,14 @@
                                 <div class="widget-body">
                                     <form id="createTax">
                                     <div class="form-group row mb-3 bordered">
-                                        
+                                            <input type="hidden" value="" name="tax_id[]">
                                             <div class="col-xl-7">
                                                 <input type="text" placeholder="Tax name" name="tax_name[]" class="form-control" required="">
                                             </div>
                                             <div class="col-xl-3">
                                                 <div class="input-group">
                                                     
-                                                    <input type="text" placeholder="Amount" name="item_quantity[]" class="form-control" required="">
+                                                    <input type="text" placeholder="Amount" name="tax_rate[]" class="form-control" required="">
                                                     <span class="input-group-addon addon-primary">%</span>
                                                 </div>
                                                 

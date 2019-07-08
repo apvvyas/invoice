@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use JavaScript;
 use App\Models\Item;
 use App\Models\Tax;
 use Illuminate\Http\Request;
@@ -10,8 +9,10 @@ use Illuminate\Http\Response;
 use App\Services\ProductService;
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductSelect2;
 use App\Http\Requests\Products\AddRequest;
 use App\Http\Requests\Products\UpdateRequest;
+
 
 class ProductController extends Controller
 {
@@ -139,5 +140,16 @@ class ProductController extends Controller
         }
         
         return redirect()->route('products')->with($message);
+    }
+
+    /**
+     * Find the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function autocomplete(Request $request){
+        $data = $this->service->get($request);
+        return response()->json( ProductSelect2::collection($data));
     }
 }

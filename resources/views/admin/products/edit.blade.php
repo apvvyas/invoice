@@ -56,7 +56,7 @@
                                 <option 
 								value="{{$tax->id}}" 
 								data-subtext="{{$tax->rate}} %"
-								@if(count($product->tax) > 0 && ($tax->id == $product->tax[0]->tax_id))
+								@if(count($product->tax) > 0 && ($tax->id == $product->item_tax[0]->tax_id))
 									selected=""
 								@endif
 								>

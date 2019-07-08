@@ -4,7 +4,6 @@ $(function () {
 		$('#add-recipient-modal').on('shown.bs.modal',function(){
 			$('#add_recipient').submit(function(e){
 				e.preventDefault();
-				alert('asdasd');
 				invoiceNew.saveRecipientDetails();
 			});	
 		})
@@ -16,6 +15,11 @@ $(function () {
 		$('input[name="company_name"] , input[name="gst_number"]').on('keyup',function(e){
 			if(e.keyCode == 13){
 				invoiceNew.fetchRecipientList();
+			}
+		});
+		$('input[name="item_name[]"]').on('keyup',function(e){
+			if(e.keyCode != 13){
+				invoiceNew.resetProductHidden(false);
 			}
 		});
 		$('#createItem').on('submit',function(e){
@@ -84,6 +88,11 @@ class addInvoice{
 		this.invoice = new Invoice(id);
 		this.itemCount = 0;
 		this.taxCount = 0;
+		this.selectedItem = {};
+		this.initDatePicker();
+	}
+
+	initDatePicker(){
 		$('#invoice_date').daterangepicker({
 			singleDatePicker: true,
 			minDate: moment(),
@@ -91,7 +100,6 @@ class addInvoice{
 			      format: 'DD-MM-YYYY'
 			}
 		});
-
 	}
 
 	step1(){
@@ -112,6 +120,7 @@ class addInvoice{
 			}).show();
 			return false;
 		}
+		this.initProductSearch();
 		this.setTotal();
 	}
 	step2(){
@@ -129,6 +138,7 @@ class addInvoice{
 			}).show();
 			return false;
 		}
+		
 		this.setTotal();
 	}
 	step3(){
@@ -208,11 +218,73 @@ class addInvoice{
 
 	}
 
+	initProductSearch(){
+		let Self = this;
+		let searchObjs = {};
+		$('#item').autocomplete({
+			source:function( request, response ) {
+        $.ajax( {
+          url: route('product.dropdown'),
+          data: {
+            search: request.term
+          },
+          success: function( data ) {
+						console.log(data);
+            response( data );
+          }
+        } );
+			},
+			select:function(event,ui){
+				Self.selectItem(ui.item);
+			}
+		});
+	}
+
+	selectItem(obj){
+		this.selectedItem = obj;
+		$('input[name="item_price[]"]').val(obj.price);
+		$('input[name="item_id[]"]').val(obj.id);
+		if(typeof obj.tax[0] != 'undefined'){
+			$('input[name="item_tax_id[]"]').val(obj.tax[0].id);
+			$('input[name="item_tax_name[]"]').val(obj.tax[0].name);
+			$('input[name="item_tax_percent_value[]"]').val(obj.tax[0].rate);
+		}
+		else{
+			this.resetProductHidden(true);
+		}
+	}
+
+	resetProductHidden(onlyTax){
+		if(typeof onlyTax != 'undefined' && onlyTax == true){
+			$('input[name="item_id[]"]').val('');
+			$('input[name="item_tax_id[]"]').val('');
+		}
+		$('input[name="item_tax_id[]"]').val("");
+		$('input[name="item_tax_name[]"]').val("");
+		$('input[name="item_tax_percent_value[]"]').val("");
+	}
+
 	createItem(formData){
+		let title = formData[4].value;
+		let product_total = this.invoice.product_total_amount(formData[5].value,formData[6].value);
+		let tax_value = this.invoice.product_tax_amount(
+			product_total,
+			formData[3].value
+		)
+		if(tax_value > 0){
+			title += "( +"+ formData[3].value + "% of " + formData[2].value + ")";
+		}
+
 		this.invoice.lineItems = {
-			'name':formData[0].value,
-			'quantity':formData[1].value,
-			'price':formData[2].value,
+			'id':formData[0].value,
+			'tax_id':formData[1].value,
+			'tax_name':formData[2].value,
+			'tax_percent_value':formData[3].value,
+			'name':formData[4].value,
+			"title":title,
+			'quantity':formData[5].value,
+			'price':formData[6].value,
+			'tax_value':tax_value,
 		};
 
 
@@ -222,7 +294,6 @@ class addInvoice{
 
 	refreshItemList(){
 		let lineItems = this.invoice.lineItems;
-		console.log(lineItems);
 
 		let selfObj = this;
 		$('#item_list').html('');
@@ -248,7 +319,7 @@ class addInvoice{
 						},
 						{
 							elem:'#item',
-							value:data.name
+							value:data.title
 						},
 						{
 							elem:'#quantity',
@@ -309,10 +380,11 @@ class addInvoice{
 	}
 
 	createTax(formData){
-		let tax_in_amount = this.invoice.tax_amount(parseFloat(formData[1].value));
+		let tax_in_amount = this.invoice.tax_amount(parseFloat(formData[2].value));
 		this.invoice.tax = {
-			'name':formData[0].value,
-			'amount':parseFloat(formData[1].value),
+			'id':formData[0].value,
+			'name':formData[1].value,
+			'amount':parseFloat(formData[2].value),
 			'tax_in_amount':tax_in_amount
 		};
 
@@ -431,9 +503,13 @@ class Invoice{
 	}
 
 	get total_amount(){
+		let Self = this;
 		let numOr0 = n => isNaN(n) ? 0 : n;
 		let total = this.lineItemSet.reduce(function(a, b){
 				let current_total = numOr0(parseInt(b.quantity)) * numOr0(parseFloat(b.price));
+				if(b.tax_value != ""){
+					current_total = parseFloat(b.tax_value) + parseFloat(current_total);
+				}
 				return (numOr0(a) + current_total);	 
 			
 		},0);	
@@ -442,6 +518,14 @@ class Invoice{
 
 	tax_amount(t){
 		return parseFloat((this.total_amount * t)/ 100).toFixed(2);
+	}
+
+	product_total_amount(price,quantity){
+		return (parseFloat(quantity).toFixed(2) * parseFloat(price).toFixed(2));
+	}
+
+	product_tax_amount(total,t){
+		return parseFloat((total * t)/ 100).toFixed(2);
 	}
 
 	get total_after_tax(){

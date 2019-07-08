@@ -56,7 +56,7 @@
 				<div class="invoice-date d-flex justify-content-xl-end justify-content-center">
 					<span>{{$invoice->created_at->format('F d, Y')}}</span>
 				</div>
-
+				
 				<div class="col-xl-12 desc-tables">
 					<div class="table-responsive">
 						<table class="table">
@@ -87,7 +87,8 @@
 						</table>
 					</div>
 				</div>
-
+				{{dd($invoice->tax)}}
+				@if(count($invoice->tax->count()))
 				<div class="col-xl-12 desc-tables">
 					<div class="table-responsive">
 						<table class="table">
@@ -117,7 +118,7 @@
 
 			</div>
 
-
+			@endif
 			<div class="invoice-footer">
 
 				<div class="invoice-container">

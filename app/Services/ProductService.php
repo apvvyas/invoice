@@ -19,4 +19,8 @@ class ProductService
 	function update($data,$product){
 		return $this->repository->update($data,$product);
 	}
+
+	function get($data){
+		return $this->repository->search($data);
+	}
 }
