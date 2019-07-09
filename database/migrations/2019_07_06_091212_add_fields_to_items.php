@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemTaxesTable extends Migration
+class AddFieldsToItems extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateItemTaxesTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_taxes', function (Blueprint $table) {
-            $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('tax_id');
+        Schema::table('items', function (Blueprint $table) {
+            $table->integer('quantity')->default(0);
+            $table->string('unit')->nullable();
         });
     }
 
@@ -26,6 +26,8 @@ class CreateItemTaxesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_taxes');
+        Schema::table('items', function (Blueprint $table) {
+            //
+        });
     }
 }

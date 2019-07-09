@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Auth;
 use App\Models\Item;
+use App\Models\Tax;
 use App\Models\Invoice;
 use App\Models\InvoiceTax;
 use App\Models\InvoiceTotal;
@@ -40,21 +41,38 @@ class InvoiceRepository
 	}
 
 	function saveInvoiceItem($data,$invoice_id){
+		if(empty($data['id'])){
+			$item = Item::create([
+				'user_id'	=> Auth::user()->id,
+				'name'		=> $data['name'],
+				'price'		=> $data['price']
+			]);
+		}
+		else{
+			$item = Item::find($data['id']);
+			$tax = Tax::find($data['tax_id']);
+		}
 
-		$item = Item::create([
-			'user_id'	=> Auth::user()->id,
-			'name'		=> $data['name'],
-			'price'		=> $data['price']
-		]);
+		$total = ($data['quantity']*$data['price']);
+		$tax = 0; 
+		if(!empty($data['tax_percent_value']))
+			$tax = (($total * $data['tax_percent_value'])/100);
 
+		$total = $total + $tax;
 		InvoiceItem::create([
-			'item_id'	=> $item->id,
-			'invoice_id'=> $invoice_id,
-			'quantity' 	=> $data['quantity'],
-			'total'		=> ($data['quantity']*$data['price'])
+			'item_id'		=> $item->id,
+			'invoice_id'	=> $invoice_id,
+			'name'			=> $item->name,
+			'price'			=> $item->price,
+			'description'	=> $item->description,
+			'tax_name'		=> (!empty($tax->name))?$tax->name : '',
+			'tax_percent_value'		=> (!empty($tax->rate))?$tax->rate : '',
+			'tax_value'		=> $tax,
+			'quantity' 		=> $data['quantity'],
+			'total'			=> $total
 		]);
 
-		return ($data['quantity']*$data['price']);
+		return ($total);
 		
 	}
 

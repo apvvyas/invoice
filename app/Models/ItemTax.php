@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemTax extends Model
 {
-    //
+    protected $fillable = [
+        'item_id','tax_id'
+    ];
+
+    public $timestamps = false; 
 }

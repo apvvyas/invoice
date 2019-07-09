@@ -18,7 +18,6 @@ class CreateTaxesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('rate');
-            $table->timestamps();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();

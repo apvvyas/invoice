@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Products;
+namespace App\Http\Requests\Tax;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

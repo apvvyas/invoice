@@ -105,7 +105,6 @@ $(function () {
   $('#add-recipient-modal').on('shown.bs.modal', function () {
     $('#add_recipient').submit(function (e) {
       e.preventDefault();
-      alert('asdasd');
       invoiceNew.saveRecipientDetails();
     });
   });
@@ -117,6 +116,11 @@ $(function () {
   $('input[name="company_name"] , input[name="gst_number"]').on('keyup', function (e) {
     if (e.keyCode == 13) {
       invoiceNew.fetchRecipientList();
+    }
+  });
+  $('input[name="item_name[]"]').on('keyup', function (e) {
+    if (e.keyCode != 13) {
+      invoiceNew.resetProductHidden(false);
     }
   });
   $('#createItem').on('submit', function (e) {
@@ -183,16 +187,22 @@ function () {
     this.invoice = new Invoice(id);
     this.itemCount = 0;
     this.taxCount = 0;
-    $('#invoice_date').daterangepicker({
-      singleDatePicker: true,
-      minDate: moment(),
-      locale: {
-        format: 'DD-MM-YYYY'
-      }
-    });
+    this.selectedItem = {};
+    this.initDatePicker();
   }
 
   _createClass(addInvoice, [{
+    key: "initDatePicker",
+    value: function initDatePicker() {
+      $('#invoice_date').daterangepicker({
+        singleDatePicker: true,
+        minDate: moment(),
+        locale: {
+          format: 'DD-MM-YYYY'
+        }
+      });
+    }
+  }, {
     key: "step1",
     value: function step1() {
       var validate = true;
@@ -215,6 +225,7 @@ function () {
         return false;
       }
 
+      this.initProductSearch();
       this.setTotal();
     }
   }, {
@@ -304,12 +315,76 @@ function () {
       });
     }
   }, {
+    key: "initProductSearch",
+    value: function initProductSearch() {
+      var Self = this;
+      var searchObjs = {};
+      $('#item').autocomplete({
+        source: function source(request, response) {
+          $.ajax({
+            url: route('product.dropdown'),
+            data: {
+              search: request.term
+            },
+            success: function success(data) {
+              console.log(data);
+              response(data);
+            }
+          });
+        },
+        select: function select(event, ui) {
+          Self.selectItem(ui.item);
+        }
+      });
+    }
+  }, {
+    key: "selectItem",
+    value: function selectItem(obj) {
+      this.selectedItem = obj;
+      $('input[name="item_price[]"]').val(obj.price);
+      $('input[name="item_id[]"]').val(obj.id);
+
+      if (typeof obj.tax[0] != 'undefined') {
+        $('input[name="item_tax_id[]"]').val(obj.tax[0].id);
+        $('input[name="item_tax_name[]"]').val(obj.tax[0].name);
+        $('input[name="item_tax_percent_value[]"]').val(obj.tax[0].rate);
+      } else {
+        this.resetProductHidden(true);
+      }
+    }
+  }, {
+    key: "resetProductHidden",
+    value: function resetProductHidden(onlyTax) {
+      if (typeof onlyTax != 'undefined' && onlyTax == true) {
+        $('input[name="item_id[]"]').val('');
+        $('input[name="item_tax_id[]"]').val('');
+      }
+
+      $('input[name="item_tax_id[]"]').val("");
+      $('input[name="item_tax_name[]"]').val("");
+      $('input[name="item_tax_percent_value[]"]').val("");
+    }
+  }, {
     key: "createItem",
     value: function createItem(formData) {
+      var title = formData[4].value;
+      var product_total = this.invoice.product_total_amount(formData[5].value, formData[6].value);
+      var tax_value = this.invoice.product_tax_amount(product_total, formData[3].value);
+
+      if (tax_value > 0) {
+        title += "( +" + formData[3].value + "% of " + formData[2].value + ")";
+      }
+
       this.invoice.lineItems = {
-        'name': formData[0].value,
-        'quantity': formData[1].value,
-        'price': formData[2].value
+        'id': formData[0].value,
+        'tax_id': formData[1].value,
+        'tax_name': formData[2].value,
+        'tax_percent_value': formData[3].value,
+        'name': formData[4].value,
+        "title": title,
+        'quantity': formData[5].value,
+        'price': formData[6].value,
+        'tax_value': tax_value
       };
       this.prepareItem(this.invoice.lineItems[this.invoice.lineItems.length - 1], 'item');
       this.setTotal();
@@ -318,7 +393,6 @@ function () {
     key: "refreshItemList",
     value: function refreshItemList() {
       var lineItems = this.invoice.lineItems;
-      console.log(lineItems);
       var selfObj = this;
       $('#item_list').html('');
       this.itemCount = 0;
@@ -340,7 +414,7 @@ function () {
             value: this.itemCount + 1
           }, {
             elem: '#item',
-            value: data.name
+            value: data.title
           }, {
             elem: '#quantity',
             value: data.quantity
@@ -391,10 +465,11 @@ function () {
   }, {
     key: "createTax",
     value: function createTax(formData) {
-      var tax_in_amount = this.invoice.tax_amount(parseFloat(formData[1].value));
+      var tax_in_amount = this.invoice.tax_amount(parseFloat(formData[2].value));
       this.invoice.tax = {
-        'name': formData[0].value,
-        'amount': parseFloat(formData[1].value),
+        'id': formData[0].value,
+        'name': formData[1].value,
+        'amount': parseFloat(formData[2].value),
         'tax_in_amount': tax_in_amount
       };
       this.prepareItem(this.invoice.taxItems[this.invoice.taxItems.length - 1], 'tax');
@@ -474,6 +549,16 @@ function () {
       return parseFloat(this.total_amount * t / 100).toFixed(2);
     }
   }, {
+    key: "product_total_amount",
+    value: function product_total_amount(price, quantity) {
+      return parseFloat(quantity).toFixed(2) * parseFloat(price).toFixed(2);
+    }
+  }, {
+    key: "product_tax_amount",
+    value: function product_tax_amount(total, t) {
+      return parseFloat(total * t / 100).toFixed(2);
+    }
+  }, {
     key: "removeItem",
     value: function removeItem(index, type) {
       if (type == 'line') this.lineItemSet.splice(index, 1);else this.taxItemSet.splice(index, 1);
@@ -533,12 +618,19 @@ function () {
   }, {
     key: "total_amount",
     get: function get() {
+      var Self = this;
+
       var numOr0 = function numOr0(n) {
         return isNaN(n) ? 0 : n;
       };
 
       var total = this.lineItemSet.reduce(function (a, b) {
         var current_total = numOr0(parseInt(b.quantity)) * numOr0(parseFloat(b.price));
+
+        if (b.tax_value != "") {
+          current_total = parseFloat(b.tax_value) + parseFloat(current_total);
+        }
+
         return numOr0(a) + current_total;
       }, 0);
       return total;

@@ -32,3 +32,11 @@ mix.js('resources/js/pages/users/index.js','public/js/pages/user-list.js');
 mix.js('resources/js/pages/recipients/add.js','public/js/pages/recipient-add.js');
 mix.js('resources/js/pages/recipients/edit.js','public/js/pages/recipient-edit.js');
 mix.js('resources/js/pages/recipients/index.js','public/js/pages/recipient-list.js');
+
+
+mix.js('resources/js/pages/products/add.js','public/js/pages/product-add.js');
+mix.js('resources/js/pages/products/edit.js','public/js/pages/product-edit.js');
+mix.js('resources/js/pages/products/index.js','public/js/pages/product-list.js');
+
+
+mix.js('resources/js/pages/taxes/index.js','public/js/pages/tax-list.js');

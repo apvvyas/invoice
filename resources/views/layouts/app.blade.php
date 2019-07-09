@@ -31,6 +31,7 @@ Author: SAEROX
         <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
         <!-- Stylesheet -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/vendors/css/base/bootstrap.min.css">
         <link rel="stylesheet" href="/vendors/css/base/elisyam-1.5.min.css">
         <link rel="stylesheet" href="/css/animate/animate.min.css">
@@ -87,6 +88,7 @@ Author: SAEROX
 
         <!-- Begin Vendor Js -->
         <script src="/vendors/js/base/jquery.min.js"></script>
+        <script src="/vendors/js/base/jquery.ui.min.js"></script>
         <script src="/js/app.js"></script>
         
         @stack('datatable-js')

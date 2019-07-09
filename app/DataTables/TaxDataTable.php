@@ -2,11 +2,10 @@
 
 namespace App\DataTables;
 
-use Auth;
-use App\Models\Item;
+use App\Models\Tax;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductDataTable extends DataTable
+class TaxDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -16,10 +15,10 @@ class ProductDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables($query)->editColumn('created_at',function($query){
+        return datatables($query)->editColumn('rate',function($query){
+            return $query->rate." %";
+        })->editColumn('created_at',function($query){
             return $query->created_at->format('j F, Y');
-        })->editColumn('quantity',function($query){
-            return $query->quantity." ".$query->unit;
         });
     }
 
@@ -29,8 +28,8 @@ class ProductDataTable extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Item $model)
+    public function query(Tax $model)
     {
-        return $model->newQuery()->select('*')->where('user_id',Auth::user()->id);
+        return $model->newQuery()->select('*');
     }
 }

@@ -12,7 +12,7 @@ class CreateService extends Command
      *
      * @var string
      */
-    protected $signature = 'make:service {repo}';
+    protected $signature = 'make:service {name}';
 
     /**
      * The console command description.
@@ -28,6 +28,8 @@ class CreateService extends Command
     protected $rootNamespace;
 
     protected $file;
+
+    protected $error_exists = false;
 
     /**
      * Create a new command instance.
@@ -48,12 +50,18 @@ class CreateService extends Command
      */
     public function handle()
     {
-        $this->service   = $this->argument('repo');
-        $this->set_root_and_root_name();
-        $this->check_set_root_path();
-        $this->check_file_exists_else_create();
-        $this->set_details();
-        $this->info('service '.$this->service.' created Successfully');
+        $this->service   = $this->argument('name');
+
+        if(!$this->error_exists)
+            $this->set_root_and_root_name();
+        if(!$this->error_exists)
+            $this->check_set_root_path();
+        if(!$this->error_exists)
+            $this->check_file_exists_else_create();
+        if(!$this->error_exists)
+            $this->set_details();
+        if(!$this->error_exists)
+            $this->info('service '.$this->service.' created Successfully');
     }
 
     public function set_root_and_root_name(){
@@ -79,7 +87,7 @@ class CreateService extends Command
         {
             $this->info($this->file);
             $this->error($this->rootNamespace.'\\'.$this->service.' already exists');
-            exit;
+            $this->error_exists = true; 
         }
         else
         {

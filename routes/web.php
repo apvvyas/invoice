@@ -76,6 +76,18 @@ Route::group(['middleware' => 'auth'], function () {
 				Route::post('/update/{product}','ProductController@update')->name('product.update');
 				Route::get('/details/{product}','ProductController@show')->name('product.show');
 				Route::delete('/delete/{product}','ProductController@destroy')->name('product.destroy');
+				Route::get('/dropdown','ProductController@autocomplete')->name('product.dropdown');
+			});
+
+			// Tax Controls
+			Route::prefix('taxes')->group(function () {
+				Route::get('/','TaxController@index')->name('taxes');
+				Route::get('/list','TaxController@list')->name('taxes.list');
+				Route::get('/add','TaxController@create')->name('tax.create');
+				Route::post('/save','TaxController@store')->name('tax.save');
+				Route::get('/edit/{tax}','TaxController@edit')->name('tax.edit');
+				Route::post('/update/{tax}','TaxController@update')->name('tax.update');
+				Route::delete('/delete/{tax}','TaxController@destroy')->name('tax.destroy');
 			});
 
 		});

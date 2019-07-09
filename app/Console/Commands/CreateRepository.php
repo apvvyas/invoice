@@ -12,7 +12,7 @@ class CreateRepository extends Command
      *
      * @var string
      */
-    protected $signature = 'make:repository {repo}';
+    protected $signature = 'make:repository {name}';
 
     /**
      * The console command description.
@@ -28,6 +28,8 @@ class CreateRepository extends Command
     protected $rootNamespace;
 
     protected $file;
+
+    protected $error_exists = false;
 
     /**
      * Create a new command instance.
@@ -49,12 +51,18 @@ class CreateRepository extends Command
      */
     public function handle()
     {
-        $this->repository   = $this->argument('repo');
-        $this->set_root_and_root_name();
-        $this->check_set_root_path();
-        $this->check_file_exists_else_create();
-        $this->set_details();
-        $this->info('Repository '.$this->repository.' created Successfully');
+        $this->repository   = $this->argument('name');
+
+        if(!$this->error_exists)
+            $this->set_root_and_root_name();
+        if(!$this->error_exists)
+            $this->check_set_root_path();
+        if(!$this->error_exists)
+            $this->check_file_exists_else_create();
+        if(!$this->error_exists)
+            $this->set_details();
+        if(!$this->error_exists)
+            $this->info('Repository '.$this->repository.' created Successfully');
     }
 
     public function set_root_and_root_name(){
@@ -80,7 +88,8 @@ class CreateRepository extends Command
         if(File::exists($this->file))
         {
             $this->error($this->rootNamespace.'\\'.$this->repository.' already exists');
-            exit;
+            $this->error_exists = true;
+            //exit;
         }
         else
         {

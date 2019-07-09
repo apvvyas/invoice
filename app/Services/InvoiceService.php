@@ -38,13 +38,7 @@ class InvoiceService
 
 		array_walk($data['lineItemSet'], function($item,$key,$invoice) use(&$subtotal){
 			
-			$subtotal += $this->repository->saveInvoiceItem([
-				
-				'name'		=> $item['name'],
-				'price' 	=> $item['price'],
-				'quantity' 	=> $item['quantity']
-
-			],$invoice);
+			$subtotal += $this->repository->saveInvoiceItem($item,$invoice);
 
 		}, $invoice_id);
 
