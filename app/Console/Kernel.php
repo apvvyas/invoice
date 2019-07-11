@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
         Commands\CreateService::class,
         Commands\CreateViewSet::class,
         Commands\CreateNewModule::class,
-        Commands\AssignRolePermission::class
+        Commands\AssignRolePermission::class,
+        Commands\RevokeRolePermissions::class
     ];
 
     /**

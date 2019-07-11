@@ -7,14 +7,14 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 
-class AssignRolePermission extends Command
+class RevokeRolePermissions extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'permission:assign-role-permission {role} {permission*}';
+    protected $signature = 'permission:revoke-role-permission {role} {permission*}';
 
     /**
      * The console command description.
@@ -45,6 +45,6 @@ class AssignRolePermission extends Command
         $permissions = $this->argument('permission');
 
         foreach($permissions as $permission)
-            $role->givePermissionTo($permission);
+            $role->revokePermissionTo($permission);
     }
 }
