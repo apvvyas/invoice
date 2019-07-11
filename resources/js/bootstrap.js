@@ -22,30 +22,30 @@ var submitDeleteResourceForm = function(deleteUrl) {
 window.buildEditAction = function(link) {
     return $("<div />").append(
             $('<a />', {
-                html: '<i class="la la-pencil"></i>',
+                html: '<i class="la la-1-5x la-pencil"></i>',
                 href: link || 'javascript:void(0)',
                 title: 'Edit',
-                class: 'btn btn-md btn-round-sm btn-info ml-1 mr-1',
+                class: ' ml-1 mr-1',
             })).html();
 };
 
 window.buildDeleteAction = function(link) {
     return $("<div />").append(
             $('<a />', {
-                html: '<i class="la la-trash"></i>',
+                html: '<i class="la la-1-5x la-trash"></i>',
                 href: link || 'javascript:void(0)',
                 title: 'Delete',
-                class: 'btn btn-md btn-round-sm btn-danger ml-1 mr-1 delete-confirmation-button',
+                class: ' ml-1 mr-1 delete-confirmation-button',
             })).html();
 };
 
 window.buildViewAction = function(link) {
    return $("<div />").append(
             $('<a />', {
-                html: '<i class="la la-eye"></i>',
+                html: '<i class="la la-1-5x la-eye"></i>',
                 href: link || 'javascript:void(0)',
                 title: 'View',
-                class: 'btn btn-md btn-round-sm btn-info ml-1 mr-1',
+                class: 'ml-1 mr-1',
             })).html();
 };
 

@@ -48,16 +48,18 @@ class listRecipient{
                     searchable: false,
                     sortable: false,
                     className: 'text-center text-nowrap',
-                    render: function(data) {
-
+                    render: function(data,type,row) {
 
                         var tableaction = "";
 
-                        tableaction += buildEditAction(route('recipient.edit',{recipient:data}));
+                        if(row.permissions.edit !== false)
+                            tableaction += buildEditAction(route('recipient.edit',{recipient:data}));
                         
-                        tableaction += buildViewAction(route('recipient.show',{recipient:data}));
+                        if(row.permissions.view !== false)                            
+                            tableaction += buildViewAction(route('recipient.show',{recipient:data}));
                         
-                        tableaction += buildDeleteAction(route('recipient.destroy',{recipient:data}))
+                        if(row.permissions.delete !== false)
+                            tableaction += buildDeleteAction(route('recipient.destroy',{recipient:data}))
 
                         return tableaction;
                     }

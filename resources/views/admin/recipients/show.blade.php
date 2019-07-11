@@ -6,7 +6,9 @@
         <h2>Recipient Details</h2>
         <div class="widget-options">
             <div class="btn-group" role="group">
-            	<a href="{{route('recipient.edit',['recipient'=>$recipient])}}" class="btn btn-primary ripple">Edit Recipient</a>
+				@can('edit_recipient')
+				<a href="{{route('recipient.edit',['recipient'=>$recipient])}}" class="btn btn-primary ripple">Edit Recipient</a>
+				@endcan
                 <a href="{{route('recipients')}}" class="btn btn-secondary ripple">Back to Recipients</a>
             </div>
         </div>

@@ -19,6 +19,13 @@ class TaxDataTable extends DataTable
             return $query->rate." %";
         })->editColumn('created_at',function($query){
             return $query->created_at->format('j F, Y');
+        })->addColumn('permissions',function($query){
+            return [
+                'view'=>auth()->user()->hasPermissionTo('view_tax'),
+                'edit'=>auth()->user()->hasPermissionTo('edit_tax'),
+                'delete'=>auth()->user()->hasPermissionTo('delete_tax'),
+            ];
+            
         });
     }
 

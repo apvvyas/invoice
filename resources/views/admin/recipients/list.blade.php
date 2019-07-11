@@ -32,7 +32,9 @@
         <h2>Recipient List</h2>
         <div class="widget-options">
 			<div class="btn-group" role="group">
-				<a href="{{route('recipient.create')}}" class="btn btn-primary ripple">Add Recipient</a>
+                @can('add_recipient')
+                <a href="{{route('recipient.create')}}" class="btn btn-primary ripple">Add Recipient</a>
+                @endcan
 			</div>
 		</div>
     </div>

@@ -109,26 +109,27 @@
                                 <div class="widget-body">
                                     <form id="createItem" autocomplete="off">
                                     <div class="form-group row mb-5 bordered">
-                                            <input type="hidden" name="item_id[]" value="">
-                                            <input type="hidden" value="" name="item_tax_id[]">
-                                            <input type="hidden" value="" name="item_tax_name[]">
-                                            <input type="hidden" value="" name="item_tax_percent_value[]">
-                                            <div class="col-xl-5">
-                                                <input type="text" placeholder="Item or Service name" name="item_name[]" id="item" class="form-control" required="">
+                                        <input type="hidden" name="item_id[]" value="">
+                                        <input type="hidden" value="" name="item_tax_id[]">
+                                        <input type="hidden" value="" name="item_tax_name[]">
+                                        <input type="hidden" value="" name="item_tax_percent_value[]">
+                                        <div class="col-xl-3">
+                                            <input type="text" placeholder="Item or Service name" name="item_name[]" id="item" class="form-control" required="">
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-primary">$</span>
+                                                <input type="text" placeholder="00.00" name="item_price[]" class="form-control" required="">
+                                                <span class="input-group-addon addon-primary">+ <span id="display_tax">0</span>% Tax</span>
                                             </div>
-                                            <div class="col-xl-2">
-                                                <input type="text" placeholder="Quantity" name="item_quantity[]" class="form-control" required="">
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon addon-primary">$</span>
-                                                    <input type="text" placeholder="Price per unit" name="item_price[]" class="form-control" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-2">
-                                                <button id="add_item" class="btn btn-primary ripple">Add Item</button>
-                                            </div>
-                                       
+                                            
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <button class="btn btn-block btn-secondary">Select Item</button>
+                                        </div>
                                     </div>
                                     </form>
                                     <div class="mb-3">
@@ -178,7 +179,9 @@
         		                        </ul>
                                         <form id="recipients_form_select">
                                         <ul id="item_list" class="list-group w-100 widget-scroll" style="max-height: 250px; overflow: hidden; outline: currentcolor none medium;" tabindex="2">
-                                                
+                                              <li class="list-group-item mb-2 mt-2 pt-2 pb-2 text-center" id="no-item">
+                                                <span>No items Added Yet</span>
+                                              </li>  
                                         </ul>
                                         </form>
 										<ul class="list-group w-100 item-list-total mt-2" tabindex="3">
@@ -197,13 +200,16 @@
                                 </div>
                             </div>
                             <ul class="pager wizard text-right">
-                                    <li class="previous d-inline-block">
-                                        <a href="javascript:;" class="btn btn-secondary ripple">Previous</a>
-                                    </li>
-                                    <li class="next d-inline-block">
-                                        <a href="javascript:;" class="btn btn-gradient-01">Next</a>
-                                    </li>
-                                </ul>
+                                <li class="d-inline-block pull-left">
+                                    <button data-toggle="modal" data-target="#add-product-modal" class="btn btn-primary ripple">Add Item</button>
+                                </li>
+                                <li class="previous d-inline-block">
+                                    <a href="javascript:;" class="btn btn-secondary ripple">Previous</a>
+                                </li>
+                                <li class="next d-inline-block">
+                                    <a href="javascript:;" class="btn btn-gradient-01">Next</a>
+                                </li>
+                            </ul>
                         </div>
                         <div class="tab-pane" id="tab3">
                             <div class="widget widget-19 has-border">
@@ -379,5 +385,6 @@
 @push('modal')
 
     @include('admin.recipients.add-modal')
+    @include('admin.invoice.add-item-modal')
 
 @endpush

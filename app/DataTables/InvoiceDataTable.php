@@ -38,6 +38,12 @@ class InvoiceDataTable extends DataTable
                     return $query->recipient->company_name;
                 }
                 return '-';
+            })->addColumn('permissions',function($query){
+                return [
+                    'view'=>auth()->user()->hasPermissionTo('view_invoice'),
+                    'delete'=>auth()->user()->hasPermissionTo('delete_invoice')
+                ];
+                
             });
     }
 

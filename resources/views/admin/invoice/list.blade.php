@@ -32,7 +32,9 @@
         <h2>Invoice List</h2>
         <div class="widget-options">
 			<div class="btn-group" role="group">
+				@can('add_invoice')
 				<a href="{{route('invoice.create')}}" class="btn btn-primary ripple">Add Invoice</a>
+				@endcan
 			</div>
 		</div>
     </div>

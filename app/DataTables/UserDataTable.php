@@ -26,7 +26,14 @@ class UserDataTable extends DataTable
                  return $query->details->business_name;
                 }
                 return '-';
-             });
+             })->addColumn('permissions',function($query){
+                return [
+                    'view'=>auth()->user()->hasPermissionTo('view_user'),
+                    'edit'=>auth()->user()->hasPermissionTo('edit_user'),
+                    'delete'=>auth()->user()->hasPermissionTo('delete_user'),
+                ];
+                
+            });
     }
 
     /**
@@ -37,6 +44,9 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->select('*')->role('Admin')->with('details');
+        $role = 'Admin';
+        if(auth()->user()->hasRole('Admin'))
+            $role = 'Admin';
+        return $model->newQuery()->select('*')->role($role)->with('details');
     }
 }

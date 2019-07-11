@@ -35,8 +35,6 @@ class listInvoice{
 						    title: data.text
 						}).html(data.text);
 
-                    	console.log(data);
-
 						let div = $('<div/>').html(status);
 
 						return div.html();
@@ -53,14 +51,16 @@ class listInvoice{
                     searchable: false,
                     sortable: false,
                     className: 'text-center text-nowrap',
-                    render: function(data) {
+                    render: function(data,type,row) {
 
-
+                        
                         var tableaction = "";
                         
-                        tableaction += buildViewAction(route('invoice.show',{invoice:data}));
+                        if(row.permissions.view !== false)
+                            tableaction += buildViewAction(route('invoice.show',{invoice:data}));
                         
-                        tableaction += buildDeleteAction(route('invoice.destroy',{invoice:data}))
+                        if(row.permissions.delete !== false)
+                            tableaction += buildDeleteAction(route('invoice.destroy',{invoice:data}))
 
                         return tableaction;
                     }

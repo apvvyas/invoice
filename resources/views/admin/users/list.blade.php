@@ -32,7 +32,9 @@
         <h2>Users List</h2>
         <div class="widget-options">
 			<div class="btn-group" role="group">
+				@can('add_user')
 				<a href="{{route('user.create')}}" class="btn btn-primary ripple">Add User</a>
+				@endcan
 			</div>
 		</div>
     </div>

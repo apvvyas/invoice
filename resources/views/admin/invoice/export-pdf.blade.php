@@ -87,7 +87,6 @@
 						</table>
 					</div>
 				</div>
-				{{dd($invoice->tax)}}
 				@if(count($invoice->tax->count()))
 				<div class="col-xl-12 desc-tables">
 					<div class="table-responsive">

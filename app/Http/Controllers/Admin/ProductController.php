@@ -73,6 +73,10 @@ class ProductController extends Controller
             $message = 'Product stored successfully';
         }
 
+        if($request->ajax()){
+            $tax = $product->tax->first();
+            return response()->json(compact('message','product','tax'),$status);
+        }
         return redirect()->route('products')->with($message);
     }
 

@@ -32,7 +32,9 @@
         <h2>Products List</h2>
         <div class="widget-options">
 			<div class="btn-group" role="group">
+				@can('add_product')
 				<a href="{{route('product.create')}}" class="btn btn-primary ripple">Add Product</a>
+				@endcan
 			</div>
 		</div>
     </div>

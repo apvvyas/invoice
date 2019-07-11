@@ -20,6 +20,13 @@ class ProductDataTable extends DataTable
             return $query->created_at->format('j F, Y');
         })->editColumn('quantity',function($query){
             return $query->quantity." ".$query->unit;
+        })->addColumn('permissions',function($query){
+            return [
+                'view'=>auth()->user()->hasPermissionTo('view_product'),
+                'edit'=>auth()->user()->hasPermissionTo('edit_product'),
+                'delete'=>auth()->user()->hasPermissionTo('delete_product'),
+            ];
+            
         });
     }
 
@@ -31,6 +38,11 @@ class ProductDataTable extends DataTable
      */
     public function query(Item $model)
     {
-        return $model->newQuery()->select('*')->where('user_id',Auth::user()->id);
+        $query = $model->newQuery()->select('*');
+        
+        if(auth()->user()->hasRole('User'))
+            $query->where('user_id',Auth::user()->id);
+
+        return $query;
     }
 }

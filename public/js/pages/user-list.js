@@ -132,15 +132,15 @@ var listUser = function listUser() {
       searchable: false,
       sortable: false,
       className: 'text-center text-nowrap',
-      render: function render(data) {
+      render: function render(data, type, row) {
         var tableaction = "";
-        tableaction += buildEditAction(route('user.edit', {
+        if (row.permissions.edit !== false) tableaction += buildEditAction(route('user.edit', {
           user: data
         }));
-        tableaction += buildViewAction(route('user.show', {
+        if (row.permissions.view !== false) tableaction += buildViewAction(route('user.show', {
           user: data
         }));
-        tableaction += buildDeleteAction(route('user.destroy', {
+        if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('user.destroy', {
           user: data
         }));
         return tableaction;

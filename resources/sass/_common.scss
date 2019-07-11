@@ -1,4 +1,4 @@
-.btn-round-sm{
+	.btn-round-sm{
 	border-radius:$border-round;
 	padding:7px 7px;
 
@@ -47,7 +47,27 @@ div.img-company-logo{
 	height: 190px;
 }
 .img-company-logo{
-	width:250px;
+	width:250px;	
+}
 
-	
+.ui-widget.ui-widget-content {
+	border: 1px solid #e9e7f3;
+	border-radius: 5px;
+}
+
+.ui-menu .ui-menu-item-wrapper{
+	padding: 8px 10px;
+	border-bottom: 1px solid #e9e7f3;
+}
+
+.ui-state-active {
+	border: 1px solid #5d5386;
+	background: hsla(252, 24%, 43%, 0.9);
+}
+
+table {
+    color: #212529;
+}
+body {
+    font-family: monospace; 
 }

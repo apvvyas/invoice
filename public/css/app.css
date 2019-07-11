@@ -59,3 +59,26 @@ div.img-company-logo {
   width: 250px;
 }
 
+.ui-widget.ui-widget-content {
+  border: 1px solid #e9e7f3;
+  border-radius: 5px;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e9e7f3;
+}
+
+.ui-state-active {
+  border: 1px solid #5d5386;
+  background: rgba(94, 83, 136, 0.9);
+}
+
+table {
+  color: #212529;
+}
+
+body {
+  font-family: monospace;
+}
+

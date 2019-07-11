@@ -40,14 +40,15 @@ class listTax{
                     searchable: false,
                     sortable: false,
                     className: 'text-center text-nowrap',
-                    render: function(data) {
+                    render: function(data,type,row) {
 
 
                         var tableaction = "";
 
-                        tableaction += buildEditAction(route('tax.edit',{tax:data}));
-                        
-                        tableaction += buildDeleteAction(route('tax.destroy',{tax:data}))
+                        if(row.permissions.edit !== false)
+                            tableaction += buildEditAction(route('tax.edit',{tax:data}));
+                        if(row.permissions.delete !== false)
+                            tableaction += buildDeleteAction(route('tax.destroy',{tax:data}))
 
                         return tableaction;
                     }

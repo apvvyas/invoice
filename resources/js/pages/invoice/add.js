@@ -12,6 +12,15 @@ $(function () {
 			$('body').removeClass('modal-open');
 			$('.modal-backdrop').remove();
 		});
+		$('#add_product').submit(function(e){
+			e.preventDefault();
+			invoiceNew.saveProductDetails();
+		});	
+		$('#add-product-modal').on('hidden.bs.modal',function(){
+			$('#add_product')[0].reset();
+			$('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+		});
 		$('input[name="company_name"] , input[name="gst_number"]').on('keyup',function(e){
 			if(e.keyCode == 13){
 				invoiceNew.fetchRecipientList();
@@ -25,6 +34,7 @@ $(function () {
 		$('#createItem').on('submit',function(e){
 			e.preventDefault();
 			invoiceNew.createItem($(this).serializeArray());
+			$('#no-item').addClass('d-none');
 			$(this)[0].reset();
 		});
 		$('#createTax').on('submit',function(e){
@@ -180,6 +190,28 @@ class addInvoice{
 		  return false;
 	}
 
+	saveProductDetails(){
+		let self = this;
+		axios.post(route('product.save'),
+			new FormData($('#add_product')[0]),
+		).then(function (response) {
+				// handle success
+				self.selectItem(response.data.product,true);
+				$('#createItem').submit();
+				$('#display_tax').html('0');
+		    $('#add-product-modal').modal('hide');
+		  })
+		  .catch(function (error) {
+		    // handle error
+		    console.log(error);
+		  })
+		  .finally(function () {
+		    // always executed
+		  });
+
+		  return false;
+	}
+
 	fetchRecipientList(){
 		let self = this;
 		axios.get(route('user.recipient.list'),{
@@ -240,17 +272,23 @@ class addInvoice{
 		});
 	}
 
-	selectItem(obj){
+	selectItem(obj,considerQuantity){
 		this.selectedItem = obj;
+		$('input[name="item_name[]"]').val(obj.name);
 		$('input[name="item_price[]"]').val(obj.price);
+		if(typeof considerQuantity != 'undefined' && considerQuantity){
+			$('input[name="item_quantity[]"]').val(obj.quantity);
+		}
 		$('input[name="item_id[]"]').val(obj.id);
 		if(typeof obj.tax[0] != 'undefined'){
 			$('input[name="item_tax_id[]"]').val(obj.tax[0].id);
 			$('input[name="item_tax_name[]"]').val(obj.tax[0].name);
 			$('input[name="item_tax_percent_value[]"]').val(obj.tax[0].rate);
+			$('#display_tax').html(obj.tax[0].rate);
 		}
 		else{
 			this.resetProductHidden(true);
+			$('#display_tax').html('0');
 		}
 	}
 

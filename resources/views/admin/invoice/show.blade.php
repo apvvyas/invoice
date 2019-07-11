@@ -8,9 +8,9 @@
 			<h2 class="page-header-title">Invoice</h2>
 			<div>
 			<ul class="breadcrumb">
-			<li class="breadcrumb-item"><a href="db-default.html"><i class="ti ti-home"></i></a></li>
-			<li class="breadcrumb-item"><a href="#">Pages</a></li>
-			<li class="breadcrumb-item active">Invoice</li>
+			<li class="breadcrumb-item"><a href="{{route('home')}}"><i class="ti ti-home"></i></a></li>
+			<li class="breadcrumb-item"><a href="{{route('invoices')}}">Invoice</a></li>
+			<li class="breadcrumb-item active">View</li>
 			</ul>
 			</div>
 			</div>
@@ -29,23 +29,28 @@
 							<h1>Invoice</h1>
 							<span>NO. {{$invoice->title}}</span>
 						</div>
+						@can('export_invoice')
 						<div class="col-xl-6 col-md-6 col-sm-6 col-6 d-flex justify-content-end">
 							<div class="actions dark">
 								<div class="dropdown">
 									<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
 										<i class="la la-ellipsis-h"></i>
 									</button>
+									
 									<div class="dropdown-menu">
 										<a href="" class="dropdown-item">
 											<i class="la la-print"></i>Print
 										</a>
+										
 										<a href="{{route('invoice.pdf',$invoice->id)}}" class="dropdown-item">
 											<i class="la la-download"></i>Download PDF
 										</a>
+										
 									</div>
 								</div>
 							</div>
 						</div>
+						@endcan
 					</div>
 				</div>
 

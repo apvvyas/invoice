@@ -40,15 +40,20 @@ class listProduct{
                     searchable: false,
                     sortable: false,
                     className: 'text-center text-nowrap',
-                    render: function(data) {
+                    render: function(data,type,row) {
 
 
                         var tableaction = "";
 
-                        tableaction += buildEditAction(route('product.edit',{product:data}));
-                        
-                        tableaction += buildDeleteAction(route('product.destroy',{product:data}))
+                        if(row.permissions.edit !== false)
+                            tableaction += buildEditAction(route('product.edit',{product:data}));
+                        if(row.permissions.view !== false)
+                            tableaction += buildViewAction(route('product.show',{product:data}));
+                        if(row.permissions.delete !== false)
+                            tableaction += buildDeleteAction(route('product.destroy',{product:data}))
 
+                        if(tableaction == "")
+                            tableaction = "-";
                         return tableaction;
                     }
                 }

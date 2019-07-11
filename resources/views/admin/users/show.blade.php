@@ -6,7 +6,9 @@
         <h2>User Details</h2>
         <div class="widget-options">
             <div class="btn-group" role="group">
-            	<a href="{{route('user.edit',['user'=>$user])}}" class="btn btn-primary ripple">Edit user</a>
+				@can('add_user')
+				<a href="{{route('user.edit',['user'=>$user])}}" class="btn btn-primary ripple">Edit user</a>
+				@endcan
                 <a href="{{route('users')}}" class="btn btn-secondary ripple">Back to users</a>
             </div>
         </div>

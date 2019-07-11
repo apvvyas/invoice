@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use PDF;
 use JavaScript;
+use App\Models\Tax;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -60,6 +61,7 @@ class InvoiceController extends Controller
         JavaScript::put('invoice_id',(int)$this->service->getLastInsertId()+1);
         return view('admin.invoice.add',[
             'invoice_id'=>((int)$this->service->getLastInsertId()+1),
+            'taxes' => Tax::all(),
         ]);
     }
 

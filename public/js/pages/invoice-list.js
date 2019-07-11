@@ -128,7 +128,6 @@ var listInvoice = function listInvoice() {
           "class": 'text text-' + data.color,
           title: data.text
         }).html(data.text);
-        console.log(data);
         var div = $('<div/>').html(status);
         return div.html();
       }
@@ -142,12 +141,12 @@ var listInvoice = function listInvoice() {
       searchable: false,
       sortable: false,
       className: 'text-center text-nowrap',
-      render: function render(data) {
+      render: function render(data, type, row) {
         var tableaction = "";
-        tableaction += buildViewAction(route('invoice.show', {
+        if (row.permissions.view !== false) tableaction += buildViewAction(route('invoice.show', {
           invoice: data
         }));
-        tableaction += buildDeleteAction(route('invoice.destroy', {
+        if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('invoice.destroy', {
           invoice: data
         }));
         return tableaction;
