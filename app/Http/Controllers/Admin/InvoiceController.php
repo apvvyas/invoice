@@ -94,8 +94,10 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        $owner = $invoice->owner()->first();
-        return view('admin.invoice.show')->with(['invoice'=>$invoice,'owner'=>$owner]);
+        return view('admin.invoice.show')->with([
+                    'invoice'=>$invoice,
+                    'owner'=>$invoice->owner()->first()
+                ]);
     }
 
     /**
@@ -107,8 +109,11 @@ class InvoiceController extends Controller
     public function pdf(Invoice $invoice)
     {
 
-        $owner = $invoice->owner()->first();
-        $pdf = PDF::loadView('admin.invoice.export-pdf', ['invoice'=>$invoice,'owner'=>$owner,'pdf'=>true]);
+        $pdf = PDF::loadView('admin.invoice.export-pdf', [
+                        'invoice'=>$invoice,
+                        'owner'=>$invoice->owner()->first(),
+                        'pdf'=>true
+                ]);
         return $pdf->download('invoice.pdf');
     }
 
@@ -153,7 +158,7 @@ class InvoiceController extends Controller
         
         }
         
-        return redirect()->route('invoices')->with($message);
+        return redirect()->back()->with($message);
     }
 
     /**
@@ -174,6 +179,6 @@ class InvoiceController extends Controller
         
         }
         
-        return redirect()->route('invoices')->with($message);
+        return redirect()->back()->with($message);
     }
 }

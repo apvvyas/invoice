@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Auth;
 use Illuminate\Support\ServiceProvider;
 
 class GlobalDataProvider extends ServiceProvider
@@ -26,6 +27,6 @@ class GlobalDataProvider extends ServiceProvider
         view()->composer(
             '*',
             'App\Composers\GlobalComposer'
-        );
+        );    
     }
 }

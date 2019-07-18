@@ -31,6 +31,7 @@ class GlobalComposer
      */
     public function compose(View $view)
     {
-        $view->with($this->data);
+        if(Auth::check())
+            $view->with($this->data);
     }
 }
