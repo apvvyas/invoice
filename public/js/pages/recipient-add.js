@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/pages/users/add.js":
-/*!*****************************************!*\
-  !*** ./resources/js/pages/users/add.js ***!
-  \*****************************************/
+/***/ "./resources/js/pages/recipients/add.js":
+/*!**********************************************!*\
+  !*** ./resources/js/pages/recipients/add.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -100,137 +100,61 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 $(function () {
-  var userNew = new addUser();
-  $('#rootwizard .finish').click(function () {
-    userNew.saveUser();
-  });
+  var recipientNew = new addRecipient();
 });
 
-var addUser =
+var addRecipient =
 /*#__PURE__*/
 function () {
-  function addUser() {
-    _classCallCheck(this, addUser);
+  function addRecipient() {
+    _classCallCheck(this, addRecipient);
 
     var self = this;
-    this.wizard = $('#rootwizard').bootstrapWizard({
-      onInit: function onInit(tab, navigation, index) {
-        var $total = navigation.find('li').length;
-        var width = 100 / $total + '%';
-        navigation.find('li').each(function () {
-          $(this).css({
-            'width': width
-          });
-        });
-      },
-      onTabShow: function onTabShow(tab, navigation, index) {
-        var $total = navigation.find('li').length;
-        var $current = index + 1;
-        var $percent = $current / $total * 100;
-        $('#rootwizard .progressbar').css({
-          width: $percent + '%'
-        });
-      },
-      onTabClick: function onTabClick(tab, navigation, index) {
-        return false;
-      },
-      onNext: function onNext(tab, navigation, index) {
-        if (index == 1) {
-          return self.step1();
-        }
+    this.valid = false;
+    $('#add_recipient').validator().on('valid.bs.validator', function () {
+      self.valid = true;
+    }).on('invalid.bs.validator', function (e) {
+      self.valid = false;
+    }).on('invalid.bs.validator', function (e) {
+      if (this.valid) {
+        self.saveRecipientDetails;
       }
     });
-    $('#personal-details').validator().on('invalid.bs.validator', function (e) {
-      self.validate = false;
-    }).on('valid.bs.validator', function () {
-      self.validate = true;
+    $('#add_recipient').submit(function (e) {
+      e.preventDefault();
+      $(this).validator('validate');
     });
-    $('#buisness-details').validator().on('invalid.bs.validator', function (e) {
-      self.validate = false;
-    }).on('valid.bs.validator', function () {
-      self.validate = true;
-    });
-    this.validate = true;
-    this.user = new FormData();
   }
 
-  _createClass(addUser, [{
-    key: "step1",
-    value: function step1() {
-      var own = this;
-      $('#personal-details').validator('validate');
-
-      if (this.validate) {
-        this.captureDetails('#personal-details');
-        return true;
-      }
-
+  _createClass(addRecipient, [{
+    key: "saveRecipientDetails",
+    value: function saveRecipientDetails() {
+      var self = this;
+      axios.post(route('user.recipient.add'), new FormData($('#add_recipient')[0])).then(function (response) {
+        // handle success
+        console.log(response);
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      })["finally"](function () {// always executed
+      });
       return false;
-    }
-  }, {
-    key: "saveUser",
-    value: function saveUser() {
-      var validate = true;
-      $('#personal-details').validator('validate');
-      $('#business-details').validator('validate');
-
-      if (this.validate) {
-        this.captureDetails('#business-details');
-        var data = this.user;
-        axios.post(route('user.save'), data).then(function (response) {//window.location.href=route('users');
-        })["catch"](function (error) {
-          // handle error
-          console.log(error);
-        })["finally"](function () {// always executed
-        });
-        return true;
-      }
-
-      return false;
-    }
-  }, {
-    key: "captureDetails",
-    value: function captureDetails(id) {
-      var data = new FormData($(id)[0]);
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = data.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          this.user.append(pair[0], pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
     }
   }]);
 
-  return addUser;
+  return addRecipient;
 }();
 
 /***/ }),
 
-/***/ 4:
-/*!***********************************************!*\
-  !*** multi ./resources/js/pages/users/add.js ***!
-  \***********************************************/
+/***/ 7:
+/*!****************************************************!*\
+  !*** multi ./resources/js/pages/recipients/add.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\add.js */"./resources/js/pages/users/add.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\recipients\add.js */"./resources/js/pages/recipients/add.js");
 
 
 /***/ })

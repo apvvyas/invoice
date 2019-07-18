@@ -81,84 +81,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/pages/users/index.js":
-/*!*******************************************!*\
-  !*** ./resources/js/pages/users/index.js ***!
-  \*******************************************/
+/***/ "./resources/js/pages/products/edit.js":
+/*!*********************************************!*\
+  !*** ./resources/js/pages/products/edit.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-$(function () {
-  var ListUser = new listUser();
-});
-
-var listUser = function listUser() {
-  _classCallCheck(this, listUser);
-
-  this.dtable = dtable('#export-table', {
-    fnDrawCallback: function fnDrawCallback() {
-      initConfirmationOnDelete();
-    },
-    ajax: {
-      url: $('table#export-table').data('url'),
-      method: 'get'
-    },
-    columns: [{
-      data: 'name',
-      title: 'User Name',
-      name: 'name'
-    }, {
-      data: 'company',
-      title: "Company",
-      name: 'company'
-    }, {
-      data: 'phone',
-      title: "Phone",
-      name: 'phone'
-    }, {
-      data: 'email',
-      title: "Email",
-      name: 'email'
-    }, {
-      data: 'id',
-      title: 'Action',
-      searchable: false,
-      sortable: false,
-      className: 'text-center text-nowrap',
-      render: function render(data, type, row) {
-        var tableaction = "";
-        if (row.permissions.edit !== false) tableaction += buildEditAction(route('user.edit', {
-          user: data
-        }));
-        if (row.permissions.view !== false) tableaction += buildViewAction(route('user.show', {
-          user: data
-        }));
-        if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('user.destroy', {
-          user: data
-        }));
-        return tableaction;
-      }
-    }]
-  });
-};
 
 /***/ }),
 
-/***/ 6:
-/*!*************************************************!*\
-  !*** multi ./resources/js/pages/users/index.js ***!
-  \*************************************************/
+/***/ 11:
+/*!***************************************************!*\
+  !*** multi ./resources/js/pages/products/edit.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\index.js */"./resources/js/pages/users/index.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\products\edit.js */"./resources/js/pages/products/edit.js");
 
 
 /***/ })

@@ -81,26 +81,26 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/pages/users/index.js":
-/*!*******************************************!*\
-  !*** ./resources/js/pages/users/index.js ***!
-  \*******************************************/
+/***/ "./resources/js/pages/products/index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/pages/products/index.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 $(function () {
-  var ListUser = new listUser();
+  var ListProduct = new listProduct();
 });
 
-var listUser = function listUser() {
-  _classCallCheck(this, listUser);
+var listProduct = function listProduct() {
+  _classCallCheck(this, listProduct);
 
   this.dtable = dtable('#export-table', {
     fnDrawCallback: function fnDrawCallback() {
@@ -112,20 +112,20 @@ var listUser = function listUser() {
     },
     columns: [{
       data: 'name',
-      title: 'User Name',
+      title: "Product Name",
       name: 'name'
     }, {
-      data: 'company',
-      title: "Company",
-      name: 'company'
+      data: 'quantity',
+      title: "Quantity",
+      name: 'quantity'
     }, {
-      data: 'phone',
-      title: "Phone",
-      name: 'phone'
+      data: 'price',
+      title: "Price",
+      name: 'price'
     }, {
-      data: 'email',
-      title: "Email",
-      name: 'email'
+      data: 'created_at',
+      title: "Created On",
+      name: 'created_at'
     }, {
       data: 'id',
       title: 'Action',
@@ -134,15 +134,16 @@ var listUser = function listUser() {
       className: 'text-center text-nowrap',
       render: function render(data, type, row) {
         var tableaction = "";
-        if (row.permissions.edit !== false) tableaction += buildEditAction(route('user.edit', {
-          user: data
+        if (row.permissions.edit !== false) tableaction += buildEditAction(route('product.edit', {
+          product: data
         }));
-        if (row.permissions.view !== false) tableaction += buildViewAction(route('user.show', {
-          user: data
+        if (row.permissions.view !== false) tableaction += buildViewAction(route('product.show', {
+          product: data
         }));
-        if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('user.destroy', {
-          user: data
+        if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('product.destroy', {
+          product: data
         }));
+        if (tableaction == "") tableaction = "-";
         return tableaction;
       }
     }]
@@ -151,14 +152,14 @@ var listUser = function listUser() {
 
 /***/ }),
 
-/***/ 6:
-/*!*************************************************!*\
-  !*** multi ./resources/js/pages/users/index.js ***!
-  \*************************************************/
+/***/ 12:
+/*!****************************************************!*\
+  !*** multi ./resources/js/pages/products/index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\index.js */"./resources/js/pages/users/index.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\products\index.js */"./resources/js/pages/products/index.js");
 
 
 /***/ })

@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/pages/users/add.js":
-/*!*****************************************!*\
-  !*** ./resources/js/pages/users/add.js ***!
-  \*****************************************/
+/***/ "./resources/js/pages/recipients/index.js":
+/*!************************************************!*\
+  !*** ./resources/js/pages/recipients/index.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -100,137 +100,98 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 $(function () {
-  var userNew = new addUser();
-  $('#rootwizard .finish').click(function () {
-    userNew.saveUser();
+  var ListRecipient = new listRecipient();
+  $('#add-recipient-modal').on('show.bs.modal', function () {
+    $('#add_recipient').submit(function (e) {
+      e.preventDefault();
+      ListRecipient.saveRecipientDetails();
+    });
+  });
+  $('#add-recipient-modal').on('hidden.bs.modal', function () {
+    $('#add_recipient')[0].reset();
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   });
 });
 
-var addUser =
+var listRecipient =
 /*#__PURE__*/
 function () {
-  function addUser() {
-    _classCallCheck(this, addUser);
+  function listRecipient() {
+    _classCallCheck(this, listRecipient);
 
-    var self = this;
-    this.wizard = $('#rootwizard').bootstrapWizard({
-      onInit: function onInit(tab, navigation, index) {
-        var $total = navigation.find('li').length;
-        var width = 100 / $total + '%';
-        navigation.find('li').each(function () {
-          $(this).css({
-            'width': width
-          });
-        });
+    this.dtable = dtable('#export-table', {
+      fnDrawCallback: function fnDrawCallback() {
+        initConfirmationOnDelete();
       },
-      onTabShow: function onTabShow(tab, navigation, index) {
-        var $total = navigation.find('li').length;
-        var $current = index + 1;
-        var $percent = $current / $total * 100;
-        $('#rootwizard .progressbar').css({
-          width: $percent + '%'
-        });
+      ajax: {
+        url: $('table#export-table').data('url'),
+        method: 'get'
       },
-      onTabClick: function onTabClick(tab, navigation, index) {
-        return false;
-      },
-      onNext: function onNext(tab, navigation, index) {
-        if (index == 1) {
-          return self.step1();
+      columns: [{
+        data: 'company_name',
+        title: "Company",
+        name: 'company_name'
+      }, {
+        data: 'phone',
+        title: "Phone",
+        name: 'phone'
+      }, {
+        data: 'email',
+        title: "Email",
+        name: 'email'
+      }, {
+        data: 'id',
+        title: 'Action',
+        searchable: false,
+        sortable: false,
+        className: 'text-center text-nowrap',
+        render: function render(data, type, row) {
+          var tableaction = "";
+          if (row.permissions.edit !== false) tableaction += buildEditAction(route('recipient.edit', {
+            recipient: data
+          }));
+          if (row.permissions.view !== false) tableaction += buildViewAction(route('recipient.show', {
+            recipient: data
+          }));
+          if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('recipient.destroy', {
+            recipient: data
+          }));
+          return tableaction;
         }
-      }
+      }]
     });
-    $('#personal-details').validator().on('invalid.bs.validator', function (e) {
-      self.validate = false;
-    }).on('valid.bs.validator', function () {
-      self.validate = true;
-    });
-    $('#buisness-details').validator().on('invalid.bs.validator', function (e) {
-      self.validate = false;
-    }).on('valid.bs.validator', function () {
-      self.validate = true;
-    });
-    this.validate = true;
-    this.user = new FormData();
   }
 
-  _createClass(addUser, [{
-    key: "step1",
-    value: function step1() {
-      var own = this;
-      $('#personal-details').validator('validate');
-
-      if (this.validate) {
-        this.captureDetails('#personal-details');
-        return true;
-      }
-
+  _createClass(listRecipient, [{
+    key: "saveRecipientDetails",
+    value: function saveRecipientDetails() {
+      var self = this;
+      axios.post(route('user.recipient.add'), new FormData($('#add_recipient')[0])).then(function (response) {
+        // handle success
+        $('#add-recipient-modal').modal('hide');
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      })["finally"](function () {// always executed
+      });
       return false;
-    }
-  }, {
-    key: "saveUser",
-    value: function saveUser() {
-      var validate = true;
-      $('#personal-details').validator('validate');
-      $('#business-details').validator('validate');
-
-      if (this.validate) {
-        this.captureDetails('#business-details');
-        var data = this.user;
-        axios.post(route('user.save'), data).then(function (response) {//window.location.href=route('users');
-        })["catch"](function (error) {
-          // handle error
-          console.log(error);
-        })["finally"](function () {// always executed
-        });
-        return true;
-      }
-
-      return false;
-    }
-  }, {
-    key: "captureDetails",
-    value: function captureDetails(id) {
-      var data = new FormData($(id)[0]);
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = data.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          this.user.append(pair[0], pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
     }
   }]);
 
-  return addUser;
+  return listRecipient;
 }();
 
 /***/ }),
 
-/***/ 4:
-/*!***********************************************!*\
-  !*** multi ./resources/js/pages/users/add.js ***!
-  \***********************************************/
+/***/ 9:
+/*!******************************************************!*\
+  !*** multi ./resources/js/pages/recipients/index.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\add.js */"./resources/js/pages/users/add.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\recipients\index.js */"./resources/js/pages/recipients/index.js");
 
 
 /***/ })
