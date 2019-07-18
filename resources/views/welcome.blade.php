@@ -8,13 +8,13 @@
 
     <title>Marvel HTML Bootstrap 4 Template</title>
 
-    <link rel="stylesheet" href="frontend/css/bootstrap.min.css">
-    <link rel="stylesheet" href="frontend/css/unicons.css">
-    <link rel="stylesheet" href="frontend/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="frontend/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/unicons.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
     <!-- MAIN STYLE -->
-    <link rel="stylesheet" href="frontend/css/tooplate-style.css">
+    <link rel="stylesheet" href="/css/tooplate-style.css">
     
 <!--
 
@@ -88,7 +88,7 @@ https://www.tooplate.com/view/2115-marvel
 
                 <div class="col-lg-5 col-md-12 col-12">
                     <div class="about-image svg">
-                        <img src="frontend/images/undraw/undraw_software_engineer_lvl5.svg" class="img-fluid" alt="svg image">
+                        <img src="/images/undraw/undraw_software_engineer_lvl5.svg" class="img-fluid" alt="svg image">
                     </div>
                 </div>
 
@@ -110,31 +110,31 @@ https://www.tooplate.com/view/2115-marvel
                       <div class="owl-carousel owl-theme">
                         <div class="item">
                           <div class="project-info">
-                            <img src="frontend/images/project/project-image01.png" class="img-fluid" alt="project image">
+                            <img src="/images/project/project-image01.png" class="img-fluid" alt="project image">
                           </div>
                         </div>
 
                         <div class="item">
                           <div class="project-info">
-                            <img src="frontend/images/project/project-image02.png" class="img-fluid" alt="project image">
+                            <img src="/images/project/project-image02.png" class="img-fluid" alt="project image">
                           </div>
                         </div>
 
                         <div class="item">
                           <div class="project-info">
-                            <img src="frontend/images/project/project-image03.png" class="img-fluid" alt="project image">
+                            <img src="/images/project/project-image03.png" class="img-fluid" alt="project image">
                           </div>
                         </div>
 
                         <div class="item">
                           <div class="project-info">
-                            <img src="frontend/images/project/project-image04.png" class="img-fluid" alt="project image">
+                            <img src="/images/project/project-image04.png" class="img-fluid" alt="project image">
                           </div>
                         </div>
 
                         <div class="item">
                           <div class="project-info">
-                            <img src="frontend/images/project/project-image05.png" class="img-fluid" alt="project image">
+                            <img src="/images/project/project-image05.png" class="img-fluid" alt="project image">
                           </div>
                         </div>
                       </div>
@@ -306,14 +306,14 @@ https://www.tooplate.com/view/2115-marvel
           </div>
      </footer>
 
-    <script src="frontend/js/jquery-3.3.1.min.js"></script>
-    <script src="frontend/js/popper.min.js"></script>
-    <script src="frontend/js/bootstrap.min.js"></script>
-    <script src="frontend/js/Headroom.js"></script>
-    <script src="frontend/js/jQuery.headroom.js"></script>
-    <script src="frontend/js/owl.carousel.min.js"></script>
-    <script src="frontend/js/smoothscroll.js"></script>
-    <script src="frontend/js/custom.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Headroom.js"></script>
+    <script src="/js/jQuery.headroom.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/smoothscroll.js"></script>
+    <script src="/js/custom.js"></script>
 
   </body>
 </html>
