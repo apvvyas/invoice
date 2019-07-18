@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::namespace('Admin')->group(function () {
 
 			Route::get('/profile', 'UserController@profile')->name('user.profile');	
+			Route::post('/profile/save', 'UserController@profileSave')->name('user.profile.save');	
+			Route::post('/tour-complete', 'UserController@tourComplete')->name('user.tour.complete');	
 
 			//Invoice Controls
 			Route::prefix('invoice')->group(function () {
@@ -48,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 				
 				Route::group(['middleware' => ['permission:delete_invoice']], function () {
 					Route::delete('/delete/{invoice}','InvoiceController@destroy')->name('invoice.destroy');
+					Route::get('/status/{invoice}','InvoiceController@status')->name('invoice.status');
 				});
 				Route::group(['middleware' => ['permission:export_invoice']], function () {
 					Route::get('/details/{invoice}/pdf','InvoiceController@pdf')->name('invoice.pdf');

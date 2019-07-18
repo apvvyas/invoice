@@ -49,6 +49,16 @@ window.buildViewAction = function(link) {
             })).html();
 };
 
+window.buildStatusUpdateAction = function(link) {
+   return $("<div />").append(
+            $('<a />', {
+                html: '<i class="la la-1-5x la-upload"></i>',
+                href: link || 'javascript:void(0)',
+                title: 'Status',
+                class: 'ml-1 mr-1',
+            })).html();
+};
+
 window.initConfirmationOnDelete = function() {
         $('.delete-confirmation-button').on('click', function(event) {
             event.preventDefault();
@@ -64,3 +74,9 @@ window.initConfirmationOnDelete = function() {
               });
         });
     };
+
+
+
+
+
+//pageTour.pageInit();

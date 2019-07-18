@@ -2,12 +2,12 @@
 <header class="header">
     <nav class="navbar fixed-top">        
         <!-- Begin Search Box-->
-        <div class="search-box">
+        <!-- <div class="search-box">
             <button class="dismiss"><i class="ion-close-round"></i></button>
             <form id="searchForm" action="#" role="search">
                 <input type="search" placeholder="Search something ..." class="form-control">
             </form>
-        </div>
+        </div> -->
         <!-- End Search Box-->
         <!-- Begin Topbar -->
         <div class="navbar-holder d-flex align-items-center align-middle justify-content-between">
@@ -33,10 +33,10 @@
             <!-- Begin Navbar Menu -->
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center pull-right">
                 <!-- Search -->
-                <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="la la-search"></i></a></li>
+                <!-- <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="la la-search"></i></a></li> -->
                 <!-- End Search -->
                 <!-- Begin Notifications -->
-                <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="la la-bell animated infinite swing"></i><span class="badge-pulse"></span></a>
+               <!--  <li class="nav-item dropdown"><a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="la la-bell animated infinite swing"></i><span class="badge-pulse"></span></a>
                     <ul aria-labelledby="notifications" class="dropdown-menu notification">
                         <li>
                             <div class="notifications-header">
@@ -101,28 +101,18 @@
                             <a rel="nofollow" href="#" class="dropdown-item all-notifications text-center">View All Notifications</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- End Notifications -->
                 <!-- User -->
                 <li class="nav-item dropdown"><a id="user" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><img src="/img/avatar/avatar-01.jpg" alt="..." class="avatar rounded-circle"></a>
                     <ul aria-labelledby="user" class="user-size dropdown-menu">
                         <li class="welcome">
-                            <a href="#" class="edit-profil"><i class="la la-gear"></i></a>
-                            <img src="/img/avatar/avatar-01.jpg" alt="..." class="rounded-circle">
+                            <!-- <a href="#" class="edit-profil"><i class="la la-gear"></i></a> -->
+                            <img src="{{ $company_logo}}" alt="..." class="rounded-circle">
                         </li>
                         <li>
                             <a href="{{route('user.profile')}}" class="dropdown-item"> 
                                 Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="app-mail.html" class="dropdown-item"> 
-                                Messages
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="dropdown-item no-padding-bottom"> 
-                                Settings
                             </a>
                         </li>
                         <li class="separator"></li>
@@ -138,7 +128,7 @@
                 </li>
                 <!-- End User -->
                 <!-- Begin Quick Actions -->
-                <li class="nav-item"><a href="#off-canvas" class="open-sidebar"><i class="la la-ellipsis-h"></i></a></li>
+                <!-- <li class="nav-item"><a href="#off-canvas" class="open-sidebar"><i class="la la-ellipsis-h"></i></a></li> -->
                 <!-- End Quick Actions -->
             </ul>
             <!-- End Navbar Menu -->

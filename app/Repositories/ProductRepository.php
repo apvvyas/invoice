@@ -40,6 +40,5 @@ class ProductRepository
             ->orWhere('price','like',$data['search']."%")
             ->paginate(10);
     }
-  
 
 }

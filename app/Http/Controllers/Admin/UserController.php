@@ -91,9 +91,10 @@ class UserController extends Controller
         $user = Auth::user();
         JavaScript::put([
             'user_id' => $user->id,
-            'profile' => true
+            'profile' => true,
+            'company_logo'=>$user->getFirstMedia('company-logo')->getFullUrl()
         ]);
-        return view('admin.users.edit')->with('user',$user);
+        return view('admin.users.edit');
     }
 
     /**
@@ -149,5 +150,42 @@ class UserController extends Controller
         }
         
         return redirect()->route('users')->with($message);
+    }
+
+    public function tourComplete(){
+        $user = $this->service->updateTourComplete(auth()->user());
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'User Tour Complete update failed';
+        
+        if($user){
+            $status = Response::HTTP_OK;
+            $message = 'User tour completed successfully';
+        }
+
+        return response()->json(compact('message'),$status);
+    }
+
+
+     /**
+     * Update the User Profile.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function profileSave(UpdateRequest $request){
+
+       $user = $this->service->update($request->all(),Auth::user(),$request->hasFile('logo'));
+
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $message = 'User update failed';
+        
+        if($user){
+            $status = Response::HTTP_OK;
+            $message = 'User updated successfully';
+        }
+
+        return response()->json(compact('message'),$status);
     }
 }

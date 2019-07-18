@@ -93,7 +93,7 @@
 								        	<div class="col-sm-6">
 								        		<div class="form-group">
 								            		<label>Phone Number</label>
-								            		<input class="form-control" name="personal[phone]" placeholder="Phone Number" type="tel" data-minlength="10" data-maxlength="15" pattern="[0-9]{10,15}" required="" value="{{!empty($user->details)?$user->details->phone:''}}">
+								            		<input class="form-control" name="personal[phone]" placeholder="Phone Number" type="tel" data-minlength="10" data-maxlength="15" pattern="[0-9]{10,15}" required="" value="{{$user->phone}}">
 								            		<div class="help-block with-errors"></div>
 								            	</div>
 								        	</div>
@@ -238,7 +238,7 @@
 
 						@if(Route::currentRouteName() == 'user.profile')
 						<div class="tab-pane" id="tab3">
-                        	<form id="business-details">
+                        	<form id="media-details" enctype=multipart/form-data>
 	                        	<div class="widget widget-19 has-border">
 	                            	<div class="widget-header has-border-bottom">
 										<h4>Company Logo</h4>
@@ -247,12 +247,14 @@
 	                                	<div class="row">
 											<div class="col-lg-12">
 												<div class="img-responsive">
-													<div class="img-thumbnail img-circle img-company-logo"/></div>
+													<div class="img-thumbnail img-circle img-company-logo" style="background-image: url('{{$company_logo}}')" /></div>
 												</div>
 											</div>
-											<div class="col-lg-12">
+										</div>
+										<div class="row mt-3">
+											<div class="col-lg-4 text-center">
 												<button type="button" class="btn btn-secondary" id="file_upload">Select Logo Image</button>
-												<input type="file" name="logo" class="d-none">
+												<input type="file" name="logo" accept="image/*" class="d-none">
 											</div>
 										</div>
 	                                </div>

@@ -133,16 +133,16 @@
 	var myChart = new Chart(ctx, {
 		type: 'roundedBar',
 		data: {
-			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			labels: months,
 			datasets: [{
-				label: 'Delivered',
-				data: [30, 24, 22, 17, 22, 24, 9, 14, 20, 13, 17, 13],
+				label: 'Paid',
+				data: chart_paid,
 				borderColor: "#fff",
 				backgroundColor: "#5d5386",
 				hoverBackgroundColor: "#483d77"
 			}, {
-				label: 'Estimated',
-				data: [10, 14, 12, 20, 20, 8, 10, 20, 7, 11, 8, 10],
+				label: 'Pending',
+				data: chart_pending,
 				borderColor: "#fff",
 				backgroundColor: "#e4e8f0",
 				hoverBackgroundColor: "#dde1e9"
@@ -201,7 +201,7 @@
 	// Circle Orders
 	// ------------------------------------------------------ //
 	$('.circle-orders').circleProgress({
-		value: 0.43,
+		value: new_invoice_percent/100,
 		size: 120,
 		startAngle: -Math.PI / 2,
 		thickness: 6,
@@ -211,7 +211,7 @@
 			gradient: ['#0087a4', '#08a6c3']
 		}
 	}).on('circle-animation-progress', function (event, progress) {
-		$(this).find('.percent-orders').html(Math.round(43 * progress) + '<i>%</i>');
+		$(this).find('.percent-orders').html(Math.round(new_invoice_percent * progress) + '<i>%</i>');
 	});
 
 	// ------------------------------------------------------- //

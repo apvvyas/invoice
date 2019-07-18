@@ -16,12 +16,7 @@ class UserDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-             ->addColumn('phone',function($query){
-                if(isset($query->details)){
-                 return $query->details->phone;
-                }
-                return '-';
-             })->addColumn('company',function($query){
+             ->addColumn('company',function($query){
                 if(isset($query->details)){
                  return $query->details->business_name;
                 }
@@ -45,8 +40,6 @@ class UserDataTable extends DataTable
     public function query(User $model)
     {
         $role = 'Admin';
-        if(auth()->user()->hasRole('Admin'))
-            $role = 'Admin';
         return $model->newQuery()->select('*')->role($role)->with('details');
     }
 }

@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use JavaScript;
 use Illuminate\Http\Request;
+use App\Services\DashBoardService;
 
 class HomeController extends Controller
 {
+     // Service Variables
+
+    protected $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(DashBoardService $dashboard_service)
     {
         $this->middleware('auth');
+        $this->service = $dashboard_service;
     }
 
     /**
@@ -23,6 +30,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $invoice_monthly_data = $this->service->getMonthlyReport();
+        JavaScript::put($invoice_monthly_data);
+        return view('home')->with($invoice_monthly_data);
     }
 }

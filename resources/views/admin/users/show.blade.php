@@ -33,7 +33,7 @@
 			<div class="form-group row d-flex align-items-center mb-5">
 				<label class="col-lg-3 form-control-label d-flex justify-content-lg-end">Phone</label>
 				<div class="col-lg-6">
-					<span>{{$user->details->phone}}</span>
+					<span>{{$user->phone}}</span>
 				</div>
 			</div>
     	</form>

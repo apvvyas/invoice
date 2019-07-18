@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use DB;
 use Auth;
 use App\Models\Item;
 use App\Models\Tax;
@@ -99,5 +100,60 @@ class InvoiceRepository
 		$iTotal->total = $data['total'];
 
 		$iTotal->save();
+	}
+
+	function annualInvoiceData($start_date,$end_date){
+		$pending_invoices = Invoice::where(['user_id'=>Auth::user()->id])
+									->whereBetween('created_at',[$start_date,$end_date])
+									->pending()
+									->select(
+										DB::raw('status as status'),
+										DB::raw('MONTHNAME(created_at) as MONTH'),
+										DB::raw('YEAR(created_at) as YEAR'),
+										DB::raw('COUNT(id) as INV_COUNT')
+									)
+									->groupBy('MONTH','status','YEAR');
+		$paid_invoices = Invoice::where(['user_id'=>Auth::user()->id])
+									->whereBetween('created_at',[$start_date,$end_date])
+									->paid()
+									->select(
+										DB::raw('status as status'),
+										DB::raw('MONTHNAME(created_at) as MONTH'),
+										DB::raw('YEAR(created_at) as YEAR'),
+										DB::raw('COUNT(id) as INV_COUNT'))
+									->groupBy('MONTH','status','YEAR');
+
+
+
+		return $paid_invoices->union($pending_invoices)->get();
+	}
+
+	function getTwoMonthsInvoiceCount($month1,$month2){
+		
+		$data = Invoice::where(['user_id'=>Auth::user()->id])
+						->whereIn(DB::raw('MONTHNAME(created_at)'),[$month1,$month2])
+						->select(DB::raw('MONTHNAME(created_at) as MONTH'),DB::raw('COUNT(id) as INV_COUNT'))
+						->groupBy('MONTH')->pluck('INV_COUNT','MONTH');
+
+		if(empty($data[$month1]))
+			$data[$month1] = 0;
+		if(empty($data[$month2]))
+			$data[$month2] = 0;
+
+		return $data;
+	}
+
+	function updateStatus($invoice){
+		if($invoice->isPending())
+			$invoice->setPaid()->update();
+		elseif ($invoice->isPaid()) {
+			$invoice->setPending()->update();
+		}
+		return $invoice;
+	}
+
+
+	function getRecentFiveInvoices(){
+		return Invoice::with('recipient')->where(['user_id'=>Auth::user()->id])->orderBy('created_at','DESC')->paginate(5);
 	}
 }

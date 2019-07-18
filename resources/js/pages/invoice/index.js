@@ -56,8 +56,12 @@ class listInvoice{
                         
                         var tableaction = "";
                         
+
                         if(row.permissions.view !== false)
                             tableaction += buildViewAction(route('invoice.show',{invoice:data}));
+
+                         if(row.permissions.delete !== false)
+                            tableaction += buildStatusUpdateAction(route('invoice.status',{invoice:data}))
                         
                         if(row.permissions.delete !== false)
                             tableaction += buildDeleteAction(route('invoice.destroy',{invoice:data}))

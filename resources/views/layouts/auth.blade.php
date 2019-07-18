@@ -50,6 +50,7 @@ Author: SAEROX
         <!-- Begin Vendor Js -->
         <script src="vendors/js/base/jquery.min.js"></script>
         <script src="vendors/js/base/core.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
         <!-- End Vendor Js -->
         <!-- Begin Page Vendor Js -->
         <script src="vendors/js/app/app.min.js"></script>

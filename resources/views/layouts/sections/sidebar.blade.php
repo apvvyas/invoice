@@ -10,22 +10,22 @@
             
             <!-- Invoice Route -->
             @can('view_invoice')
-            <li><a href="{{route('invoices')}}"><i class="la la-spinner"></i><span>Invoice</span></a></li>
+            <li id="invoice"><a href="{{route('invoices')}}"><i class="la la-spinner"></i><span>Invoice</span></a></li>
             @endcan
 
             <!-- User Route -->
             @can('view_user')
-            <li><a href="{{route('users')}}"><i class="la la-users"></i><span>Users</span></a></li>
+            <li id="user"><a href="{{route('users')}}"><i class="la la-users"></i><span>Users</span></a></li>
             @endcan
 
             <!-- Recipient Route -->
             @can('view_recipient')
-            <li><a href="{{route('recipients')}}"><i class="la la-users"></i><span>Recipients</span></a></li>
+            <li id="recipient"><a href="{{route('recipients')}}"><i class="la la-users"></i><span>Recipients</span></a></li>
             @endcan
 
             <!-- Product Route -->
             @can('view_product')
-            <li><a href="{{route('products')}}"><i class="ion ion-cube"></i><span>Products</span></a></li>
+            <li id="product"><a href="{{route('products')}}"><i class="ion ion-cube"></i><span>Products</span></a></li>
             @endcan
 
             <!-- Tax Route -->

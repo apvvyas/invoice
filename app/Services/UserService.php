@@ -23,6 +23,7 @@ class UserService
 				'last_name'=>$data['personal']['lastName'],
 				'name'=>$data['personal']['firstName']." ".$data['personal']['lastName'],
 				'email'=>$data['personal']['email'],
+				'phone' => $data['personal']['phone'],
 				'email_verified_at'=> Carbon::now()->format('Y-m-d H:i:s'),
 				'password' => Hash::make($data['personal']['password'])
 			]);
@@ -40,7 +41,6 @@ class UserService
 			'details'=>[
 				'user_id'=>'',
 				'business_name' => $data['business']['name'],
-				'phone' => $data['personal']['phone'],
 				'business_address_is'=>'',
 				'business_phone'=>$data['business']['phone'],
 				'business_tax_number' => $data['business']['taxDetails']
@@ -50,14 +50,15 @@ class UserService
 		return $user;
 	}
 
-	function update($data,$user){
+	function update($data,$user,$hasLogo = false){
 
 		$this->repository->updateUser([
 			'personal'=>[
 				'first_name'=>$data['personal']['firstName'],
 				'last_name'=>$data['personal']['lastName'],
 				'name'=>$data['personal']['firstName']." ".$data['personal']['lastName'],
-				'password' => !empty($data['personal']['password'])?Hash::make($data['personal']['password']):$user->password
+				'password' => !empty($data['personal']['password'])?Hash::make($data['personal']['password']):$user->password,
+				'phone' => $data['personal']['phone']
 			],
 			'address' => [
 				'address_1' => $data['business']['address1'],
@@ -70,13 +71,20 @@ class UserService
 
 			'details'=>[
 				'business_name' => $data['business']['name'],
-				'phone' => $data['personal']['phone'],
 				'business_phone'=>$data['business']['phone'],
 				'business_tax_number' => $data['business']['taxDetails']
 			]
 		],$user);
 
+		if($hasLogo){
+			$user->addMediaFromRequest('logo')->toMediaCollection('company-logo');
+		}
+
 		return $user;
 
+	}
+
+	function updateTourComplete($user){
+		return $this->repository->updateTour($user);
 	}
 }

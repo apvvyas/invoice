@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -9,7 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use HasRoles;
     use Notifiable;
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','first_name','last_name'
+        'name', 'email', 'password','first_name','last_name','phone'
     ];
 
     /**
@@ -55,6 +56,10 @@ class User extends Authenticatable
         return $this->hasMany(Item::class);
     }
 
+    function invoices(){
+        return $this->hasMany(Invoice::class);
+    }
+
     function generateToken()
     {
         $token = Str::random(60);
@@ -66,14 +71,23 @@ class User extends Authenticatable
 
     function registerMediaCollections()
     {
-        $this
-            ->addMediaCollection('logo')
-            ->registerMediaConversions(function (Media $media) {
-                $this
-                    ->addMediaConversion('thumb')
-                    ->width(100)
-                    ->height(100);
-            })
+        return $this
+            ->addMediaCollection('company-logo')
             ->singleFile();
+    }
+
+    function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+              ->width(368)
+              ->height(232)
+              ->sharpen(10);
+    }
+
+    public function getFirstOrDefaultMediaUrl(string $collectionName = 'default', string $conversionName = '')
+    {
+        $url = $this->getFirstMedia($collectionName)->getFullUrl();
+
+        return $url ? $url : '/img/avatar/avatar-01.jpg' ?? '';
     }
 }

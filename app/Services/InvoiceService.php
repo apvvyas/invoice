@@ -67,4 +67,8 @@ class InvoiceService
 
 		return $invoice_id;
 	}
+
+	function updateStatus($invoice){
+		$this->repository->updateStatus($invoice);
+	}
 }

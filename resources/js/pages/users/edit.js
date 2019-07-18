@@ -1,5 +1,5 @@
 $(function () {
-		let userEdit = new editUser();
+		window.userEdit = new editUser();
 
 		$('#rootwizard .finish').click(function() {
 			userEdit.saveUser();
@@ -86,8 +86,38 @@ class editUser{
 	initMediaUpload(){
 		$('#file_upload').on('click',function(){
 			$('input[name="logo"]').trigger('click');
-		})
+		});
+		$('input[name="logo"]').on('change',this.handleFileSelect);
 	}
+
+	handleFileSelect(evt) {
+		
+	    var files = evt.target.files; // FileList object
+
+	    // Loop through the FileList and render image files as thumbnails.
+	    var f = files[0];
+	    console.log(f);
+	      // Only process image files.
+	      if (f.type.match('image.*')) {
+	      		var reader = new FileReader();
+
+		      	// Closure to capture the file information.
+		      	reader.onload = (function(theFile) {
+		        	return function(e) {
+		        		console.log(e.target.result);
+		          	// Render thumbnail.
+		          	$('.img-company-logo').css('background-image','url('+e.target.result+')');
+		        	};
+		      	})(f);
+
+		     	// Read in the image file as a data URL.
+		      	reader.readAsDataURL(f);  
+	      }
+
+	      userEdit.captureDetails('#media-details');
+	    
+	 }
+
 
 	step1(){
 
@@ -111,8 +141,17 @@ class editUser{
 			this.captureDetails('#personal-details');
 			this.captureDetails('#business-details');
 
+
 			let data = this.user;
-			axios.post(route('user.update',{user:user_id}),data).then(function (response) {
+			let ajaxRoute = route('user.update',{user:user_id});
+			if(route().current("user.profile"))
+				ajaxRoute = route('user.profile.save');
+			
+			axios.post(ajaxRoute,data,{
+		        headers: {
+		          'Content-Type': 'multipart/form-data'
+		        }
+		    }).then(function (response) {
 
 				if(route().current("user.profile")){
 					new Noty({

@@ -40,3 +40,6 @@ mix.js('resources/js/pages/products/index.js','public/js/pages/product-list.js')
 
 
 mix.js('resources/js/pages/taxes/index.js','public/js/pages/tax-list.js');
+
+
+mix.js('resources/js/pages/dashboard.js','public/js/pages/dashboard.js');

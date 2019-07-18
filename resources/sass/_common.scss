@@ -44,10 +44,10 @@
 div.img-company-logo{
 	background:url('../images/logoupload.png');
 	background-size: cover;
-	height: 190px;
+	height: 200px;
 }
 .img-company-logo{
-	width:250px;	
+	width:270px;	
 }
 
 .ui-widget.ui-widget-content {
@@ -70,4 +70,7 @@ table {
 }
 body {
     font-family: monospace; 
+}
+.navigate-message-left{
+	left:370px !important
 }

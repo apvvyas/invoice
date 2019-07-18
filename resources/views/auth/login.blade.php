@@ -37,10 +37,10 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="group material-input @error('password') has-error @enderror">
-                                        <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="email" type="text" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
-                                        <label>Email</label>
+                                        <label>Email or Phone Number</label>
                                         @error('email')
                                             <div class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

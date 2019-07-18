@@ -81,4 +81,41 @@ class Invoice extends Model
 
         return $status;
     }
+
+    function scopePending($query){
+        return $query->where('status','SAVED');
+    }
+
+    function scopePaid($query){
+        return $query->where('status','PAID');        
+    }
+
+    function scopeOverdue($query){
+        return $query->where('status','SAVED')->whereDate('due_at','>',Carbon::now());        
+    }
+
+    function isPending(){
+        if($this->attributes['status'] == 'SAVED')
+            return true;
+
+        return false;
+    }
+
+    function isPaid(){
+        if($this->attributes['status'] == 'PAID')
+            return true;
+
+        return false;
+    }
+
+    function setPending(){
+        $this->attributes['status'] = 'SAVED';
+
+        return $this;
+    }
+
+    function setPaid(){
+        $this->attributes['status'] = 'PAID';
+        return $this;
+    }
 }

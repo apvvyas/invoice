@@ -155,4 +155,25 @@ class InvoiceController extends Controller
         
         return redirect()->route('invoices')->with($message);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Invoice $invoice)
+    {
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR; 
+        $message = 'Some Error occured please try again';
+        
+        if($this->service->updateStatus($invoice)){
+            
+            $status = Response::HTTP_OK;
+            $message = 'Invoice status updated successfully';
+        
+        }
+        
+        return redirect()->route('invoices')->with($message);
+    }
 }

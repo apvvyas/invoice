@@ -41,4 +41,10 @@ class UserRepository
 
 		return $user;
 	}
+
+	function updateTour($user){
+		$user->update(['shepherd'=>1]);
+
+		return $user;
+	}
 }

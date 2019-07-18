@@ -1,6 +1,5 @@
 <?php
 
-use Artisan;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -14,6 +13,18 @@ class RolePermission extends Seeder
      */
     public function run()
     {
+
+        $permissions = [
+            'view_user','add_user','edit_user','delete_user',
+            'view_tax','add_tax','edit_tax','delete_tax',
+            'view_product','add_product','edit_product','delete_product',
+            'view_recipient','add_recipient','edit_recipient','delete_recipient',
+            'view_invoice','add_invoice','edit_invoice','delete_invoice','export_invoice'
+        ];
+
+        foreach($permissions as $permission)
+            Permission::create(['name'=>$permission]);
+
         $role = Role::create([
             'name'=>'Super Admin',
             'guard_name'=>'web'
