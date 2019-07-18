@@ -86,7 +86,9 @@ class User extends Authenticatable implements HasMedia
 
     public function getFirstOrDefaultMediaUrl(string $collectionName = 'default', string $conversionName = '')
     {
-        $url = $this->getFirstMedia($collectionName)->getFullUrl();
+        $url = '/img/avatar/avatar-01.jpg';
+        if($this->getFirstMedia($collectionName))
+            $url = $this->getFirstMedia($collectionName)->getFullUrl();
 
         return $url ? $url : '/img/avatar/avatar-01.jpg' ?? '';
     }

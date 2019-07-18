@@ -30,8 +30,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $invoice_monthly_data = $this->service->getMonthlyReport();
-        JavaScript::put($invoice_monthly_data);
+        $invoice_monthly_data = [];
+        if(\Auth::user()->hasRole('Admin')){
+            $invoice_monthly_data = $this->service->getMonthlyReport();
+            JavaScript::put($invoice_monthly_data);    
+        }
+    
         return view('home')->with($invoice_monthly_data);
     }
 }

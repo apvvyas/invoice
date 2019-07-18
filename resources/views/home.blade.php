@@ -12,6 +12,7 @@
 
 @section('content')
 
+@if($user->hasRole('Admin'))
 <div class="row flex-row">
     <!-- Begin Widget 16 -->
     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
@@ -185,6 +186,6 @@
         <!-- End Widget 07 -->
     </div>
 </div>
-
+@endif
 
 @endsection
