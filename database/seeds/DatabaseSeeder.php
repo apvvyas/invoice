@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencyTablesSeeder::class);
         $this->call(RolePermission::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(TaxSeeder::class);
     }
 }
