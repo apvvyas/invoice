@@ -19,7 +19,7 @@ class GlobalComposer
         $this->data = [
 
                 'user' => Auth::user(),
-                'company_logo'  => Auth::user()->getFirstOrDefaultMediaUrl('company-logo')
+                'company_logo'  => (!empty(Auth::user()))?Auth::user()->getFirstOrDefaultMediaUrl('company-logo'):''
         ];
     }
 
