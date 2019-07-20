@@ -92,4 +92,8 @@ class User extends Authenticatable implements HasMedia
 
         return $url ? $url : '/img/avatar/avatar-01.jpg' ?? '';
     }
+
+    function hasCompleteProfile(){
+        return ($this->details && $this->details->business_name && $this->details->business_name) ? true : false;
+    }
 }

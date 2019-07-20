@@ -32,10 +32,6 @@ class UpdateRequest extends FormRequest
             'business.name'=>'required',
             'business.address1'=>'required',
             'business.address2'=>'required',
-            'business.city'=>'required',
-            'business.state'=>'required',
-            'business.country'=>'required',
-            'business.postal'=>'required',
         ];
     }
 }

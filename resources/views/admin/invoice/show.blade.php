@@ -59,7 +59,7 @@
 					<div class="row d-flex align-items-center">
 						 <div class="col-xl-2 col-md-2 col-sm-12 d-flex justify-content-xl-start justify-content-md-center justify-content-center mb-2">
 							<div class="invoice-logo">
-								<img class="rounded-circle" src="{{$owner->getFirstMedia('company-logo')->getFullUrl('thumb')}}" alt="logo">
+								<img src="{{$owner->getFirstMedia('company-logo')->getFullUrl('thumb')}}" alt="logo">
 							</div>
 						</div>
 						<div class="col-xl-5 col-md-5 col-sm-6 d-flex justify-content-xl-start justify-content-md-center justify-content-center mb-2">

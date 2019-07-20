@@ -87,13 +87,19 @@ class UserController extends Controller
         return view('admin.users.show')->with('user',$user);
     }
 
-    public function profile(){
+    public function profile(Request $request){
         $user = Auth::user();
+        $step=1;
+
+        if($request->has('step'))
+            $step=$request->get('step');
 
         JavaScript::put([
             'user_id' => $user->id,
             'profile' => true,
-            'company_logo'=>$user->getFirstOrDefaultMediaUrl('company-logo')
+            'company_logo'=>$user->getFirstOrDefaultMediaUrl('company-logo'),
+            'step' => $step
+
         ]);
         return view('admin.users.edit');
     }

@@ -112,6 +112,7 @@ function () {
   function editUser() {
     _classCallCheck(this, editUser);
 
+    this.triggered = 0;
     var self = this;
     this.wizard = $('#rootwizard').bootstrapWizard({
       onInit: function onInit(tab, navigation, index) {
@@ -138,7 +139,8 @@ function () {
         if (index == 1) {
           return self.step1();
         }
-      }
+      },
+      onShow: function onShow() {}
     });
     this.validate = false;
     this.validation = {
@@ -149,9 +151,15 @@ function () {
     this.initPersonalValidate();
     this.initBusinessValidate();
     if (profile) this.initMediaUpload();
+    this.initDefaultStep();
   }
 
   _createClass(editUser, [{
+    key: "initDefaultStep",
+    value: function initDefaultStep() {
+      $('#rootwizard').bootstrapWizard('show', parseInt(step) - 1);
+    }
+  }, {
     key: "initPersonalValidate",
     value: function initPersonalValidate() {
       var self = this;
@@ -272,7 +280,9 @@ function () {
 
         })["catch"](function (error) {
           // handle error
-          console.log(error);
+          if (error.response.data.errors['business.address_1'] || error.response.data.errors['business.address_2'] || error.response.data.errors['business.name']) {
+            $('#rootwizard').bootstrapWizard('show', 1);
+          }
         })["finally"](function () {// always executed
         });
         return true;
@@ -322,7 +332,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\edit.js */"./resources/js/pages/users/edit.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/users/edit.js */"./resources/js/pages/users/edit.js");
 
 
 /***/ })

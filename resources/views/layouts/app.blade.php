@@ -64,7 +64,9 @@ Author: SAEROX
 
                 <div class="content-inner">
                     <!-- Begin Container -->
-                    <div class="container-fluid calendar">
+                    <div class="container-fluid">
+
+                        @include('layouts.sections.alerts')
 
                         @yield('content')
 
@@ -72,7 +74,7 @@ Author: SAEROX
 
                     @include('layouts.sections.footer')
 
-                    @include('layouts.sections.rsidebar')
+                    {{--@include('layouts.sections.rsidebar')--}}
                 </div>
 
             </div>

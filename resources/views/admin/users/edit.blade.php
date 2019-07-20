@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('page-vendor-js')
-    <script src="/vendors/js/bootstrap-wizard/bootstrap.wizard.min.js"></script>
+    <script src="/vendors/js/bootstrap-wizard/bootstrap.wizard.js"></script>
 	<script src="/js/components/validation/validation.min.js" type="text/javascript"></script>
 @endpush
 

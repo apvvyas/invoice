@@ -9,6 +9,7 @@ $(function () {
 class editUser{
 
 	constructor(){
+		this.triggered = 0;
 		var self = this;
 		this.wizard = $('#rootwizard').bootstrapWizard({
 			onInit:function(tab,navigation,index){
@@ -16,7 +17,8 @@ class editUser{
 				var width = ((100/$total))+'%';
 				navigation.find('li').each(function(){
 					$(this).css({'width':width});
-				})
+				});
+				
 			},
 			onTabShow: function (tab, navigation, index) {
 				var $total = navigation.find('li').length;
@@ -25,6 +27,7 @@ class editUser{
 				$('#rootwizard .progressbar').css({
 					width: $percent + '%'
 				});
+				
 			},
 			onTabClick(tab,navigation,index){
 				if(!profile)
@@ -34,6 +37,9 @@ class editUser{
 				if(index == 1){
 					return self.step1() ;
 				}
+			},
+			onShow(){
+				
 			}
 		});
 		
@@ -49,6 +55,12 @@ class editUser{
 
 		if(profile)
 			this.initMediaUpload();
+
+		this.initDefaultStep();
+	}
+
+	initDefaultStep(){
+		$('#rootwizard').bootstrapWizard('show',parseInt(step)-1);
 	}
 
 	initPersonalValidate(){
@@ -173,7 +185,13 @@ class editUser{
 			})
 			.catch(function (error) {
 			    // handle error
-			    console.log(error);
+			   if(error.response.data.errors['business.address_1'] 
+			   		|| 
+			   	  error.response.data.errors['business.address_2'] 
+			   	  	|| 
+			   	  error.response.data.errors['business.name']){
+			   		$('#rootwizard').bootstrapWizard('show',1);
+			   }
 			})
 			.finally(function () {
 			    // always executed

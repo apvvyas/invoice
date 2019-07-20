@@ -16,10 +16,12 @@ class GlobalComposer
      */
     public function __construct()
     {
+        $user = Auth::user();
         $this->data = [
 
-                'user' => Auth::user(),
-                'company_logo'  => (!empty(Auth::user()))?Auth::user()->getFirstOrDefaultMediaUrl('company-logo'):''
+                'user' => $user,
+                'company_logo'  => (!empty($user))?$user->getFirstOrDefaultMediaUrl('company-logo'):'',
+                'complete_profile' => $user->hasCompleteProfile()
         ];
     }
 
