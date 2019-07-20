@@ -330,8 +330,11 @@
                         </div>
                         <div class="tab-pane" id="tab4">
 							<div class="widget widget-19 has-border">
-								<div class="widget-header has-border-bottom">
-									<h4>Select Due Date</h4>
+								<div class="widget-header has-border-bottom d-flex align-items-center">
+									<h2>Select Due Date</h2>
+                                    <div class="widget-options">
+                                        
+                                    </div>
 								</div>
                                 <div class="widget-body">
 									<form id="createTax">
@@ -363,6 +366,9 @@
 								</div>
 							</div>
                             <ul class="pager wizard text-right">
+                                <li class="d-inline-block pull-left">
+                                    <button type="button" data-id="" class="btn btn-primary btn-gradient-01" data-recipient="" id="save_send">Save & Send</button>
+                                </li>
                                 <li class="previous d-inline-block">
                                     <a href="javascript:void(0)" class="btn btn-secondary ripple">Previous</a>
                                 </li>
@@ -383,8 +389,7 @@
 
 
 @push('modal')
-
     @include('admin.recipients.add-modal')
     @include('admin.invoice.add-item-modal')
-
+    @include('admin.invoice.send-invoice-modal')
 @endpush

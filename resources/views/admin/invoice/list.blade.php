@@ -3,6 +3,7 @@
 @push('css')
 
 	<link rel="stylesheet" href="/css/datatables/datatables.min.css">
+	<link rel="stylesheet" href="/css/bootstrap-select/bootstrap-select.min.css">
 
 @endpush
 
@@ -16,6 +17,7 @@
 <script src="/vendors/js/datatables/pdfmake.min.js" type="text/javascript"></script>
 <script src="/vendors/js/datatables/vfs_fonts.js" type="text/javascript"></script>
 <script src="/vendors/js/datatables/buttons.print.min.js" type="text/javascript"></script>
+<script src="/vendors/js/bootstrap-select/bootstrap-select.min.js"></script>
 
 @endpush
 
@@ -66,3 +68,9 @@
 
 
 @stop
+
+@push('modal')
+
+    @include('admin.invoice.send-invoice-modal')
+
+@endpush

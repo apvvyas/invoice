@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Invoice extends Model
+class Invoice extends Model implements HasMedia
 {
 
 	use SoftDeletes;
+    use HasMediaTrait;
 
     protected $fillable = [
     	'title','user_id','pay_address_id','bill_address_id','status','due_at'
@@ -117,5 +121,12 @@ class Invoice extends Model
     function setPaid(){
         $this->attributes['status'] = 'PAID';
         return $this;
+    }
+
+    function registerMediaCollections()
+    {
+        return $this
+            ->addMediaCollection('invoice')
+            ->singleFile();
     }
 }

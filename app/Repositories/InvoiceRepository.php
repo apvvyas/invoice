@@ -38,7 +38,7 @@ class InvoiceRepository
 		$irecipient->recipient_id 	= $data['recipient_id']; 
 		$irecipient->save();
 
-		return $invoice->id;
+		return $invoice;
 	}
 
 	function saveInvoiceItem($data,$invoice_id){

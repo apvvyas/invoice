@@ -1,3 +1,5 @@
+import sendInvoice from './send';
+
 $(function () {
 		let invoiceNew = new addInvoice(invoice_id);
 		invoiceNew.fetchRecipientList();
@@ -50,12 +52,17 @@ $(function () {
 		$('#due_date').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
   			invoiceNew.enableCustomDate($(this).selectpicker('val'));
 		});
+		$('#save_send').on('click',function(){
+			invoiceNew.saveInvoice(true);
+		})
 
 		$(document).on('click','.remove_item',function(){
 			invoiceNew.removeItem($(this).data('id'),'line');
 		}).on('click','.remove_tax',function(){
 			invoiceNew.removeItem($(this).data('id'),'tax');
 		})
+
+
 		
 });
 
@@ -63,6 +70,7 @@ $(function () {
 class addInvoice{
 
 	constructor(id){
+		this.SendInvoice =  new sendInvoice();
 		var self = this;
 		this.wizard = $('#rootwizard').bootstrapWizard({
 			onInit:function(tab,navigation,index){
@@ -155,11 +163,18 @@ class addInvoice{
 		this.enableCustomDate(2);
 	}
 
-	saveInvoice(){
-
+	saveInvoice(modal){
+		let isModal = modal;
 		let data = this.invoice;
+		let Self = this;
 		axios.post(route('invoice.save'),data).then(function (response) {
-			window.location.href=route('invoices');
+			if(typeof isModal != 'undefined' && isModal){
+				$('#save_send').data('id',response.data.invoice.id);
+				$('#save_send').data('recipient',response.data.recipient.company_name);
+				Self.SendInvoice.initSendInvoiceEvent($('#save_send'));
+			}
+			else
+				window.location.href=route('invoices');
 		})
 		.catch(function (error) {
 		    // handle error

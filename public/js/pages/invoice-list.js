@@ -90,10 +90,14 @@
 /*!*********************************************!*\
   !*** ./resources/js/pages/invoice/index.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _send__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./send */ "./resources/js/pages/invoice/send.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 $(function () {
   var ListInvoice = new listInvoice();
@@ -102,9 +106,11 @@ $(function () {
 var listInvoice = function listInvoice() {
   _classCallCheck(this, listInvoice);
 
+  var SendInvoice = new _send__WEBPACK_IMPORTED_MODULE_0__["default"]();
   this.dtable = dtable('#export-table', {
     fnDrawCallback: function fnDrawCallback() {
       initConfirmationOnDelete();
+      SendInvoice.initSendInvoiceEvent();
     },
     ajax: {
       url: $('table#export-table').data('url'),
@@ -149,6 +155,7 @@ var listInvoice = function listInvoice() {
         if (row.permissions["delete"] !== false) tableaction += buildStatusUpdateAction(route('invoice.status', {
           invoice: data
         }));
+        if (row.permissions["delete"] !== false) tableaction += SendInvoice.buildSendInvoice(data, row['recipient']);
         if (row.permissions["delete"] !== false) tableaction += buildDeleteAction(route('invoice.destroy', {
           invoice: data
         }));
@@ -160,6 +167,158 @@ var listInvoice = function listInvoice() {
 
 /***/ }),
 
+/***/ "./resources/js/pages/invoice/send.js":
+/*!********************************************!*\
+  !*** ./resources/js/pages/invoice/send.js ***!
+  \********************************************/
+/*! exports provided: sendInvoice, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendInvoice", function() { return sendInvoice; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var sendInvoice =
+/*#__PURE__*/
+function () {
+  function sendInvoice() {
+    _classCallCheck(this, sendInvoice);
+
+    this.sendMail();
+    this.successNotifySendMail = new Noty({
+      type: 'success',
+      layout: 'topRight',
+      text: 'Mail sent succesfully',
+      progressBar: true,
+      timeout: 2500,
+      animation: {
+        open: 'animated bounceInRight',
+        // Animate.css class names
+        close: 'animated bounceOutRight' // Animate.css class names
+
+      }
+    });
+    this.erroNotifySendMail = new Noty({
+      type: 'error',
+      layout: 'topRight',
+      text: 'Some error occured ..please try again later!!',
+      progressBar: true,
+      timeout: 2500,
+      animation: {
+        open: 'animated bounceInRight',
+        // Animate.css class names
+        close: 'animated bounceOutRight' // Animate.css class names
+
+      }
+    });
+    $('select[name="to"]').selectpicker();
+  }
+
+  _createClass(sendInvoice, [{
+    key: "buildSendInvoice",
+    value: function buildSendInvoice(id, recipient) {
+      return $("<div />").append($('<a />', {
+        html: '<i class="la la-1-5x la-envelope"></i>',
+        href: 'javascript:void(0)',
+        title: 'View',
+        "class": 'ml-1 mr-1 invoice_send',
+        'data-id': id || '',
+        'data-recipient': recipient || ''
+      })).html();
+    }
+  }, {
+    key: "initSendInvoiceEvent",
+    value: function initSendInvoiceEvent(isbutton) {
+      var Self = this;
+      var not_button = isbutton;
+      $('#send-invoice-modal').on('shown.bs.modal', function () {
+        Self.initToggleSendTo();
+      });
+
+      if (typeof not_button == 'undefined') {
+        $('.invoice_send').on('click', function () {
+          Self.openModal($(this));
+        });
+      } else {
+        Self.openModal(not_button);
+      }
+
+      $('#send-invoice-modal').on('hidden.bs.modal', function () {
+        $('#send_invoice')[0].reset();
+        Self.setForm('', '');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        if (typeof not_button != 'undefined') window.location.href = route('invoices');
+      });
+    }
+  }, {
+    key: "openModal",
+    value: function openModal(obj) {
+      this.setForm(obj.data('id'), obj.data('recipient'));
+      $('#send-invoice-modal').modal('show');
+    }
+  }, {
+    key: "setForm",
+    value: function setForm(id, subtext) {
+      $('#send_invoice_id').val(id);
+      $('select[name="to"]').find('option[value="recipient"]').data('subtext', subtext);
+      $('select[name="to"]').selectpicker('refresh');
+    }
+  }, {
+    key: "initToggleSendTo",
+    value: function initToggleSendTo() {
+      var Self = this;
+      $('select[name="to"]').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        $('#send_section').collapse('hide');
+        Self.switchToggleRequiredProp(false);
+        $('#send_to_self_section').collapse('show');
+
+        if (clickedIndex == 2) {
+          Self.switchToggleRequiredProp(true);
+          $('#send_section').collapse('show');
+        } else if (clickedIndex == 0) {
+          $('#send_to_self_section').collapse('hide');
+        }
+      });
+    }
+  }, {
+    key: "switchToggleRequiredProp",
+    value: function switchToggleRequiredProp(prop) {
+      $('input[name="recipient[name]"]').prop('required', prop);
+      $('input[name="recipient[email]"]').prop('required', prop);
+    }
+  }, {
+    key: "sendMail",
+    value: function sendMail() {
+      var Self = this;
+      $('#send_invoice').on('submit', function (e) {
+        e.preventDefault();
+        axios.post(route('invoice.send', $('#send_invoice_id').val()), new FormData($(this)[0])).then(function (response) {
+          // handle success
+          Self.successNotifySendMail.setText(response.data.message, true);
+          Self.successNotifySendMail.show();
+          $('#send-invoice-modal').modal('hide');
+        })["catch"](function (error) {
+          // handle error
+          Self.erroNotifySendMail.show();
+          console.log(error);
+        })["finally"](function () {// always executed
+        });
+      });
+    }
+  }]);
+
+  return sendInvoice;
+}();
+/* harmony default export */ __webpack_exports__["default"] = (sendInvoice);
+
+/***/ }),
+
 /***/ 3:
 /*!***************************************************!*\
   !*** multi ./resources/js/pages/invoice/index.js ***!
@@ -167,7 +326,7 @@ var listInvoice = function listInvoice() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\invoice\index.js */"./resources/js/pages/invoice/index.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/invoice/index.js */"./resources/js/pages/invoice/index.js");
 
 
 /***/ })

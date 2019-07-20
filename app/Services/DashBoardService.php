@@ -15,7 +15,7 @@ class DashBoardService
 
 	function getMonthlyReport(){
 		$start_date = Carbon::now()->subMonths(12);
-		$end_date = Carbon::now();
+		$end_date = Carbon::now()->addMonth();
 
 		$month1 = Carbon::now()->subMonths(1)->format('F');
 		$month2 = Carbon::now()->format('F');

@@ -89,10 +89,11 @@ class UserController extends Controller
 
     public function profile(){
         $user = Auth::user();
+
         JavaScript::put([
             'user_id' => $user->id,
             'profile' => true,
-            'company_logo'=>$user->getFirstMedia('company-logo')->getFullUrl()
+            'company_logo'=>$user->getFirstOrDefaultMediaUrl('company-logo')
         ]);
         return view('admin.users.edit');
     }
@@ -187,5 +188,10 @@ class UserController extends Controller
         }
 
         return response()->json(compact('message'),$status);
+    }
+
+    public function previewWelcomeMail(User $user){
+
+        return (new \App\Mail\WelcomeUser($user))->render();
     }
 }

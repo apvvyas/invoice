@@ -11,6 +11,8 @@ use Illuminate\Http\Response;
 use App\Services\InvoiceService;
 use App\DataTables\InvoiceDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Invoices\SendRequest;
+use App\Jobs\SaveAndSendInvoice;
 
 class InvoiceController extends Controller
 {
@@ -77,13 +79,14 @@ class InvoiceController extends Controller
 
         $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         $message = 'Invoice store failed';
+        $recipient = $invoice->recipient()->first();
         
         if($invoice){
             $status = Response::HTTP_OK;
             $message = 'Invoice stored successfully';
         }
 
-        return response()->json(compact('message'),$status);
+        return response()->json(compact('message','invoice','recipient'),$status);
     }
 
     /**
@@ -162,7 +165,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update status of specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -180,5 +183,22 @@ class InvoiceController extends Controller
         }
         
         return redirect()->back()->with($message);
+    }
+
+    /**
+     * Send Invice
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function send(SendRequest $request, Invoice $invoice)
+    {
+        
+        SaveAndSendInvoice::dispatch($invoice,$request->all());
+               
+        $status = Response::HTTP_OK;
+        $message = 'Invoice will be sent soon.';
+        
+        return response()->json(compact('message'),$status);
     }
 }

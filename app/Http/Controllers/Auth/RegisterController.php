@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Mail\WelcomeUser;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -76,6 +78,8 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('Admin');
+
+        Mail::to($user)->send(new WelcomeUser($user));
 
         return $user;
     }

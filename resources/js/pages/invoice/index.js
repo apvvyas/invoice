@@ -1,13 +1,18 @@
+import sendInvoice from './send';
+
 $(function(){
 
 	let ListInvoice = new listInvoice();
+
 })
 
 class listInvoice{
 	constructor(){
+        let SendInvoice =  new sendInvoice();
 		this.dtable = dtable('#export-table',{
 			fnDrawCallback:function(){
-				initConfirmationOnDelete()
+				initConfirmationOnDelete();
+                SendInvoice.initSendInvoiceEvent();
 			},
             ajax: {
                 url: $('table#export-table').data('url'),
@@ -62,6 +67,9 @@ class listInvoice{
 
                          if(row.permissions.delete !== false)
                             tableaction += buildStatusUpdateAction(route('invoice.status',{invoice:data}))
+
+                        if(row.permissions.delete !== false)
+                            tableaction += SendInvoice.buildSendInvoice(data,row['recipient']);
                         
                         if(row.permissions.delete !== false)
                             tableaction += buildDeleteAction(route('invoice.destroy',{invoice:data}))
@@ -72,5 +80,7 @@ class listInvoice{
             ],
         });
 	}
+
+    
 }
 
