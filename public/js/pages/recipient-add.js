@@ -112,17 +112,19 @@ function () {
     var self = this;
     this.valid = false;
     $('#add_recipient').validator().on('valid.bs.validator', function () {
+      console.log('asdasd');
       self.valid = true;
     }).on('invalid.bs.validator', function (e) {
+      console.log();
       self.valid = false;
-    }).on('invalid.bs.validator', function (e) {
-      if (this.valid) {
-        self.saveRecipientDetails;
-      }
     });
-    $('#add_recipient').submit(function (e) {
-      e.preventDefault();
-      $(this).validator('validate');
+    $('#add_recipient').validator().on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        $(this).validator('validate');
+      } else {
+        e.preventDefault();
+        self.saveRecipientDetails();
+      }
     });
   }
 
@@ -132,9 +134,35 @@ function () {
       var self = this;
       axios.post(route('user.recipient.add'), new FormData($('#add_recipient')[0])).then(function (response) {
         // handle success
-        console.log(response);
+        var notifyOfRecipient = new Noty({
+          type: 'success',
+          layout: 'topRight',
+          text: response.data,
+          progressBar: true,
+          timeout: 2500,
+          animation: {
+            open: 'animated bounceInRight',
+            // Animate.css class names
+            close: 'animated bounceOutRight' // Animate.css class names
+
+          }
+        }).show();
+        window.location.href = route('recipients');
       })["catch"](function (error) {
         // handle error
+        var notifyOfRecipient = new Noty({
+          type: 'error',
+          layout: 'topRight',
+          text: 'Select atleast one recipient',
+          progressBar: true,
+          timeout: 2500,
+          animation: {
+            open: 'animated bounceInRight',
+            // Animate.css class names
+            close: 'animated bounceOutRight' // Animate.css class names
+
+          }
+        }).show();
         console.log(error);
       })["finally"](function () {// always executed
       });
@@ -154,7 +182,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\recipients\add.js */"./resources/js/pages/recipients/add.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/recipients/add.js */"./resources/js/pages/recipients/add.js");
 
 
 /***/ })
