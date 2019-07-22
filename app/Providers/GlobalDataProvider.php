@@ -25,7 +25,7 @@ class GlobalDataProvider extends ServiceProvider
     public function boot()
     {
         view()->composer(
-            '*',
+            'admin/*',
             'App\Composers\GlobalComposer'
         );    
     }
