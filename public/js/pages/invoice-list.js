@@ -326,7 +326,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/invoice/index.js */"./resources/js/pages/invoice/index.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\invoice\index.js */"./resources/js/pages/invoice/index.js");
 
 
 /***/ })

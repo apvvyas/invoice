@@ -86,3 +86,11 @@ body {
   left: 370px !important;
 }
 
+body,
+.default-sidebar > .side-navbar a,
+.form-control,
+nav.navbar .user-size.dropdown-menu a,
+.btn {
+  font-size: 1.2rem;
+}
+
