@@ -94,6 +94,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     function hasCompleteProfile(){
-        return ($this->details && $this->details->business_name && $this->details->business_name) ? true : false;
+        return (($this->details && $this->details->business_name && $this->details->business_name) || $this->hasRole("Super Admin")) ? true : false;
     }
 }
