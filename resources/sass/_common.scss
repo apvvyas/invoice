@@ -66,11 +66,14 @@ div.img-company-logo{
 }
 
 table {
-    color: #212529;
+	color: #212529;
 }
 body {
-    font-family: monospace; 
+	font-family: monospace; 
 }
 .navigate-message-left{
 	left:370px !important
+}
+body, table, .default-sidebar>.side-navbar a , .form-control, nav.navbar .user-size.dropdown-menu a, .btn{
+	font-size: 1.2rem;
 }
