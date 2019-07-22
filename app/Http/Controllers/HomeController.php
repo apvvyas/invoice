@@ -36,6 +36,6 @@ class HomeController extends Controller
             JavaScript::put($invoice_monthly_data);    
         }
     
-        return view('home')->with($invoice_monthly_data);
+        return view('admin.home')->with($invoice_monthly_data);
     }
 }
