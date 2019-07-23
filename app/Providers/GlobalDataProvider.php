@@ -26,7 +26,12 @@ class GlobalDataProvider extends ServiceProvider
     {
         view()->composer(
             'admin/*',
-            'App\Composers\GlobalComposer'
+            'App\Composers\AdminComposer'
+        ); 
+
+        view()->composer(
+            'auth/*',
+            'App\Composers\AuthComposer'
         );    
     }
 }

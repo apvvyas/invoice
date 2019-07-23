@@ -1,6 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
+
         <!-- Begin Container -->
         <div class="container-fluid no-padding h-100">
             <div class="row flex-row h-100 bg-white">
@@ -31,32 +32,42 @@
                     <!-- Begin Form -->
                     <div class="authentication-form-2 mx-auto">
                         <div class="tab-content" id="animate-tab-content">
+
+
+
                             <!-- Begin Sign In -->
                             <div role="tabpanel" class="tab-pane show active" id="singin" aria-labelledby="singin-tab">
+
                                 <h3>Sign In To Invoice</h3>
-                                <form method="POST" action="{{ route('login') }}">
+
+                                 @include('layouts.sections.alerts')
+
+                                <form method="POST" action="{{ route('login') }}" data-toggle="validator" role="form">
                                     @csrf
-                                    <div class="group material-input @error('password') has-error @enderror">
-                                        <input id="email" type="text" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                    <div class="group material-input form-group @error('email') has-error has-danger @enderror">
+                                        <input id="email" type="text" class="" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
                                         <label>Email or Phone Number</label>
-                                        @error('email')
-                                            <div class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </div>
-                                        @enderror
+                                        <span class="help-block with-errors" role="alert">
+                                        
+                                        </span>
                                     </div>
-                                    <div class="group material-input @error('password') has-error @enderror">
-                                        <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <div class="group material-input form-group @error('password') has-error has-danger @enderror">
+                                        <input id="password" type="password" class="@error('password') has-error has-danger @enderror" name="password" required autocomplete="current-password">
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
                                         <label>Password</label>
+                                        <span class="help-block with-errors" role="alert">
                                         @error('password')
-                                            <div class="invalid-feedback" role="alert">
+                                        <ul class="list-unstyled">
+                                            <li>
                                                 <strong>{{ $message }}</strong>
-                                            </div>
+                                            </li>
+                                        </ul>
                                         @enderror
+                                        </span>
                                     </div>
                                 
                                     <div class="row">

@@ -31,9 +31,14 @@
                     <!-- Begin Form -->
                     <div class="authentication-form-2 mx-auto">
                         <div class="tab-content" id="animate-tab-content">
+
+
                             <!-- Begin Sign Up -->
                             <div role="tabpanel" class="tab-pane show active" id="signup" aria-labelledby="signup-tab">
                                 <h3>Create An Account</h3>
+
+                                @include('layouts.sections.alerts')
+
                                 <form method="POST" action="{{ route('register') }}" data-toggle="validator" role="form">
                                     @csrf
                                     <div class="group material-input form-group">
@@ -62,7 +67,7 @@
                                             </span>
                                     </div>
                                     <div class="group material-input form-group">
-                                        <input id="phone" type="tel" class=" @error('phone') has-error has-danger @enderror form-control" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                                        <input id="phone" type="tel" class=" @error('phone') has-error has-danger @enderror form-control" name="phone" value="{{ old('phone') }}" required autocomplete="phone" data-minlength="10" data-maxlength="15" pattern="[0-9]{10,15}">
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
                                         <label>Phone</label>
@@ -86,10 +91,16 @@
                                         
                                     </div>
                                     <div class="group material-input form-group">
-                                        <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
+                                        <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password" data-match="#password">
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
                                         <label>Confirm Password</label>
+
+                                        <span class="help-block with-errors" role="alert">
+                                            @error('password')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror   
+                                            </span>
                                     </div>
                                
                                     <div class="row">

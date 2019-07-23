@@ -5,7 +5,7 @@ namespace App\Composers;
 use Auth;
 use Illuminate\View\View;
 
-class GlobalComposer
+class AdminComposer
 {
 
     public $data = [];
@@ -16,13 +16,16 @@ class GlobalComposer
      */
     public function __construct()
     {
-        $user = Auth::user();
-        $this->data = [
+        if(Auth::check()){
+            $user = Auth::user();
+            $this->data = [
 
-                'user' => $user,
-                'company_logo'  => (!empty($user))?$user->getFirstOrDefaultMediaUrl('company-logo'):'',
-                'complete_profile' => $user->hasCompleteProfile()
-        ];
+                    'user' => $user,
+                    'company_logo'  => (!empty($user))?$user->getFirstOrDefaultMediaUrl('company-logo'):'',
+                    'complete_profile' => $user->hasCompleteProfile()
+            ];    
+        }
+        
     }
 
     /**
