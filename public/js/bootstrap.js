@@ -590,6 +590,14 @@ window.initConfirmationOnDelete = function () {
       }
     });
   });
+};
+
+window.loadershow = function () {
+  $('#preloader').css('display', 'block');
+};
+
+window.loaderhide = function () {
+  $('#preloader').css('display', 'none');
 }; //pageTour.pageInit();
 
 /***/ }),
@@ -601,7 +609,7 @@ window.initConfirmationOnDelete = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\bootstrap.js */"./resources/js/bootstrap.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/bootstrap.js */"./resources/js/bootstrap.js");
 
 
 /***/ })

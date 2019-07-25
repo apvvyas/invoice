@@ -123,7 +123,7 @@
 	                                    	<a href="javascript:;" class="btn btn-secondary ripple">Next</a>
 	                                	</li>
 	                                    <li class="d-inline-block">
-	                                    	<a href="javascript:void(0)" class="finish btn btn-gradient-01" data-toggle="modal">Save</a>
+	                                    	<button type="button" class="finish btn btn-gradient-01">Save</button>
 	                                	</li>
                                 	@else
                                 		<li class="next d-inline-block">
@@ -225,7 +225,7 @@
 	                                    <a href="javascript:;" class="btn btn-secondary ripple">Next</a>
 	                                </li>
 	                                <li class="d-inline-block">
-	                                    <a href="javascript:void(0)" class="finish btn btn-gradient-01" data-toggle="modal">Save</a>
+	                                    <button type="button" class="finish btn btn-gradient-01">Save</button>
 	                                </li>
 	                                @else
 	                                <li class="next d-inline-block">
@@ -264,7 +264,7 @@
 	                                    <a href="javascript:void(0)" class="btn btn-secondary ripple">Previous</a>
 	                                </li>
 	                                <li class="d-inline-block">
-	                                    <a href="javascript:void(0)" class="finish btn btn-gradient-01" data-toggle="modal">Save</a>
+	                                    <button type="button" class="finish btn btn-gradient-01">Save</button>
 	                                </li>
 	                            </ul>
                             </form>

@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="widget-body">
-        <form id="add_recipient" role="form" method="post">
+        <form id="add_recipient" role="form" method="post" data-toggle="validator">
             @csrf
         	<div class="row">
         		<div class="col-sm-12">
@@ -42,7 +42,7 @@
 	        	</div>
 	        	<div class="col-sm-6">
 	        		<div class="form-group">
-	            		<label>Phone Number <span class="text-secondary">(numbers only)</span></label>
+	            		<label>Phone Number <span class="text-secondary">(numbers only, min 10-15 digits)</span></label>
 	            		<input type="tel" data-minlength="10" data-maxlength="15" pattern="[0-9]{10,15}" class="form-control" name="phone" placeholder="Phone Number"  data-validation="number" required>
 	            		<div class="help-block with-errors"></div>
 	            	</div>
@@ -90,8 +90,8 @@
             	</div>
             	<div class="col-sm-6">
 	            	<div class="form-group">
-	            		<label>Postal / Zip Code</label>
-	            		<input type="text" class="form-control" name="postal_code" placeholder="Postal / Zip Code" >
+	            		<label>Postal / Zip Code <span class="text-secondary">(numbers only, 6 digits)</span></label>
+	            		<input type="text" class="form-control" data-minlength="6" data-maxlength="6" pattern="[0-9]{6}" name="postal_code" placeholder="Postal / Zip Code" >
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	            </div>
@@ -108,7 +108,7 @@
         	<div class="row">
         		<div class="col-lg-12 text-right">
 	        		<a href="{{url()->previous()}}" class="btn btn-shadow" data-dismiss="modal">cancel</a>
-	            	<button  class="btn btn-primary">Save</button>
+	            	<button type="submit" class="btn btn-primary">Save</button>
             	</div>	
         	</div>
         	

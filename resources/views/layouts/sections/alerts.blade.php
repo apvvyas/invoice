@@ -1,5 +1,5 @@
 
-@if(!$no_check_complete_alert && !$complete_profile && (request()->route()->getName() != 'user.profile'))
+@if(empty($no_check_complete_alert) && !$complete_profile && (request()->route()->getName() != 'user.profile'))
     @component('layouts.alerts.warning-gradient')
     <div class="clearfix v-middle">
         <span class="pull-left pt-2">

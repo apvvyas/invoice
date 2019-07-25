@@ -10,14 +10,10 @@ use App\Models\RecipientAddress;
 class RecipientRepository
 {
 	function create($data){
-		$address = Address::create($data);
 
 		$recipient = Auth::user()->recipients()->create($data);
 
-		RecipientAddress::insert([
-			'recipient_id'=>$recipient->id,
-			'address_id'=>$address->id
-		]);
+		$this->registerAddress($data,$recipient);
 
 		return $recipient;
 	}
@@ -50,8 +46,31 @@ class RecipientRepository
 	function update($data,$recipient){
 		$recipient->fill($data)->save();
 
-		$recipient->address->update($data);
+		if($recipient->address)
+			$recipient->address->update($data);
+		else
+			$this->registerAddress($data,$recipient);
+
 
 		return $recipient;
+	}
+
+	function registerAddress(array $data,Recipient $recipient){
+		
+		$address = NULL;
+		if(!empty($data['address_1']) && !empty($data['address_1']))
+		{
+			$address = Address::create($data);	
+		}
+
+		if(!empty($address))
+		{
+			RecipientAddress::insert([
+				'recipient_id'=>$recipient->id,
+				'address_id'=>$address->id
+			]);	
+		}
+
+		return $address;
 	}
 }

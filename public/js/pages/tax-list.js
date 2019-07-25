@@ -155,7 +155,7 @@ var listTax = function listTax() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\taxes\index.js */"./resources/js/pages/taxes/index.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/taxes/index.js */"./resources/js/pages/taxes/index.js");
 
 
 /***/ })

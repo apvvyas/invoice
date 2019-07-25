@@ -101,7 +101,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 $(function () {
   window.userEdit = new editUser();
+  window.saveButton = $('.finish');
   $('#rootwizard .finish').click(function () {
+    $(this).prop('disabled', true);
     userEdit.saveUser();
   });
 });
@@ -142,7 +144,10 @@ function () {
       },
       onShow: function onShow() {}
     });
-    this.validate = false;
+    this.validate = {
+      personal: true,
+      business: true
+    };
     this.validation = {
       personal: [],
       business: []
@@ -165,7 +170,7 @@ function () {
       var self = this;
       $('#personal-details').validator().on('invalid.bs.validator', function (e) {
         self.validation['personal'].push(e.relatedTarget.name);
-        self.validate = false;
+        self.validate.personal = false;
       }).on('valid.bs.validator', function (e) {
         var index = self.validation['personal'].indexOf(e.relatedTarget.name);
 
@@ -173,7 +178,7 @@ function () {
           self.validation['personal'].splice(index, 1);
         }
       }).on('validated.bs.validator', function () {
-        if (self.validation['personal'].length == 0) self.validate = true;
+        if (self.validation['personal'].length == 0) self.validate.personal = true;
       });
     }
   }, {
@@ -182,15 +187,16 @@ function () {
       var self = this;
       $('#business-details').validator().on('invalid.bs.validator', function (e) {
         self.validation['business'].push(e.relatedTarget.name);
-        self.validate = false;
+        self.validate.business = false;
       }).on('valid.bs.validator', function (e) {
-        var index = self.validation['personal'].indexOf(e.relatedTarget.name);
+        var index = self.validation['business'].indexOf(e.relatedTarget.name);
 
         if (index > -1) {
-          self.validation['personal'].splice(index, 1);
+          self.validation['business'].splice(index, 1);
         }
       }).on('validated.bs.validator', function () {
-        if (self.validation['business'].length == 0) self.validate = true;
+        console.log(self.validation['business'].length);
+        if (self.validation['business'].length == 0) self.validate.business = true;
       });
     }
   }, {
@@ -233,7 +239,7 @@ function () {
       var own = this;
       $('#personal-details').validator('validate');
 
-      if (this.validate) {
+      if (this.validate.personal) {
         //this.captureDetails('#personal-details');
         return true;
       }
@@ -241,13 +247,17 @@ function () {
       return false;
     }
   }, {
+    key: "step2",
+    value: function step2() {}
+  }, {
     key: "saveUser",
     value: function saveUser() {
-      var validate = true;
-      $('#personal-details').validator('validate');
-      $('#business-details').validator('validate');
+      var personalV = $("#personal-details").data("bs.validator");
+      var businessV = $("#business-details").data("bs.validator");
+      personalV.validate();
+      businessV.validate();
 
-      if (this.validate) {
+      if (!personalV.hasErrors() && !businessV.hasErrors()) {
         this.captureDetails('#personal-details');
         this.captureDetails('#business-details');
         var data = this.user;
@@ -260,6 +270,8 @@ function () {
             'Content-Type': 'multipart/form-data'
           }
         }).then(function (response) {
+          $('.finish').prop('disabled', false);
+
           if (route().current("user.profile")) {
             new Noty({
               type: 'success',
@@ -279,7 +291,8 @@ function () {
           } //
 
         })["catch"](function (error) {
-          // handle error
+          $('.finish').prop('disabled', false); // handle error
+
           if (error.response.data.errors['business.address_1'] || error.response.data.errors['business.address_2'] || error.response.data.errors['business.name']) {
             $('#rootwizard').bootstrapWizard('show', 1);
           }
@@ -332,7 +345,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\users\edit.js */"./resources/js/pages/users/edit.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/users/edit.js */"./resources/js/pages/users/edit.js");
 
 
 /***/ })

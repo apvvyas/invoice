@@ -122,6 +122,8 @@ function () {
       if (e.isDefaultPrevented()) {
         $(this).validator('validate');
       } else {
+        $('#add_recipient button[type="submit"]').prop('disabled', true);
+        window.loadershow();
         e.preventDefault();
         self.saveRecipientDetails();
       }
@@ -133,7 +135,9 @@ function () {
     value: function saveRecipientDetails() {
       var self = this;
       axios.post(route('user.recipient.add'), new FormData($('#add_recipient')[0])).then(function (response) {
-        // handle success
+        $('#add_recipient button[type="submit"]').prop('disabled', false);
+        window.loaderhide(); // handle success
+
         var notifyOfRecipient = new Noty({
           type: 'success',
           layout: 'topRight',
@@ -146,10 +150,13 @@ function () {
             close: 'animated bounceOutRight' // Animate.css class names
 
           }
+        }).on('afterClose', function () {
+          window.location.href = route('recipients');
         }).show();
-        window.location.href = route('recipients');
       })["catch"](function (error) {
-        // handle error
+        $('#add_recipient button[type="submit"]').prop('disabled', false);
+        window.loaderhide(); // handle error
+
         var notifyOfRecipient = new Noty({
           type: 'error',
           layout: 'topRight',
@@ -182,7 +189,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\recipients\add.js */"./resources/js/pages/recipients/add.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/recipients/add.js */"./resources/js/pages/recipients/add.js");
 
 
 /***/ })

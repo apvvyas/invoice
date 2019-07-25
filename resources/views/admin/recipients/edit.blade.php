@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="widget-body">
-        <form id="edit_recipient" action="{{route('recipient.update',['recipient'=>$recipient])}}" role="form" method="post">
+        <form id="edit_recipient" action="{{route('recipient.update',['recipient'=>$recipient])}}" role="form" method="post" data-toggle="validator">
             @csrf
         	<div class="row">
         		<div class="col-sm-12">
@@ -42,7 +42,7 @@
 	        	</div>
 	        	<div class="col-sm-6">
 	        		<div class="form-group">
-	            		<label>Phone Number</label>
+	            		<label>Phone Number<span class="text-secondary">(numbers only, min 10-15 digits)</span></label>
 	            		<input type="tel" data-minlength="10" data-maxlength="15" pattern="[0-9]{10,15}" class="form-control" name="phone" placeholder="Phone Number" value="{{$recipient->phone}}" data-validation="number">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
@@ -52,14 +52,14 @@
 	        	<div class="col-sm-6">
 	            	<div class="form-group">
 	            		<label>Street Address</label>
-	            		<input type="text" class="form-control" name="address_2" placeholder="Street Address" value="{{$recipient->address->address_2}}">
+	            		<input type="text" class="form-control" name="address_2" placeholder="Street Address" value="@if(!empty($recipient->address)) {{$recipient->address->address_2}} @endif">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	            </div>
 	        	<div class="col-sm-6">
 	            	<div class="form-group">
 	            		<label>Apartments / Suite / Unit</label>
-	            		<input type="text" class="form-control" name="address_1" placeholder="Apartments / Suite / Unit" value="{{$recipient->address->address_1}}">
+	            		<input type="text" class="form-control" name="address_1" placeholder="Apartments / Suite / Unit" value="@if(!empty($recipient->address)) {{$recipient->address->address_1}} @endif">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	            </div>
@@ -68,14 +68,14 @@
 	        	<div class="col-sm-6">
 	            	<div class="form-group">
 	            		<label>City</label>
-	            		<input type="text" class="form-control" name="city" placeholder="City" value="{{$recipient->address->city}}">
+	            		<input type="text" class="form-control" name="city" placeholder="City" value="@if(!empty($recipient->address)){{$recipient->address->city}} @endif">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
             	</div>
 	        	<div class="col-sm-6">
 	            	<div class="form-group">
 	            		<label>State</label>
-	            		<input type="text" class="form-control" name="state" placeholder="State" value="{{$recipient->address->state}}">
+	            		<input type="text" class="form-control" name="state" placeholder="State" value="@if(!empty($recipient->address)){{$recipient->address->state}} @endif">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
             	</div>
@@ -84,14 +84,14 @@
 	        	<div class="col-sm-6">
 	            	<div class="form-group">
 	            		<label>Country</label>
-	            		<input type="text" class="form-control" name="country" placeholder="Country" value="{{$recipient->address->country}}"> 
+	            		<input type="text" class="form-control" name="country" placeholder="Country" value="@if(!empty($recipient->address)){{$recipient->address->country}} @endif"> 
 	            		<div class="help-block with-errors"></div>
 	            	</div>
             	</div>
             	<div class="col-sm-6">
 	            	<div class="form-group">
-	            		<label>Postal / Zip Code</label>
-	            		<input type="text" class="form-control" name="postal_code" placeholder="Postal / Zip Code" value="{{$recipient->address->postal_code}}">
+	            		<label>Postal / Zip Code <span class="text-secondary">(numbers only, 6 digits)</span></label>
+	            		<input type="text" class="form-control"  name="postal_code" data-minlength="6" data-maxlength="6" pattern="[0-9]{6}" placeholder="Postal / Zip Code" value="@if(!empty($recipient->address)){{$recipient->address->postal_code}} @endif">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	            </div>

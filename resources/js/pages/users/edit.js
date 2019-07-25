@@ -1,7 +1,8 @@
 $(function () {
 		window.userEdit = new editUser();
-
+		window.saveButton = $('.finish');
 		$('#rootwizard .finish').click(function() {
+			$(this).prop('disabled',true);
 			userEdit.saveUser();
 		});
 });
@@ -43,7 +44,10 @@ class editUser{
 			}
 		});
 		
-		this.validate = false;
+		this.validate = {
+			personal:true,
+			business:true,
+		};
 		this.validation = {
 			personal:[],
 			business:[]
@@ -67,7 +71,7 @@ class editUser{
 		var self = this;
 		$('#personal-details').validator().on('invalid.bs.validator',function(e){
 			self.validation['personal'].push(e.relatedTarget.name);
-			self.validate = false;
+			self.validate.personal = false;
 		}).on('valid.bs.validator',function(e){
 			var index = self.validation['personal'].indexOf(e.relatedTarget.name);
 			if (index > -1) {
@@ -75,7 +79,7 @@ class editUser{
 			}
 		}).on('validated.bs.validator',function(){
 				if(self.validation['personal'].length == 0)
-					self.validate = true;
+					self.validate.personal = true;
 		});
 	}
 
@@ -83,15 +87,16 @@ class editUser{
 		var self = this;
 		$('#business-details').validator().on('invalid.bs.validator',function(e){
 			self.validation['business'].push(e.relatedTarget.name);
-			self.validate = false;
+			self.validate.business = false;
 		}).on('valid.bs.validator',function(e){
-			var index = self.validation['personal'].indexOf(e.relatedTarget.name);
+			var index = self.validation['business'].indexOf(e.relatedTarget.name);
 			if (index > -1) {
-				self.validation['personal'].splice(index,1);
+				self.validation['business'].splice(index,1);
 			}
 		}).on('validated.bs.validator',function(){
+			console.log(self.validation['business'].length);
 				if(self.validation['business'].length == 0)
-					self.validate = true;
+					self.validate.business = true;
 		});
 	}
 
@@ -135,21 +140,28 @@ class editUser{
 
 		var own = this;
 		$('#personal-details').validator('validate');
-		if(this.validate){
+		
+		if(this.validate.personal){
 			//this.captureDetails('#personal-details');
 			return true;	
 		}
 		return false;
 	}
 
+	step2(){
+
+	}
+
 	saveUser(){
-		var validate = true;
 
-		$('#personal-details').validator('validate');
+		var personalV = $("#personal-details").data("bs.validator");
+		var businessV = $("#business-details").data("bs.validator");
 
-		$('#business-details').validator('validate');
+		personalV.validate();
+		businessV.validate();
 
-		if(this.validate){
+
+		if(!personalV.hasErrors() && !businessV.hasErrors()){
 			this.captureDetails('#personal-details');
 			this.captureDetails('#business-details');
 
@@ -164,8 +176,9 @@ class editUser{
 		          'Content-Type': 'multipart/form-data'
 		        }
 		    }).then(function (response) {
-
+		    	$('.finish').prop('disabled',false);
 				if(route().current("user.profile")){
+
 					new Noty({
 						type: 'success',
 						layout: 'topRight',
@@ -184,6 +197,7 @@ class editUser{
 				//
 			})
 			.catch(function (error) {
+				$('.finish').prop('disabled',false);
 			    // handle error
 			   if(error.response.data.errors['business.address_1'] 
 			   		|| 

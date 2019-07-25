@@ -75,7 +75,13 @@ window.initConfirmationOnDelete = function() {
         });
     };
 
+window.loadershow = function(){
+    $('#preloader').css('display','block');
+}
 
+window.loaderhide = function(){
+    $('#preloader').css('display','none');
+}
 
 
 

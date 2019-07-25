@@ -10050,8 +10050,8 @@ var pageTour = new PageTour();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/invoice/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

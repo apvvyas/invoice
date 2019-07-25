@@ -301,7 +301,7 @@ window.initConfirmationOnDelete();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\invoice-backend\resources\js\pages\dashboard.js */"./resources/js/pages/dashboard.js");
+module.exports = __webpack_require__(/*! /var/www/html/invoice/resources/js/pages/dashboard.js */"./resources/js/pages/dashboard.js");
 
 
 /***/ })
