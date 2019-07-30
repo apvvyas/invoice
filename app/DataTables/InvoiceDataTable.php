@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use Auth; 
 use Carbon\Carbon;
 use App\Models\Invoice;
 use Yajra\DataTables\Services\DataTable;
