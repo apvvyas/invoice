@@ -43,7 +43,7 @@
 	        	<div class="col-sm-6">
 	        		<div class="form-group">
 	            		<label>Price</label>
-	            		<input type="text" class="form-control" name="price" value="{{$product->price}}" placeholder="Price" required>
+	            		<input type="number" step="any" min="0" class="form-control" name="price" value="{{$product->price}}" placeholder="Price" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57) ||  event.charCode == 46 || event.charCode == 0 ">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	        	</div>
@@ -73,14 +73,14 @@
                 <div class="col-sm-6">
 	        		<div class="form-group">
 	            		<label>Quantity <span class="text-secondary">(numbers only)</span></label>
-	            		<input type="text" class="form-control" value="{{$product->quantity}}" name="quantity" placeholder="Quantity">
+	            		<input type="number" step="any" min="0" class="form-control" value="{{$product->quantity}}" name="quantity" placeholder="Quantity" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) ||  event.charCode == 46 || event.charCode == 0 ">
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	        	</div>
 	        	<div class="col-sm-6">
 	            	<div class="form-group">
 	            		<label>Unit</label>
-	            		<input type="text" class="form-control" value="{{$product->unit}}" name="unit" placeholder="Unit of Quantity" >
+	            		<input type="text" class="form-control" pattern="[a-zA-Z]+" value="{{$product->unit}}" name="unit" placeholder="Unit of Quantity" >
 	            		<div class="help-block with-errors"></div>
 	            	</div>
 	            </div>
