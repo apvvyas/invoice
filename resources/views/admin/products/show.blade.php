@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <h5><strong>Description</strong></h5>
-                <p>{{!empty($product->description) ? $product->description : '-'}}</p>
+                <p>{!! !empty($product->description) ? nl2br($product->description) : '-'!!}</p>
             </div>
         </div>
     </div>
