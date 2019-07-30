@@ -55,7 +55,12 @@ class InvoiceDataTable extends DataTable
      */
     public function query(Invoice $model)
     {
-        return $model->newQuery()->with('recipient')->orderBy('created_at','DESC');
+        $query = $model->newQuery()->select('*')->with('recipient')->orderBy('created_at','DESC');
+        
+        if(Auth::user()->hasRole('Admin'))
+            $query->where('user_id',Auth::user()->id);
+        
+        return $query;
     }
 
 }

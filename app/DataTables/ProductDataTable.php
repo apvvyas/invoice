@@ -40,7 +40,7 @@ class ProductDataTable extends DataTable
     {
         $query = $model->newQuery()->select('*');
         
-        if(auth()->user()->hasRole('User'))
+        if(auth()->user()->hasRole('Admin'))
             $query->where('user_id',Auth::user()->id);
 
         return $query;

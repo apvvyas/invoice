@@ -13,5 +13,5 @@ class TaxRepository
     function update($data,$tax){
 			$tax->update($data);
 			return $tax;
-		}
+	}
 }
