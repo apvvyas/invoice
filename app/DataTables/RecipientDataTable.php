@@ -36,7 +36,7 @@ class RecipientDataTable extends DataTable
     {
         $query = $model->newQuery()->select('*');
         
-        if(Auth::user()->hasRole('User'))
+        if(Auth::user()->hasRole('Admin'))
             $query->where('user_id',Auth::user()->id);
 
         return $query;
