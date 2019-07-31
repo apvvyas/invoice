@@ -60,6 +60,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Invoice::class);
     }
 
+    function todos(){
+      return $this->hasMany(Todo::class);
+    }
+
     function generateToken()
     {
         $token = Str::random(60);

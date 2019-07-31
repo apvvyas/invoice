@@ -215,3 +215,19 @@ class PageTour{
 }
 
 let pageTour = new PageTour();
+
+
+window.loadMore = function(id,params){
+	let item = $('#'+id);
+	let data = params;
+	axios.post(item.data('url'),data).then(function (response) {
+		
+	})
+	.catch(function (error) {
+	    // handle error
+	    console.log(error);
+	})
+	.finally(function () {
+	    // always executed
+	});
+}

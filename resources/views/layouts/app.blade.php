@@ -74,7 +74,7 @@ Author: SAEROX
 
                     @include('layouts.sections.footer')
 
-                    {{--@include('layouts.sections.rsidebar')--}}
+                    @include('layouts.sections.rsidebar')
                 </div>
 
             </div>

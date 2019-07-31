@@ -1,30 +1,36 @@
-<!-- Offcanvas Sidebar -->
+Offcanvas Sidebar -->
 <div class="off-sidebar from-right">
     <div class="off-sidebar-container">
         <header class="off-sidebar-header">
-            <ul class="button-nav nav nav-tabs mt-3 mb-3 ml-3" role="tablist" id="weather-tab">
-                <li><a class="active" data-toggle="tab" href="#messenger" role="tab" id="messenger-tab">Messages</a></li>
-                <li><a data-toggle="tab" href="#today" role="tab" id="today-tab">Today</a></li>
-            </ul>
+            <h2>Todos</h2>
             <a href="#off-canvas" class="off-sidebar-close"></a>
         </header>
         <div class="off-sidebar-content offcanvas-scroll auto-scroll">
+            <ul class="button-nav nav nav-tabs mt-3 mb-3 ml-3" role="tablist" id="weather-tab">
+                <li><a class="active" role="tab" id="messenger-tab">Today</a></li>
+                <li><a role="tab" id="today-tab">Yesterday</a></li>
+            </ul>
             <div class="tab-content">
                 <!-- Begin Messenger -->
                 <div role="tabpanel" class="tab-pane show active fade" id="messenger" aria-labelledby="messenger-tab">
                     <!-- Begin Chat Message -->
                     <span class="date">Today</span>
                     <div class="messenger-message messenger-message-sender">
-                        <img class="messenger-image messenger-image-default" src="assets/img/avatar/avatar-02.jpg" alt="...">
+                        <div class="messenger-message-wrapper">
+                            <div class="messenger-message-content">
+                                <p>
+                                    Hi David, what's up?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="messenger-message messenger-message-sender">
                         <div class="messenger-message-wrapper">
                             <div class="messenger-message-content">
                                 <p>
                                     <span class="mb-2">Brandon wrote</span>
                                     Hi David, what's up?
                                 </p>
-                            </div>
-                            <div class="messenger-details">
-                                <span class="messenger-message-localization font-size-small">2 minutes ago</span>
                             </div>
                         </div>
                     </div>
@@ -110,7 +116,7 @@
                                </p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- End Chat Message -->
                     <!-- Begin Message Form -->
                     <div class="enter-message">
@@ -125,7 +131,7 @@
                 </div>
                 <!-- End Messenger -->
                 <!-- Begin Today -->
-                <div role="tabpanel" class="tab-pane fade" id="today" aria-labelledby="today-tab">
+                {{--<div role="tabpanel" class="tab-pane fade" id="today" aria-labelledby="today-tab">
                     <!-- Begin Today Stats -->
                     <div class="sidebar-heading pt-0">Today</div>
                     <div class="today-stats mt-3 mb-3">
@@ -257,7 +263,7 @@
                         </ul>
                     </div>
                     <!-- End Settings -->
-                </div>
+                </div>--}}
                 <!-- End Today -->
             </div>
         </div>
@@ -265,4 +271,4 @@
     </div>
     <!-- End Offsidebar Container -->
 </div>
-<!-- End Offcanvas Sidebar -->
+<!-- End Offcanvas Sidebar

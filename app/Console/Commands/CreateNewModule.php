@@ -11,7 +11,7 @@ class CreateNewModule extends Command
      *
      * @var string
      */
-    protected $signature = 'set:module {module} {location?}';
+    protected $signature = 'set:module {module} {location?} {--ignore=*}';
 
     /**
      * The console command description.
@@ -23,6 +23,8 @@ class CreateNewModule extends Command
     protected $location;
 
     protected $module;
+
+    protected $ignore = [];
 
     /**
      * Create a new command instance.
@@ -45,6 +47,9 @@ class CreateNewModule extends Command
         $this->module = $this->argument('module');
         if($this->argument('location')){
             $this->location = $this->argument('location');
+        }
+        if($this->option('ignore')){
+            $this->ignore = $this->option('ignore');
         }
 
         //Create Options
@@ -70,51 +75,82 @@ class CreateNewModule extends Command
     }
 
     protected function createController(){
-        $controller = $this->getLocationPath($this->module,'controller')."Controller";
-        $this->call('make:controller',[
-            'name' => $controller,
-            '--resource' => true
-        ]);
+        if(!in_array('controller', $this->ignore)):
+            $controller = $this->getLocationPath($this->module,'controller')."Controller";
+            $this->call('make:controller',[
+                'name' => $controller,
+                '--resource' => true
+            ]);
+        endif;
     }
 
     protected function createModelMigration(){
-        $model = "Models\\".$this->getLocationPath($this->module,'model');
-        $this->call('make:model',[
-            'name' => $model,
-            '-m' => true
-        ]);
+        if(!in_array('migration', $this->ignore)):
+            $model = "Models\\".$this->getLocationPath($this->module,'model');
+            $this->call('make:model',[
+                'name' => $model,
+                '-m' => true
+            ]);
+        endif;
     }
 
     protected function createService(){
-        $service = $this->getLocationPath($this->module,'service')."Service";
-        $this->call('make:service',[
-            'name' => $service,
-        ]);
+        if(!in_array('service', $this->ignore)):
+            $service = $this->getLocationPath($this->module,'service')."Service";
+            $this->call('make:service',[
+                'name' => $service,
+            ]);
+        endif;
     }
 
     protected function createRepository(){
-        $repo = $this->getLocationPath($this->module,'repository')."Repository";
-        $this->call('make:repository',[
-            'name' => $repo,
-        ]);
+        if(!in_array('repository', $this->ignore)):
+            $repo = $this->getLocationPath($this->module,'repository')."Repository";
+            $this->call('make:repository',[
+                'name' => $repo,
+            ]);
+        endif;
     }
 
     protected function creatViews(){
-        $view = $this->getLocationPath($this->module)."s";
-        $this->call('make:views',[
-            'name' => $view,
-        ]);
+        if(!in_array('view', $this->ignore)):
+            $view = $this->getLocationPath($this->module)."s";
+            $this->call('make:views',[
+                'name' => $view,
+            ]);
+        endif;
     }
 
     protected function createRequests(){
-        $addRequest = $this->getLocationPath($this->module,'request')."\\AddRequest";
-        $updateRequest = $this->getLocationPath($this->module,'request')."\\UpdateRequest";
+        if(!in_array('request', $this->ignore)):
+            $addRequest = $this->getLocationPath($this->module,'request')."\\AddRequest";
+            $updateRequest = $this->getLocationPath($this->module,'request')."\\UpdateRequest";
 
-        $this->call('make:request',[
-            'name' => $addRequest,
-        ]);
-        $this->call('make:request',[
-            'name' => $updateRequest,
-        ]);
+            $this->call('make:request',[
+                'name' => $addRequest,
+            ]);
+            $this->call('make:request',[
+                'name' => $updateRequest,
+            ]);
+        endif;
+    }
+
+    protected function createPermissions(){
+
+        if(!in_array('permission', $this->ignore)):
+            $module = strtolower($this->module);
+            $permissions = [
+                'view_'.$module,
+                'add_'.$module,
+                'edit_'.$module,
+                'delete_'.$module,
+            ];
+            foreach($permissions as $permission):
+                $this->call('permission:create-permission',[
+                    'name' => $permission,
+                ]);
+
+            endforeach;
+        endif;
     }
 }

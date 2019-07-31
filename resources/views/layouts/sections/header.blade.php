@@ -128,7 +128,7 @@
                 </li>
                 <!-- End User -->
                 <!-- Begin Quick Actions -->
-                <!-- <li class="nav-item"><a href="#off-canvas" class="open-sidebar"><i class="la la-ellipsis-h"></i></a></li> -->
+                 <li class="nav-item"><a href="#off-canvas" class="open-sidebar"><i class="la la-ellipsis-h"></i></a></li>
                 <!-- End Quick Actions -->
             </ul>
             <!-- End Navbar Menu -->
