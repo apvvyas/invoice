@@ -157,6 +157,52 @@ Route::group(['middleware' => 'auth'], function () {
 						Route::delete('/delete/{tax}','TaxController@destroy')->name('tax.destroy');
 					});	
 				});
+
+
+				// ContactUs Controls
+				Route::prefix('contacts')->group(function () {
+
+					Route::group(['middleware' => ['permission:view_contact']], function () {
+						Route::get('/','ContactUsController@index')->name('contacts');
+						Route::get('/list','ContactUsController@list')->name('contacts.list');
+					});
+
+					Route::group(['middleware' => ['permission:add_contact']], function () {
+						Route::get('/add','ContactUsController@create')->name('contact.create');
+						Route::post('/save','ContactUsController@store')->name('contact.save');
+					});
+					Route::group(['middleware' => ['permission:edit_contact']], function () {
+						Route::get('/edit/{contact}','ContactUsController@edit')->name('contact.edit');
+						Route::post('/update/{contact}','ContactUsController@update')->name('contact.update');
+					});
+					
+					Route::group(['middleware' => ['permission:delete_contact']], function () {
+						Route::delete('/delete/{contact}','ContactUsController@destroy')->name('contact.destroy');
+					});	
+				});
+
+				// ContactUs Controls
+				Route::prefix('todos')->group(function () {
+
+					Route::group(['middleware' => ['permission:view_todo']], function () {
+						Route::get('/','TodoController@index')->name('todos');
+						Route::get('/list','TodoController@list')->name('todos.list');
+					});
+
+					Route::group(['middleware' => ['permission:add_todo']], function () {
+						Route::get('/add','TodoController@create')->name('todo.create');
+						Route::post('/save','TodoController@store')->name('todo.save');
+					});
+					Route::group(['middleware' => ['permission:edit_todo']], function () {
+						Route::get('/edit/{todo}','TodoController@edit')->name('todo.edit');
+						Route::post('/update/{todo}','TodoController@update')->name('todo.update');
+						Route::post('/checkoff/{todo}','TodoController@checkoff')->name('todo.checkoff');
+					});
+					
+					Route::group(['middleware' => ['permission:delete_todo']], function () {
+						Route::delete('/delete/{todo}','TodoController@destroy')->name('todo.destroy');
+					});	
+				});
 			});
 
 		});

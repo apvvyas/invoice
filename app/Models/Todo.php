@@ -9,9 +9,13 @@ class Todo extends Model
 {
 	use SoftDeletes;
 
-    protected $fillable = ['message'];
+    protected $fillable = ['message','scheduled_at'];
+
+    protected $casts = [
+    	'scheduled_at' => 'datetime'
+    ];
 
     function user(){
-    	$this->belongsTo(User::class)
+    	$this->belongsTo(User::class);
     }
 }

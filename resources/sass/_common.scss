@@ -77,3 +77,28 @@ body {
 body, table, .default-sidebar>.side-navbar a , .form-control, nav.navbar .user-size.dropdown-menu a, .btn{
 	font-size: 1.2rem;
 }
+
+.todo-datepicker{
+	z-index:$top-index !important
+}
+
+.todo-send-date{
+	position:fixed !important;
+	top: 245px !important;
+	left: auto !important;
+	right: 75px !important;
+
+	&.daterangepicker.single .ranges{
+		display:block;
+	}
+}
+
+.todo-send-date-display{
+	background: #5d5386 !important;
+	padding: .5rem 1.07rem;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 35px;
+	color: #FFF;
+	width: 100%;
+}

@@ -95,3 +95,28 @@ nav.navbar .user-size.dropdown-menu a,
   font-size: 1.2rem;
 }
 
+.todo-datepicker {
+  z-index: 1000000 !important;
+}
+
+.todo-send-date {
+  position: fixed !important;
+  top: 245px !important;
+  left: auto !important;
+  right: 75px !important;
+}
+
+.todo-send-date.daterangepicker.single .ranges {
+  display: block;
+}
+
+.todo-send-date-display {
+  background: #5d5386 !important;
+  padding: 0.5rem 1.07rem;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 35px;
+  color: #FFF;
+  width: 100%;
+}
+

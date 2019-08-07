@@ -19,7 +19,8 @@ class RolePermission extends Seeder
             'view_tax','add_tax','edit_tax','delete_tax',
             'view_product','add_product','edit_product','delete_product',
             'view_recipient','add_recipient','edit_recipient','delete_recipient',
-            'view_invoice','add_invoice','edit_invoice','delete_invoice','export_invoice'
+            'view_invoice','add_invoice','edit_invoice','delete_invoice','export_invoice',
+            'view_todo','add_todo','edit_todo','delete_todo'
         ];
 
         foreach($permissions as $permission)
@@ -47,6 +48,7 @@ class RolePermission extends Seeder
             'add_invoice','delete_invoice','export_invoice',
             'add_recipient','edit_recipient','delete_recipient',
             'view_product','view_invoice','view_recipient',
+            'view_todo','add_todo','edit_todo','delete_todo'
         ];
         foreach($permissions as $permission)
             $role->givePermissionTo($permission);

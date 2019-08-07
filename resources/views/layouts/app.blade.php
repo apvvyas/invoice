@@ -91,6 +91,10 @@ Author: SAEROX
         <!-- Begin Vendor Js -->
         <script src="/vendors/js/base/jquery.min.js"></script>
         <script src="/vendors/js/base/jquery.ui.min.js"></script>
+        <script src="/vendors/js/datepicker/moment.min.js"></script>
+        <script src="/vendors/js/datepicker/daterangepicker.js"></script>
+        <script src="/js/components/datepicker/datepicker.js"></script>
+
         <script src="/js/app.js"></script>
         
         @stack('datatable-js')
@@ -108,6 +112,8 @@ Author: SAEROX
         <script src="/vendors/js/calendar/moment.min.js"></script>
         
         @stack('page-vendor-js')
+
+        
         
         <script src="/vendors/js/app/app.min.js"></script>
         
@@ -120,3 +126,4 @@ Author: SAEROX
         <!-- End Page Snippets -->
     </body>
 </html>
+

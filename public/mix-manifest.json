@@ -2,6 +2,8 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/bootstrap.js": "/js/bootstrap.js",
+    "/js/pages/auth-login.js": "/js/pages/auth-login.js",
+    "/js/pages/auth-register.js": "/js/pages/auth-register.js",
     "/js/pages/dashboard.js": "/js/pages/dashboard.js",
     "/js/pages/invoice-add.js": "/js/pages/invoice-add.js",
     "/js/pages/invoice-list.js": "/js/pages/invoice-list.js",

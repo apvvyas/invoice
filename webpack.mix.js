@@ -43,3 +43,6 @@ mix.js('resources/js/pages/taxes/index.js','public/js/pages/tax-list.js');
 
 
 mix.js('resources/js/pages/dashboard.js','public/js/pages/dashboard.js');
+
+mix.js('resources/js/pages/auth/login.js','public/js/pages/auth-login.js');
+mix.js('resources/js/pages/auth/register.js','public/js/pages/auth-register.js');

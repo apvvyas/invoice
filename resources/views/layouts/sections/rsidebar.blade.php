@@ -1,4 +1,4 @@
-Offcanvas Sidebar -->
+<!--Offcanvas Sidebar -->
 <div class="off-sidebar from-right">
     <div class="off-sidebar-container">
         <header class="off-sidebar-header">
@@ -7,268 +7,45 @@ Offcanvas Sidebar -->
         </header>
         <div class="off-sidebar-content offcanvas-scroll auto-scroll">
             <ul class="button-nav nav nav-tabs mt-3 mb-3 ml-3" role="tablist" id="weather-tab">
-                <li><a class="active" role="tab" id="messenger-tab">Today</a></li>
-                <li><a role="tab" id="today-tab">Yesterday</a></li>
+                <li><a class="active todo-filter" role="tab" id="today" title="Today">Today</a></li>
+                <li><a role="tab" class="todo-filter" id="yesterday" title="Yesterday">Yesterday</a>
+                <li><a role="tab" data-toggle="collapse" class="search-filter" href="#collapseOne" aria-expanded="false">Custom Date</a></li>
             </ul>
+            <div class="select-date collapse" id="collapseOne">
+                <input type="text" class="form-control datepicker" id="search-filter" placeholder="Select value">
+            </div>
             <div class="tab-content">
                 <!-- Begin Messenger -->
-                <div role="tabpanel" class="tab-pane show active fade" id="messenger" aria-labelledby="messenger-tab">
+                <div role="tabpanel" class="tab-pane show active fade" id="messenger" data-url="{{route('todos.list')}}" aria-labelledby="messenger-tab">
                     <!-- Begin Chat Message -->
-                    <span class="date">Today</span>
-                    <div class="messenger-message messenger-message-sender">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                    Hi David, what's up?
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="messenger-message messenger-message-sender">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                    <span class="mb-2">Brandon wrote</span>
-                                    Hi David, what's up?
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="messenger-message messenger-message-recipient">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                   Hi Brandon, fine and you?
-                               </p>
-                                <p>
-                                   I'm working on the next update of Elisyam
-                               </p>
-                            </div>
-                            <div class="messenger-details">
-                                <span class="messenger-message-localisation font-size-small">3 minutes ago</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="messenger-message messenger-message-sender">
-                        <img class="messenger-image messenger-image-default" src="assets/img/avatar/avatar-02.jpg" alt="...">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                    <span class="mb-2">Brandon wrote</span>
-                                    I can't wait to see
-                                </p>
-                            </div>
-                            <div class="messenger-details">
-                                <span class="messenger-message-localization font-size-small">5 minutes ago</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="messenger-message messenger-message-recipient">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                   I'm almost done
-                               </p>
-                            </div>
-                            <div class="messenger-details">
-                                <span class="messenger-message-localisation font-size-small">10 minutes ago</span>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="date">Yesterday</span>
-                    <div class="messenger-message messenger-message-sender">
-                        <img class="messenger-image messenger-image-default" src="assets/img/avatar/avatar-05.jpg" alt="...">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                    I updated the server tonight
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="messenger-message messenger-message-recipient">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                   Didn't you have any problems?
-                               </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="messenger-message messenger-message-sender">
-                        <img class="messenger-image messenger-image-default" src="assets/img/avatar/avatar-05.jpg" alt="...">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                    No!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="messenger-message messenger-message-recipient">
-                        <div class="messenger-message-wrapper">
-                            <div class="messenger-message-content">
-                                <p>
-                                   Great!
-                               </p>
-                                <p>
-                                   See you later!
-                               </p>
-                            </div>
-                        </div>
-                    </div> -->
+                    <span class="date todo-title">Today</span>
+
+                    <div class="entries"></div>
+                    
                     <!-- End Chat Message -->
                     <!-- Begin Message Form -->
                     <div class="enter-message">
+                        <div class="send-date collapse" id="send-date">
+                            <input type="text" class="form-control d-none" id="todo-date-text">
+                            <p class="todo-send-date-display">Selected Date: <strong id="selected-todo-date"></strong></p>
+                        </div>
                         <div class="enter-message-form">
                             <input type="text" placeholder="Enter your message..."/>
                         </div>
+                        <div class="enter-message-button" style="position: relative;">
+                            <a href="#" class="todo-date" style="padding: 0 15px;border-radius: 20px;"><i class="ion-calendar" style="font-size: 2rem;"></i></a>
+                        </div>
                         <div class="enter-message-button">
-                            <a href="#" class="send"><i class="ion-paper-airplane"></i></a>
+                            <a href="#" class="send-data"><i class="ion-paper-airplane"></i></a>
                         </div>
                     </div>
                     <!-- End Message Form -->
                 </div>
                 <!-- End Messenger -->
-                <!-- Begin Today -->
-                {{--<div role="tabpanel" class="tab-pane fade" id="today" aria-labelledby="today-tab">
-                    <!-- Begin Today Stats -->
-                    <div class="sidebar-heading pt-0">Today</div>
-                    <div class="today-stats mt-3 mb-3">
-                        <div class="row">
-                            <div class="col-4 text-center">
-                                <i class="la la-users"></i>
-                                <div class="counter">264</div>
-                                <div class="heading">Clients</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <i class="la la-cart-arrow-down"></i>
-                                <div class="counter">360</div>
-                                <div class="heading">Sales</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <i class="la la-money"></i>
-                                <div class="counter">$ 4,565</div>
-                                <div class="heading">Earnings</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Today Stats -->
-                    <!-- Begin Friends -->
-                    <div class="sidebar-heading">Friends</div>
-                    <div class="quick-friends mt-3 mb-3">
-                        <ul class="list-group w-100">
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-left align-self-center mr-3">
-                                        <img src="assets/img/avatar/avatar-02.jpg" alt="..." class="img-fluid rounded-circle" style="width: 35px;">
-                                    </div>
-                                    <div class="media-body align-self-center">
-                                        <a href="javascript:void(0);">Brandon Smith</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-left align-self-center mr-3">
-                                        <img src="assets/img/avatar/avatar-03.jpg" alt="..." class="img-fluid rounded-circle" style="width: 35px;">
-                                    </div>
-                                    <div class="media-body align-self-center">
-                                        <a href="javascript:void(0);">Louis Henry</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-left align-self-center mr-3">
-                                        <img src="assets/img/avatar/avatar-04.jpg" alt="..." class="img-fluid rounded-circle" style="width: 35px;">
-                                    </div>
-                                    <div class="media-body align-self-center">
-                                        <a href="javascript:void(0);">Nathan Hunter</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-left align-self-center mr-3">
-                                        <img src="assets/img/avatar/avatar-05.jpg" alt="..." class="img-fluid rounded-circle" style="width: 35px;">
-                                    </div>
-                                    <div class="media-body align-self-center">
-                                        <a href="javascript:void(0);">Megan Duncan</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-left align-self-center mr-3">
-                                        <img src="assets/img/avatar/avatar-06.jpg" alt="..." class="img-fluid rounded-circle" style="width: 35px;">
-                                    </div>
-                                    <div class="media-body align-self-center">
-                                        <a href="javascript:void(0);">Beverly Oliver</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Friends -->
-                    <!-- Begin Settings -->
-                    <div class="sidebar-heading">Settings</div>
-                    <div class="quick-settings mt-3 mb-3">
-                        <ul class="list-group w-100">
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-body align-self-center">
-                                        <p class="text-dark">Notifications Email</p>
-                                    </div>
-                                    <div class="media-right align-self-center">
-                                        <label>
-                                            <input class="toggle-checkbox" type="checkbox" checked>
-                                            <span>
-                                                <span></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-body align-self-center">
-                                        <p class="text-dark">Notifications Sound</p>
-                                    </div>
-                                    <div class="media-right align-self-center">
-                                        <label>
-                                            <input class="toggle-checkbox" type="checkbox">
-                                            <span>
-                                                <span></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-body align-self-center">
-                                        <p class="text-dark">Chat Message Sound</p>
-                                    </div>
-                                    <div class="media-right align-self-center">
-                                        <label>
-                                            <input class="toggle-checkbox" type="checkbox" checked>
-                                            <span>
-                                                <span></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Settings -->
-                </div>--}}
-                <!-- End Today -->
             </div>
         </div>
         <!-- End Offcanvas Container -->
     </div>
     <!-- End Offsidebar Container -->
 </div>
-<!-- End Offcanvas Sidebar
+<!-- End Offcanvas Sidebar-->
