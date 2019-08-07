@@ -83,4 +83,10 @@ class RegisterController extends Controller
 
         return $user;
     }
+
+
+    protected function registered(Request $request, $user)
+    {
+        session(['timezone' => $request->timezone]);
+    }
 }

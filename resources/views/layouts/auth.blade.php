@@ -59,5 +59,7 @@ Author: SAEROX
         <!-- Begin Page Snippets -->
         <script src="/js/components/tabs/animated-tabs.min.js"></script>
         <!-- End Page Snippets -->
+
+        @stack('snippets')
     </body>
 </html>

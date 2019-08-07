@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+@push('snippets')
+    <script src="/js/pages/auth-login.js"></script>
+@endpush
+
 @section('content')
 
         <!-- Begin Container -->
@@ -44,7 +48,7 @@
 
                                 <form method="POST" action="{{ route('login') }}" data-toggle="validator" role="form">
                                     @csrf
-
+                                    <input type="hidden" name="timezone" value="">
                                     <div class="group material-input form-group @error('email') has-error has-danger @enderror">
                                         <input id="email" type="text" class="" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         <span class="highlight"></span>

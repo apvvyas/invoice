@@ -47,6 +47,10 @@ class LoginController extends Controller
         return $request->only($this->username(), 'password');
     }
 
+    protected function authenticated(Request $request, $user){
+        session(['timezone' => $request->timezone]);
+    }
+
     /**
      * Get the failed login response instance.
      *
