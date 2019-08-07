@@ -10030,6 +10030,102 @@ function () {
 
 var pageTour = new PageTour();
 
+var Todo =
+/*#__PURE__*/
+function () {
+  function Todo() {
+    _classCallCheck(this, Todo);
+  }
+
+  _createClass(Todo, [{
+    key: "list",
+    value: function list(id, params) {
+      var item = $('#' + id);
+      var container = item.find('.entries');
+      var data = {
+        filter: $('.todo-filter.active').attr('id')
+      };
+      if (typeof params != 'undefined') data = params;
+      axios.get(item.data('url'), {
+        params: data
+      }).then(function (response) {
+        if (typeof data.page != 'undefined' && data.page != 1) container.append(response.data);else {
+          if (response.data.length > 0) container.html(response.data);
+        }
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      })["finally"](function () {// always executed
+      });
+    }
+  }, {
+    key: "store",
+    value: function store(message) {
+      if (typeof message != 'undefined' && message !== null) {
+        var validate = message.replace(/\s/g, '');
+        var datem = moment().format('YYYY-MM-DD HH:mm:ss');
+        if ($('#todo-date-text').val() != null || $('#todo-date-text').val() != '') datem = moment($('#todo-date-text').val(), 'DD-MM-YYYY HH:mm A').format('YYYY-MM-DD HH:mm:ss');
+        $('#todo-date-text').val('');
+        $('#selected-todo-date').html('');
+        $('#send-date').collapse('hide');
+
+        if (validate.length > 0) {
+          axios.post(route('todo.save'), {
+            message: message,
+            scheduled_at: datem
+          }).then(function () {
+            todo.list('messenger', {
+              page: 1,
+              filter: 'today'
+            });
+            $('.enter-message-form input[type="text"]').val('');
+          })["catch"](function (error) {
+            // handle error
+            console.log(error);
+          })["finally"](function () {// always executed
+          });
+        } else {
+          $('.enter-message-form input[type="text"]').val('');
+        }
+      }
+    }
+  }, {
+    key: "checkoff",
+    value: function checkoff(entryBox) {
+      var elem = entryBox;
+      axios.post(route('todo.checkoff', {
+        todo: elem.data('todo-entry')
+      })).then(function () {
+        var message = elem.find('strong').html();
+        elem.find('strong').html("<del>" + message + "</del>");
+        elem.find('.checkoff').remove();
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      })["finally"](function () {// always executed
+      });
+    }
+  }, {
+    key: "delete",
+    value: function _delete(entryBox) {
+      var elem = entryBox;
+      axios["delete"](route('todo.destroy', {
+        todo: elem.data('todo-entry')
+      })).then(function () {
+        elem.remove();
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      })["finally"](function () {// always executed
+      });
+    }
+  }]);
+
+  return Todo;
+}();
+
+window.todo = new Todo();
+
 /***/ }),
 
 /***/ "./resources/sass/app.scss":
