@@ -99,13 +99,6 @@ nav.navbar .user-size.dropdown-menu a,
   z-index: 1000000 !important;
 }
 
-.todo-send-date {
-  position: fixed !important;
-  top: 245px !important;
-  left: auto !important;
-  right: 75px !important;
-}
-
 .todo-send-date.daterangepicker.single .ranges {
   display: block;
 }

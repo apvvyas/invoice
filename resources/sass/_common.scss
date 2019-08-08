@@ -83,11 +83,6 @@ body, table, .default-sidebar>.side-navbar a , .form-control, nav.navbar .user-s
 }
 
 .todo-send-date{
-	position:fixed !important;
-	top: 245px !important;
-	left: auto !important;
-	right: 75px !important;
-
 	&.daterangepicker.single .ranges{
 		display:block;
 	}

@@ -120,6 +120,7 @@ $(document).ready(function(){
         }
     });
     $('.todo-date').daterangepicker({
+        drops:'up',
         timePicker: true,
         singleDatePicker: true,
         locale: {
