@@ -35,9 +35,9 @@
                         <div class="enter-message-button" style="position: relative;">
                             <a href="#" class="todo-date" style="padding: 0 15px;border-radius: 20px;"><i class="ion-calendar" style="font-size: 2rem;"></i></a>
                         </div>
-                        <div class="enter-message-button">
+                        <!-- <div class="enter-message-button">
                             <a href="#" class="send-data"><i class="ion-paper-airplane"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- End Message Form -->
                 </div>
