@@ -10064,7 +10064,7 @@ function () {
       if (typeof message != 'undefined' && message !== null) {
         var validate = message.replace(/\s/g, '');
         var datem = moment().format('YYYY-MM-DD HH:mm:ss');
-        if ($('#todo-date-text').val() != null || $('#todo-date-text').val() != '') datem = moment($('#todo-date-text').val(), 'DD-MM-YYYY HH:mm A').format('YYYY-MM-DD HH:mm:ss');
+        if ($('#todo-date-text').val() != null && $('#todo-date-text').val().trim() != '') datem = moment($('#todo-date-text').val(), 'DD-MM-YYYY HH:mm A').format('YYYY-MM-DD HH:mm:ss');
         $('#todo-date-text').val('');
         $('#selected-todo-date').html('');
         $('#send-date').collapse('hide');
